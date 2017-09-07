@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Homework/src"/>
+	<classpathentry kind="src" path="Test/src"/>
+	<classpathentry kind="lib" path="Homework/JARs/largeIntegers.jar"/>
+	<classpathentry kind="lib" path="Homework/JARs/quadraticEquation.jar"/>
+	<classpathentry kind="output" path="Homework/bin"/>
+</classpath>

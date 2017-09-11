@@ -2,14 +2,17 @@ package Numbers;
 
 import java.util.Scanner;
 
+/**
+* @author  Braden Hoagland
+* @version 1.0
+* @since   September 7, 2017
+*/
 public class Numbers {
-
+	
 	/**
-	*
-	* @author  Braden Hoagland
-	* @version 1.0
-	* @since   September 7, 2017
-	*/
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		test();
 		
@@ -27,6 +30,12 @@ public class Numbers {
 		kb.close();
 	}
 	
+	/**
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @return sum of num1 and num2
+	 */
 	//find the sum of two given numbers, return it, and print it to the console
 	public static int getSum(int num1, int num2) {
 		int sum = num1 + num2;
@@ -34,6 +43,12 @@ public class Numbers {
 		return (sum);
 	}
 	
+	/**
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @return different of num1 and num2
+	 */
 	//find the modulus of two given numbers, return it, and print it to the console
 	public static int getDifference(int num1, int num2) {
 		int diff = num1 - num2;
@@ -41,6 +56,12 @@ public class Numbers {
 		return (diff);
 	}
 	
+	/**
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @return product of num1 and num2
+	 */
 	//print given nums and sum to the console as a formatted sentence
 	public static int getProduct(int num1, int num2) {
 		int product = num1 * num2;
@@ -48,6 +69,12 @@ public class Numbers {
 		return (product);
 	}
 	
+	/**
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @return quotient of num1 and num2
+	 */
 	//print given nums and sum to the console as a formatted sentence
 	public static int getQuotient(int num1, int num2) {
 		if (num2 != 0) {
@@ -60,6 +87,13 @@ public class Numbers {
 		}
 	}
 	
+	/**
+	 * getModulus() finds the modulus of two numbers and prints it
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @return modulus of num1 and num2
+	 */
 	//print given nums and sum to the console as a formatted sentence
 	public static int getModulus(int num1, int num2) {
 		if (num2 != 0) {
@@ -72,11 +106,23 @@ public class Numbers {
 		}
 	}
 	
+	/**
+	 * 
+	 * printOperations() formats and prints the given information
+	 * 
+	 * @param operation
+	 * @param num1
+	 * @param num2
+	 * @param result
+	 */
 	//print given nums and sum to the console as a formatted sentence
-	public static void printOperation(String operation, int num1, int num2, int sum) {
-		System.out.printf("The %s of %d and %d is %d\n", operation, num1, num2, sum);
+	public static void printOperation(String operation, int num1, int num2, int result) {
+		System.out.printf("The %s of %d and %d is %d\n", operation, num1, num2, result);
 	}
 	
+	/**
+	 * test() runs a series of test inputs through the class and prints the results
+	 */
 	//run through test values of the getSum() method
 	public static void test() {
 		System.out.println("TESTING\n-------");

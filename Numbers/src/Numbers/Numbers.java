@@ -30,7 +30,7 @@ public class Numbers {
 		getModulus(num1, num2);
 		kb.close();
 	}
-	
+
 	/**
 	 * 
 	 * @param num1

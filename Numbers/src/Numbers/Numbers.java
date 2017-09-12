@@ -3,6 +3,7 @@ package Numbers;
 import java.util.Scanner;
 
 /**
+ * <h1>Numbers Class</h1><br/>
 * @author  Braden Hoagland
 * @version 1.0
 * @since   September 7, 2017
@@ -10,7 +11,7 @@ import java.util.Scanner;
 public class Numbers {
 	
 	/**
-	 * 
+	 * main method that runs the test() function, prompts the user for input, and runs that input through each method in the class
 	 * @param args
 	 */
 	public static void main(String[] args) {

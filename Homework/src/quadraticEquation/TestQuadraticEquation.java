@@ -3,24 +3,45 @@ package quadraticEquation;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * <h1>TestQuadraticEquation class to test the functionalities of the QuadraticEquation class and the QuadraticComparator class</h1><br/>
+ * @author Braden Hoagland
+ * @since September 12, 2017
+ *
+ */
 public class TestQuadraticEquation {
 	
+	/**
+	 * Main method to run through test values and prompt for user input
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		test();
+		Scanner kb = new Scanner(System.in);
 		
-		/*Scanner kb = new Scanner(System.in);
-		double a = kb.nextDouble();
-		double b = kb.nextDouble();
-		double c = kb.nextDouble();
+		//check if user wants to run through tests
+		System.out.println("Test? y/n");
+		String test = kb.nextLine();
+		if (test.equals("y")) {
+			test();
+		}
 		
+		//read in a, b, and c values from user
+		int a = kb.nextInt();
+		int b = kb.nextInt();
+		int c = kb.nextInt();
+		
+		//close the keyboard
+		kb.close();
+		
+		//use inputted values to make a new QuadraticEquation object and print its roots
 		QuadraticEquation eq = new QuadraticEquation(a, b, c);
-		
 		System.out.println(eq);
 		System.out.println(Arrays.toString(eq.getRoots()));
-		
-		kb.close();*/
 	}
 	
+	/**
+	 * Method to run through test values and print out the results of the operations
+	 */
 	public static void test() {
 		int[][] testValues = {
 				{1, -2, -8},
@@ -34,16 +55,37 @@ public class TestQuadraticEquation {
 		
 		QuadraticEquation[] eqs = new QuadraticEquation[testValues.length];
 		
+		//create and print a list of test QuadraticEquation objects
+		System.out.print("NORMAL: \t");
 		for (int i = 0; i < eqs.length; i++) {
 			int[] values = testValues[i];
 			QuadraticEquation eq = new QuadraticEquation(values[0], values[1], values[2]);
 			eqs[i] = eq;
+			System.out.print(eq + "\t");
 		}
 		
-		System.out.println(Arrays.toString(eqs));
-		
+		//sort and print an ascending list
 		Arrays.sort(eqs, new QuadraticComparator(true));
 		
-		System.out.println(Arrays.toString(eqs));
+		System.out.println();
+		System.out.print("ASCENDING: \t");
+		for (QuadraticEquation eq : eqs) {
+			System.out.print(eq + "\t");
+		}
+		
+		//sort and print a descending list
+		Arrays.sort(eqs, new QuadraticComparator(false));
+		
+		System.out.println();
+		System.out.print("DESCENDING: \t");
+		for (QuadraticEquation eq : eqs) {
+			System.out.print(eq + "\t");
+		}
+		
+		//print out the roots of each of the test QuadraticEquation objects
+		System.out.println("\n");
+		for (QuadraticEquation eq: eqs) {
+			System.out.println(eq.toString() + ": " + Arrays.toString(eq.getRoots()));
+		}
 	}
 }

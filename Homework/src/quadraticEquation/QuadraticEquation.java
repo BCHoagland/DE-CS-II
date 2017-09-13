@@ -2,8 +2,18 @@ package quadraticEquation;
 
 //import java.util.Arrays;
 
-public class QuadraticEquation implements Comparable<QuadraticEquation> {
+/**
+ * <h1>QuadraticEquation class to find the roots of quadratic equations</h1><br/>
+ * @author Braden Hoagland
+ * @since September 12, 2017
+ *
+ */
 
+public class QuadraticEquation implements Comparable<QuadraticEquation> {
+	
+	/**
+	 * variables to track the values of the three coefficients of the QuadraticEquation object
+	 */
 	public int a;
 	public int b;
 	public int c;
@@ -16,8 +26,7 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 	}
 
 	/**
-	 * @param a
-	 *            the a to set
+	 * @param a the a to set
 	 */
 	public void setA(int a) {
 		this.a = a;
@@ -31,8 +40,7 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 	}
 
 	/**
-	 * @param b
-	 *            the b to set
+	 * @param b the b to set
 	 */
 	public void setB(int b) {
 		this.b = b;
@@ -46,8 +54,7 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 	}
 
 	/**
-	 * @param c
-	 *            the c to set
+	 * @param c the c to set
 	 */
 	public void setC(int c) {
 		this.c = c;
@@ -67,20 +74,24 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 	}
 
 	/**
-	 * return a string representation of the QuadraticEquation
+	 * @return a string representation of the QuadraticEquation
 	 */
 	public String toString() {
+		//create three strings to format individually, each representing one of the coefficients
 		String aStr = String.valueOf(a) + "x^2";
 		String bStr = String.valueOf(b) + "x";
 		String cStr = String.valueOf(c);
 		
+		//remove coefficient if it is equal to 1
 		if (a == 1) {
 			aStr = "x^2";
 		}
 		if (b == 1) {
 			bStr = "x";
 		}
+		//this is not duplicated for c because c has no variable and thus requires a number
 		
+		//add plus signs where necessary (minus signs are added automatically when numbers are negative)
 		if (b >= 0) {
 			bStr = "+" + bStr;
 		}
@@ -88,13 +99,12 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 			cStr = "+" + cStr;
 		}
 		
-		return "\n" + aStr + bStr + cStr;
-//		return "\n" + a + "x^2" + b + "x + " + c;
+		//return the formatted equation
+		return aStr + bStr + cStr;
 	}
 
 	/**
-	 * calculate and return the roots of a quadratic equation with given coefficients
-	 * 
+	 * calculate and return the roots of a quadratic equation with the given coefficients
 	 * @param a
 	 * @param b
 	 * @param c
@@ -114,7 +124,11 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * @param anyObject an object to be casted to a QuadraticEquation object
+	 * @return if the given object is the same as the current QuadraticEquation object
+	 */
 	@Override
 	public boolean equals(Object anyObject) {
 		QuadraticEquation otherEq = (QuadraticEquation) anyObject;
@@ -123,7 +137,11 @@ public class QuadraticEquation implements Comparable<QuadraticEquation> {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * @param anotherEq a QuadraticEquation object
+	 * @return difference between the given QuadraticEquation object and the current QuadraticEquation object
+	 */
 	@Override
 	public int compareTo(QuadraticEquation anotherEq) {
 		int diffA = (int)(this.getA() - anotherEq.getA());

@@ -2,80 +2,105 @@ package quadraticEquation;
 
 //import java.util.Arrays;
 
-public class QuadraticEquation {
-	
-	/*
-	public static void main(String[] args) {
-		double[][] testValues = {{1, -2, -8}, {1, -6, 9}, {2, 4, 5}, {0, 1, 2}};
-		for (double[] values : testValues) {
-			double[] roots = getRoots(values[0], values[1], values[2]);
-			String equation = getEquation(values[0], values[1], values[2]);
-			System.out.println(equation + ": " + Arrays.toString(roots));
-		}
-	}
-	*/
-	
-	public static int a;
-	public static int b;
-	public static int c;
-	
+public class QuadraticEquation implements Comparable<QuadraticEquation> {
+
+	public int a;
+	public int b;
+	public int c;
+
 	/**
 	 * @return the a
 	 */
-	public static int getA() {
+	public int getA() {
 		return a;
 	}
 
 	/**
-	 * @param a the a to set
+	 * @param a
+	 *            the a to set
 	 */
-	public static void setA(int a) {
-		QuadraticEquation.a = a;
+	public void setA(int a) {
+		this.a = a;
 	}
 
 	/**
 	 * @return the b
 	 */
-	public static int getB() {
+	public int getB() {
 		return b;
 	}
 
 	/**
-	 * @param b the b to set
+	 * @param b
+	 *            the b to set
 	 */
-	public static void setB(int b) {
-		QuadraticEquation.b = b;
+	public void setB(int b) {
+		this.b = b;
 	}
 
 	/**
 	 * @return the c
 	 */
-	public static int getC() {
+	public int getC() {
 		return c;
 	}
 
 	/**
-	 * @param c the c to set
+	 * @param c
+	 *            the c to set
 	 */
-	public static void setC(int c) {
-		QuadraticEquation.c = c;
+	public void setC(int c) {
+		this.c = c;
 	}
 
+	/**
+	 * constructor to initialize the three coefficient values
+	 * 
+	 * @param a
+	 * @param b
+	 * @param c
+	 */
 	public QuadraticEquation(int a, int b, int c) {
 		setA(a);
 		setB(b);
 		setC(c);
 	}
 
-	//return the equation as a String
-	public static String getEquation() {
-		return a + "x^2 + " + b + "x + " + c;
+	/**
+	 * return a string representation of the QuadraticEquation
+	 */
+	public String toString() {
+		String aStr = String.valueOf(a) + "x^2";
+		String bStr = String.valueOf(b) + "x";
+		String cStr = String.valueOf(c);
+		
+		if (a == 1) {
+			aStr = "x^2";
+		}
+		if (b == 1) {
+			bStr = "x";
+		}
+		
+		if (b >= 0) {
+			bStr = "+" + bStr;
+		}
+		if (c >= 0) {
+			cStr = "+" + cStr;
+		}
+		
+		return "\n" + aStr + bStr + cStr;
+//		return "\n" + a + "x^2" + b + "x + " + c;
 	}
-	
-	//calculate and return the roots of a quadratic equation with given vars a, b, and c
-	//returns an array with length of 2 if there are real roots
-	//return null if there are no real roots
-	public static double[] getRoots(double a, double b, double c) {
+
+	/**
+	 * calculate and return the roots of a quadratic equation with given coefficients
+	 * 
+	 * @param a
+	 * @param b
+	 * @param c
+	 * @return roots an array of the two roots or null
+	 */
+	public double[] getRoots() {
 		if (a == 0) {
 			throw new IllegalArgumentException("a = 0");
 		} else {
@@ -83,11 +108,38 @@ public class QuadraticEquation {
 			if (d >= 0) {
 				double root1 = (-b + d) / (2 * a);
 				double root2 = (-b - d) / (2 * a);
-				double[] roots = {root1, root2};
+				double[] roots = { root1, root2 };
 				return roots;
 			}
 		}
 		return null;
 	}
 
+	@Override
+	public boolean equals(Object anyObject) {
+		QuadraticEquation otherEq = (QuadraticEquation) anyObject;
+		if ((this.getA() == otherEq.getA()) && (this.getB() == otherEq.getB()) && (this.getC() == otherEq.getC())) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int compareTo(QuadraticEquation anotherEq) {
+		int diffA = (int)(this.getA() - anotherEq.getA());
+		int diffB = (int)(this.getB() - anotherEq.getB());
+		int diffC = (int)(this.getC() - anotherEq.getC());
+		
+		if (this.equals(anotherEq)) {
+			return 0;
+		} else {
+			if (diffA != 0) {
+				return diffA;
+			} else if (diffB != 0) {
+				return diffB;
+			} else {
+				return diffC;
+			}
+		}
+	}
 }

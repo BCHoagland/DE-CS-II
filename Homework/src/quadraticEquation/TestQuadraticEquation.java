@@ -26,6 +26,7 @@ public class TestQuadraticEquation {
 		}
 		
 		//read in a, b, and c values from user
+		System.out.println("Enter in three integers for the quadratic equation coefficients:");
 		int a = kb.nextInt();
 		int b = kb.nextInt();
 		int c = kb.nextInt();

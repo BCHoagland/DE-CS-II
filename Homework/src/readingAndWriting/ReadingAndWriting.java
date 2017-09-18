@@ -10,32 +10,23 @@ public class ReadingAndWriting {
 
 	public static Scanner inputFile1;
 	public static Scanner inputFile2;
-	public static Scanner inputFile3;
 	public static PrintWriter outputFile;
 	private static Scanner kb;
 
-	public static void createInputFile(String inputFileName, int part) {
+	public static Scanner createInputFile(String inputFileName, int part) {
 		try {
 			inputFile1 = new Scanner(new File(inputFileName));
 		} catch (FileNotFoundException ex) {
-			System.out.println("Part" + part + ": Unable to Open File");
+			System.out.println("Part " + part + ": Unable to Open File");
 		}
+		
+		return inputFile1;
 	}
 	
 	public static void createInputFile(String inputFileName1, String inputFileName2, int part) {
 		try {
 			inputFile1 = new Scanner(new File(inputFileName1));
 			inputFile2 = new Scanner(new File(inputFileName2));
-		} catch (FileNotFoundException ex) {
-			System.out.println("Part " + part + ": Unable to Open File");
-		}
-	}
-	
-	public static void createInputFile(String inputFileName1, String inputFileName2, String inputFileName3, int part) {
-		try {
-			inputFile1 = new Scanner(new File(inputFileName1));
-			inputFile2 = new Scanner(new File(inputFileName2));
-			inputFile3 = new Scanner(new File(inputFileName3));
 		} catch (FileNotFoundException ex) {
 			System.out.println("Part " + part + ": Unable to Open File");
 		}
@@ -55,8 +46,8 @@ public class ReadingAndWriting {
 		outputFile.close();
 	}
 
-	public static String checkBraces() {
-		createInputFile("input1.txt", 1);
+	public static String checkBraces(String fileName) {
+		createInputFile(fileName, 1);
 		
 		int total = 0;
 		while (inputFile1.hasNextLine()) {
@@ -71,6 +62,8 @@ public class ReadingAndWriting {
 			}
 		}
 		
+		inputFile1.close();
+		
 		if (total == 0) {
 			return "Braces Balanced";
 		} else {
@@ -78,7 +71,7 @@ public class ReadingAndWriting {
 		}
 	}
 	
-	public static String checkIdentical() {
+	public static String checkIdentical(String fileNam1e, String fileName2) {
 		createInputFile("input1.txt", "input2.txt", 2);
 		
 		while (inputFile1.hasNextLine()) {
@@ -94,21 +87,24 @@ public class ReadingAndWriting {
 		if (inputFile2.hasNextLine()) {
 			return "Files Not Identical";
 		}
+		
+		inputFile1.close();
+		inputFile2.close();
 		return "Files Identical";
 	}
 	
-	public static void shortStory() {
-		createInputFile("input1.txt", "input2.txt", "input3.txt", 3);
+	public static ArrayList<String> getShortStoryWords(int index) {
+		createInputFile("input3.txt", 3);
 		
 		ArrayList<String> userWords = new ArrayList<String>();
 		
-		while (inputFile3.hasNextLine()) {
+		while (inputFile1.hasNextLine()) {
 			boolean addToPrompt = false;
 			String prompt = "";
 			
-			for (char ch : inputFile3.nextLine().toCharArray()) {
+			for (char ch : inputFile1.nextLine().toCharArray()) {
 				String letter = String.valueOf(ch);
-				if (letter.equals(">")) {
+				if (letter.equals(">") && index < 0) {
 					addToPrompt = false;
 					
 					System.out.println("Enter a " + prompt + ":");
@@ -125,40 +121,80 @@ public class ReadingAndWriting {
 				}
 				
 				if (letter.equals("<")) {
-					addToPrompt = true;
+					if (index <= 0) {
+						addToPrompt = true;
+					}
+					index--;
 				}
 			}
 		}
 		
-		System.out.println(userWords);
+		inputFile1.close();
+		
+		return userWords;
+	}
+	
+	public static void fillShortStory(ArrayList<String> words) {
+		createInputFile("input3.txt", 3);
+		
+		int index = 0;
+		while (inputFile1.hasNextLine()) {
+			String line = inputFile1.nextLine();
+			while (line.indexOf("<") > -1) {
+				int startIndex = line.indexOf("<");
+				int endIndex = line.indexOf(">");
+				line = line.substring(0, startIndex) + words.get(index) + line.substring(endIndex + 1);
+				index++;
+				if (index == words.size()) {
+					break;
+				}
+			}
+			
+			outputFile.println(line);
+		}
+		
+		inputFile1.close();
+	}
+	
+	public static ArrayList<String> getShortStoryWordsFromFile(Scanner scanner) {
+		ArrayList<String> lines = new ArrayList<String>();
+		
+		while (scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			while (line.isEmpty()) {
+				line = scanner.nextLine();
+			}
+			lines.add(line);
+		}
+		
+		scanner.close();
+		
+		return lines;
 	}
 
 	public static void main(String[] args) {
 		
 		createOutputFile();
 		
-		//part 1
-		/*if (args.length > 0) {
-			String inputFileName = args[0];
-			createFiles(inputFileName);
-		} else if (args.length == 1) {
-		} else if (args.length == 2) {
-		} else if (args.length == 3) [
-		}*/
+		if (args.length == 1) {
+			outputFile.println(checkBraces(args[0]));
+			outputFile.println("");
+		}
 		
-		outputFile.println(checkBraces());
+		if (args.length == 2) {
+			outputFile.println(checkIdentical(args[0], args[1]));
+			outputFile.println("");
+		}
 		
-		//part 2
-		outputFile.println("");
-		
-		//part 3
-		outputFile.print(checkIdentical());
-		
-		//part 4
-		outputFile.println("");
-		
-		//part 5
-		shortStory();
+		if (args.length == 4) {
+			ArrayList<String> words2 = getShortStoryWordsFromFile(createInputFile("input5.txt", 3));
+			ArrayList<String> words3 = getShortStoryWords(words2.size());
+			words2.addAll(words3);
+			fillShortStory(words2);
+		} else if (args.length == 3) {
+			ArrayList<String> words1 = getShortStoryWords(0);
+			fillShortStory(words1);
+		}
 		
 		closeFiles();
 	}

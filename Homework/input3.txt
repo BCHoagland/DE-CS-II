@@ -1,0 +1,4 @@
+It was a <adjective> day.
+Jack was sitting in a <place>.
+
+He was <verb> his food.

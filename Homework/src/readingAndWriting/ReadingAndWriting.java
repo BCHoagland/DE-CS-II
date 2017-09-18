@@ -71,8 +71,8 @@ public class ReadingAndWriting {
 		}
 	}
 	
-	public static String checkIdentical(String fileNam1e, String fileName2) {
-		createInputFile("input1.txt", "input2.txt", 2);
+	public static String checkIdentical(String fileName1, String fileName2) {
+		createInputFile(fileName1, fileName2, 2);
 		
 		while (inputFile1.hasNextLine()) {
 			if (!inputFile2.hasNextLine()) {
@@ -93,8 +93,8 @@ public class ReadingAndWriting {
 		return "Files Identical";
 	}
 	
-	public static ArrayList<String> getShortStoryWords(int index) {
-		createInputFile("input3.txt", 3);
+	public static ArrayList<String> getShortStoryWords(int index, String fileName) {
+		createInputFile(fileName, 3);
 		
 		ArrayList<String> userWords = new ArrayList<String>();
 		
@@ -134,8 +134,8 @@ public class ReadingAndWriting {
 		return userWords;
 	}
 	
-	public static void fillShortStory(ArrayList<String> words) {
-		createInputFile("input3.txt", 3);
+	public static void fillShortStory(ArrayList<String> words, String fileName) {
+		createInputFile(fileName, 3);
 		
 		int index = 0;
 		while (inputFile1.hasNextLine()) {
@@ -187,13 +187,13 @@ public class ReadingAndWriting {
 		}
 		
 		if (args.length == 4) {
-			ArrayList<String> words2 = getShortStoryWordsFromFile(createInputFile("input5.txt", 3));
-			ArrayList<String> words3 = getShortStoryWords(words2.size());
+			ArrayList<String> words2 = getShortStoryWordsFromFile(createInputFile(args[3], 3));
+			ArrayList<String> words3 = getShortStoryWords(words2.size(), args[2]);
 			words2.addAll(words3);
-			fillShortStory(words2);
+			fillShortStory(words2, args[2]);
 		} else if (args.length == 3) {
-			ArrayList<String> words1 = getShortStoryWords(0);
-			fillShortStory(words1);
+			ArrayList<String> words1 = getShortStoryWords(0, args[2]);
+			fillShortStory(words1, args[2]);
 		}
 		
 		closeFiles();

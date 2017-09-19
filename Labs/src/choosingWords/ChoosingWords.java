@@ -35,6 +35,21 @@ public class ChoosingWords {
 		return output;
 	}
 	
+	public static void writeJava(Scanner input, PrintWriter output) {
+		output.println("public class RamblecsDictionary {");
+		output.println("\tprivate String[] words = {");
+		
+		while (input.hasNextLine()) {
+			String word = input.nextLine().toUpperCase();
+			if (word.length() >= 3 && word.length() <= 5) {
+				output.println("\t\t\"" + word + "\",");
+			}
+		}
+		
+		output.println("\t};");
+		output.println("}");
+	}
+	
 	public static void main(String[] args) {
 		if (args.length < 2)  {
 			System.out.println("You did not supply a file to read");
@@ -45,7 +60,7 @@ public class ChoosingWords {
 		if (in == null) System.exit(1);
 		
 		PrintWriter out = openDictionary(args[1]);
-		out.println(in.nextLine());
+		writeJava(in, out);
 		
 		in.close();
 		out.close();

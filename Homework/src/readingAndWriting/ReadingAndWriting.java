@@ -116,6 +116,10 @@ public class ReadingAndWriting {
 				} else if (letter.equals("}")) {
 					total--;
 				}
+				
+				if (total < 0) {
+					return "Braces Not Balanced";
+				}
 			}
 		}
 		

@@ -1,4 +1,4 @@
 It was a <adjective> day.
 Jack was sitting on a <place>.
 
-He was <verb> his food.
+He was <-ing verb> his food.

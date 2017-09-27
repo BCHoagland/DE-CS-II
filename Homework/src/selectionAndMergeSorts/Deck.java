@@ -10,7 +10,8 @@ public class Deck {
 	
 	public Deck(boolean sorted) {
 		if (sorted) {
-			this.cards = selectionSort(createDeck());
+			this.cards = createDeck();
+			selectionSort();
 		} else {
 			//this.cards = shuffle(createDeck());
 		}
@@ -29,7 +30,13 @@ public class Deck {
 		return cards;
 	}
 	
-	public Card[] selectionSort(Card[] cards) {
+	private void swapCardsAtIndices(int index1, int index2) {
+		Card temp = cards[index1];
+		cards[index1] = cards[index2];
+		cards[index2] = temp;
+	}
+	
+	public void selectionSort() {
 		for (int i = cards.length - 1; i >= 0; i--) {
 			int maxIndex = i;
 			for (int j = 0; j <= i; i++) {
@@ -38,10 +45,15 @@ public class Deck {
 				}
 			}
 			
-			Card temp = cards[i];
-			cards[i] = cards[maxIndex];
-			cards[maxIndex] = cards[i];
+			swapCardsAtIndices(i, maxIndex);
 		}
-		return cards;
+	}
+	
+	public void shuffle() {
+		for (int i = 0; i < cards.length; i++) {
+			int index1 = (int)(Math.random() * cards.length);
+			int index2 = (int)(Math.random() * cards.length);
+			swapCardsAtIndices(index1, index2);
+		}
 	}
 }

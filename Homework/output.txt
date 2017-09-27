@@ -2,7 +2,7 @@ Braces Balanced
 
 Files Not Identical
 
-It was a happy day.
+It was a happy day in January.
 Jack was sitting on a hill.
 
 He was eating his food.

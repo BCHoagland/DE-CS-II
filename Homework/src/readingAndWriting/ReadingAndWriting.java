@@ -78,12 +78,15 @@ public class ReadingAndWriting {
 	/**
 	 * method to set up the PrintWriter for the output file "output.txt"
 	 */
-	public static void createOutputFile() {
+	public static PrintWriter createOutputFile() {
 		try {
 			outputFile = new PrintWriter("output.txt");
+			return outputFile;
 		} catch (FileNotFoundException ex) {
 			System.out.println("Part 1: Unable to open output file. Is it in the src folder for this project?");
 		}
+		
+		return null;
 	}
 	
 	/**
@@ -318,25 +321,28 @@ public class ReadingAndWriting {
 	}
 	
 	/**
-	 * main method that determines which parts of the program to run
+	 * determines which parts of the program to run, based on the number of arguments given to the program from the user
 	 * @param args the command line arguments given by the user
 	 */
-	public static void main(String[] args) {
-		//create the PrintWriter to be used for the output file during the program
-		createOutputFile();
+	public static void determineActions(String[] args, PrintWriter outputFile) {
+		
+		//if user enters no arguments
+		if (args.length < 1) {
+			outputFile.println("Part 1: Unable to Open File");
+		}
 		
 		//part 1
 		if (args.length == 1) {
 			part1(args);
 		}
-		
+
 		//part 2
 		if (args.length == 2) {
 			part1(args);
 			outputFile.println("");
 			part2(args);
 		}
-		
+
 		//part 3
 		if (args.length == 3) {
 			part1(args);
@@ -352,6 +358,18 @@ public class ReadingAndWriting {
 			outputFile.println("");
 			part4(args);
 		}
+	}
+
+	/**
+	 * main method that determines which parts of the program to run
+	 * @param args the command line arguments given by the user
+	 */
+	public static void main(String[] args) {
+		//create the PrintWriter to be used for the output file during the program
+		PrintWriter out = createOutputFile();
+		
+		//run the proper parts of the program for the given arguments
+		determineActions(args, out);
 		
 		//close all files to save them before the program finishes
 		closeInputFiles();

@@ -114,4 +114,11 @@ public class Card {
 			return null;
 		}
 	}
+	
+	public int compareTo(Object otherCard) {
+		if (otherCard != null) {
+			return this.getRank() - ((Card) otherCard).getRank();
+		}
+		return 1;	//IS THIS OKAY????????????????
+	}
 }

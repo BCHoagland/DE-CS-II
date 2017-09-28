@@ -16,7 +16,7 @@ public class Card {
 	
 	private static final String[] numWords = {
 			"Zero",		//never used, just a placeholder
-			"One",
+			ACE,
 		    "Two",
 		    "Three",
 		    "Four",
@@ -28,8 +28,7 @@ public class Card {
 		    "Ten",
 		    JACK,
 		    QUEEN,
-		    KING,
-		    ACE
+		    KING
 	};
 	
 	public Card() {

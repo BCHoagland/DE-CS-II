@@ -14,6 +14,24 @@ public class Card {
 	private static final String QUEEN = "Queen";
 	private static final String KING = "King";
 	
+	private static final String[] numWords = {
+			"Zero",		//never used, just a placeholder
+			"One",
+		    "Two",
+		    "Three",
+		    "Four",
+		    "Five",
+		    "Six",
+		    "Seven",
+		    "Eight",
+		    "Nine",
+		    "Ten",
+		    JACK,
+		    QUEEN,
+		    KING,
+		    ACE
+	};
+	
 	public Card() {
 		//DEFAULT SETTING
 	}
@@ -55,22 +73,23 @@ public class Card {
 		return getRankStr(rank) + " of " + suit;
 	}
 	
-	private String getRankStr(int rank) {
-		switch (rank) {
+	public String getRankStr(int rank) {
+		/*switch (rank) {
 		case 1:
-			return "ace";
+			return ACE;
 		case 11:
-			return "jack";
+			return JACK;
 		case 12:
-			return "queen";
+			return QUEEN;
 		case 13:
-			return "king";
+			return KING;
 		default:
 			return String.valueOf(rank);
-		}
+		}*/
+		return numWords[rank];
 	}
 	
-	private int getRankInt(String rank) {
+	public int getRankInt(String rank) {
 		switch (rank) {
 		case ACE:
 			return 1;
@@ -85,7 +104,7 @@ public class Card {
 		}
 	}
 
-	private int getSuitInt(String suit) {
+	public int getSuitInt(String suit) {
 		switch (suit) {
 		case CLUBS:
 			return 0;
@@ -100,7 +119,7 @@ public class Card {
 		}
 	}
 	
-	private String getSuitStr(int suit) {
+	public String getSuitStr(int suit) {
 		switch (suit) {
 		case 0:
 			return CLUBS;

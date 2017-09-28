@@ -137,11 +137,17 @@ public class Deck {
 	}
 	
 	public void selectionSort() {
+		
+		CardComparator comp = new CardComparator();
+		
 		for (int i = cards.length - 1; i >= 0; i--) {
 			int maxIndex = i;
 			for (int j = 0; j <= i; j++) {
-				if (cards[j].compareTo(cards[maxIndex]) > 0) {
-					maxIndex = j;
+				if (!comp.equals(cards[j], cards[maxIndex])) {
+					int comparison = comp.compare(cards[j], cards[maxIndex]);
+					if (comparison > 0) {
+						maxIndex = j;
+					}
 				}
 			}
 			

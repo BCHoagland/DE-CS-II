@@ -4,9 +4,9 @@ public class TestDeck {
 
 	public static void main(String[] args) {
 		Deck testDeck = new Deck(false);
-		for (Card card : testDeck.getCards()) {
-			//System.out.println(card);
-		}
+//		for (Card card : testDeck.getCards()) {
+//			System.out.println(card);
+//		}
 		//System.out.println();
 		
 		System.out.println("top index: " + testDeck.getTopIndex());

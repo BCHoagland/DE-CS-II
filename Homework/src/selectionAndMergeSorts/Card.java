@@ -1,6 +1,6 @@
 package selectionAndMergeSorts;
 
-public class Card {
+public class Card implements Comparable<Card> {
 	private String suit;
 	private int rank;
 	
@@ -133,10 +133,15 @@ public class Card {
 		}
 	}
 	
-	public int compareTo(Object otherCard) {
-		if (otherCard != null) {
+	@Override
+	public int compareTo(Card otherCard) {
+		if (otherCard instanceof Card) {
 			return this.getRank() - ((Card) otherCard).getRank();
 		}
 		return 1;	//IS THIS OKAY????????????????
+	}
+	
+	public boolean equals(Object otherCard) {
+		return (this.rank == ((Card) otherCard).getRank());
 	}
 }

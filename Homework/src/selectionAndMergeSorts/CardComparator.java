@@ -4,8 +4,16 @@ import java.util.Comparator;
 
 public class CardComparator implements Comparator<Card> {
 	
+	private boolean rank;
+	
 	public CardComparator() {
 		super();
+		this.rank = false;
+	}
+	
+	public CardComparator(boolean rank) {
+		super();
+		this.rank = rank;
 	}
 	
 	@Override
@@ -14,9 +22,17 @@ public class CardComparator implements Comparator<Card> {
 	}
 	
 	public boolean equals(Card card1, Card card2) {
-		if (card1.equals(card2)) {
-			return true;
+		if (rank) {
+			if (card1.getRank() == card2.getRank()) {
+				return true;
+			}
+			return false;
+		} else {
+			if (card1.getSuitInt(card1.getSuit()) == card2.getSuitInt(card2.getSuit())) {
+				return true;
+			} else {
+				return false;
+			}
 		}
-		return false;
 	}
 }

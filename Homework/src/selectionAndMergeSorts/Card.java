@@ -73,18 +73,6 @@ public class Card implements Comparable<Card> {
 	}
 	
 	public String getRankStr(int rank) {
-		/*switch (rank) {
-		case 1:
-			return ACE;
-		case 11:
-			return JACK;
-		case 12:
-			return QUEEN;
-		case 13:
-			return KING;
-		default:
-			return String.valueOf(rank);
-		}*/
 		return numWords[rank];
 	}
 	
@@ -132,16 +120,11 @@ public class Card implements Comparable<Card> {
 			return null;
 		}
 	}
-	
-	@Override
+
 	public int compareTo(Card otherCard) {
 		if (otherCard instanceof Card) {
-			return this.getRank() - ((Card) otherCard).getRank();
+			return this.getRank() - ((Card)otherCard).getRank();
 		}
 		return 1;	//IS THIS OKAY????????????????
-	}
-	
-	public boolean equals(Object otherCard) {
-		return (this.rank == ((Card) otherCard).getRank());
 	}
 }

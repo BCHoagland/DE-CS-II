@@ -5,11 +5,8 @@ public class Deck {
 	private int topIndex;
 	
 	public Deck() {
-		//this.cards = createDeck();
-		//this.topIndex = cards.length - 1;
-		
-		this.cards = null;
-		this.topIndex = -1;
+		this.cards = createDeck();
+		this.topIndex = cards.length - 1;
 	}
 	
 	public Deck(boolean sorted) {
@@ -116,6 +113,39 @@ public class Deck {
 		return outputStr;
 	}
 	
+	/**
+	 * determines if two decks are equal to each other
+	 * @param otherDeck
+	 * @return true if decks are equal, false otherwise
+	 */
+	public boolean equals(Object otherDeck) {
+		if (otherDeck instanceof Deck) {
+			Card[] cards1 = this.getCards();
+			Card[] cards2 = ((Deck)otherDeck).getCards();
+			
+			if (cards1.length == cards2.length) {
+				
+				CardComparator rankComp = new CardComparator(true);
+				CardComparator suitComp = new CardComparator(false);
+				
+				for (int i = 0; i < cards1.length; i++) {
+					if (!rankComp.equals(cards1[i], cards2[i]) || !suitComp.equals(cards1[i], cards2[i])) {
+						return false;
+					}
+				}
+				return true;
+			}
+			return false;
+		}
+		return false;
+	}
+	
+	/**
+	 * deals out hands (decks) of cards based on the given parameters
+	 * @param hands
+	 * @param cardsPerHand
+	 * @return
+	 */
 	public Deck[] deal(int hands, int cardsPerHand) {
 		if (hands * cardsPerHand > this.cards.length) return null;
 		else {
@@ -136,6 +166,28 @@ public class Deck {
 		}
 	}
 	
+	/**
+	 * removes a random card from the deck and collapses the deck
+	 * @return card that was randomly selected
+	 */
+	public Card deal() {
+		int index = (int)(Math.random() * (topIndex + 1));
+		
+		Card card = cards[index];
+		
+		for (int i = index; i <= topIndex; i++) {
+			cards[index] = cards[i];
+		}
+		
+		topIndex--;
+		replaceCards(topIndex + 1);
+		
+		return card;
+	}
+	
+	/**
+	 * uses the selection sort algorithm to sort the deck
+	 */
 	public void selectionSort() {
 		
 		CardComparator comp = new CardComparator();

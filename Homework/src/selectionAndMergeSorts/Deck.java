@@ -190,21 +190,20 @@ public class Deck {
 	 */
 	public void selectionSort() {
 		
-		CardComparator comp = new CardComparator();
-		
-		for (int i = cards.length - 1; i >= 0; i--) {
-			int maxIndex = i;
-			for (int j = 0; j <= i; j++) {
-				if (!comp.equals(cards[j], cards[maxIndex])) {
-					int comparison = comp.compare(cards[j], cards[maxIndex]);
-					if (comparison > 0) {
-						maxIndex = j;
-					}
-				}
-			}
-			
-			swapCardsAtIndices(i, maxIndex);
-		}
+		int min;
+	    for (int i = 0; i < cards.length; i++) {
+	        min = i;
+	        for (int j = i + 1; j < cards.length; j++) {
+	            if (cards[j].getRank() < cards[min].getRank()) {
+	                min = j;
+	            }
+	        }
+	        if (min != i) {
+	            Card temp = cards[i];
+	            cards[i] = cards[min];
+	            cards[min] = temp;
+	        }
+	    }
 	}
 	
 	
@@ -223,7 +222,7 @@ public class Deck {
 				tempArr[i] = arr2[i];
 			}
 			tempArr[index] = card1;
-			for (int i = index + 1; i < arr2.length; i++) {
+			for (int i = index + 1; i < arr2.length + 1; i++) {
 				tempArr[i] = arr2[i - 1];
 			}
 			

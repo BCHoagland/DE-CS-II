@@ -170,7 +170,7 @@ public class Deck {
 	 * removes a random card from the deck and collapses the deck
 	 * @return card that was randomly selected
 	 */
-	public Card deal() {
+	public Card pick() {
 		int index = (int)(Math.random() * (topIndex + 1));
 		
 		Card card = cards[index];
@@ -205,5 +205,39 @@ public class Deck {
 			
 			swapCardsAtIndices(i, maxIndex);
 		}
+	}
+	
+	
+	//////////////////////////////////////////MAKE THESE PRIVATE
+	
+	public Card[] divide(Card[] arr) {
+		return new Card[0];
+	}
+	
+	public Card[] merge(Card[] arr1, Card[] arr2) {
+		for (Card card1 : arr1) {
+			int index = findMergeIndex(card1, arr2);
+			Card[] tempArr = new Card[arr2.length + 1];
+			
+			for (int i = 0; i < index; i++) {
+				tempArr[i] = arr2[i];
+			}
+			tempArr[index] = card1;
+			for (int i = index + 1; i < arr2.length; i++) {
+				tempArr[i] = arr2[i - 1];
+			}
+			
+			arr2 = tempArr;
+		}
+		return arr2;
+	}
+	
+	public int findMergeIndex(Card card, Card[] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i].getRank() >= card.getRank()) {
+				return i;
+			}
+		}
+		return arr.length;
 	}
 }

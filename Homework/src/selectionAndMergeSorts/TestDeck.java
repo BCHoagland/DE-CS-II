@@ -3,14 +3,17 @@ package selectionAndMergeSorts;
 public class TestDeck {
 
 	public static void main(String[] args) {
-		Deck testDeck = new Deck();
+		Deck testDeck = new Deck(true);
 		
-		System.out.println(testDeck);
+		Deck[] decks = testDeck.deal(2,  4);
+		
+		for (Card card : decks[0].getCards()) {
+			System.out.println(card);
+		}
 		System.out.println();
-		
-		System.out.println(testDeck.deal());
+		for (Card card : decks[1].getCards()) {
+			System.out.println(card);
+		}
 		System.out.println();
-		
-		System.out.println(testDeck);
 	}
 }

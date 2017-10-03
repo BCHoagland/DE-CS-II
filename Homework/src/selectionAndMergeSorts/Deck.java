@@ -254,12 +254,26 @@ public class Deck {
 	/**
 	 * uses the selection sort algorithm to sort the deck
 	 */
+	
+	
+	
+	
+	
+	//ADD SUIT AND RANK FUNCTIONALITY
+	
+	
+	
+	
 	public void selectionSort() {
 		int min;
 	    for (int i = 0; i < cards.length; i++) {
 	        min = i;
 	        for (int j = i + 1; j < cards.length; j++) {
-	            if (cards[j].getRank() < cards[min].getRank()) {
+	            //if (cards[j].getRank() < cards[min].getRank()) {
+	        	CardComparator rankComp = new CardComparator(true);
+				CardComparator suitComp = new CardComparator(false);
+				
+	        	if (rankComp.compare(cards[j], cards[min]) > 1) {
 	                min = j;
 	            }
 	        }

@@ -195,7 +195,11 @@ public class Card implements Comparable<Card> {
 	/**
 	 * returns a positive number if the rank of this card is greater than the rank of the other card, 0 if the cards have the same rank, and a negative number otherwise
 	 */
-	public int compareTo(Card otherCard) {
+	
+	//ADD SUIT AND RANK FUNCTIONALITY
+	
+	
+	public int compareTo(Card otherCard, boolean rank) {
 		if (otherCard instanceof Card) {
 			return this.getRank() - ((Card)otherCard).getRank();
 		}

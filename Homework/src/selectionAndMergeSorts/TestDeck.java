@@ -5,23 +5,15 @@ public class TestDeck {
 	public static void main(String[] args) {
 		Deck testDeck = new Deck(false);
 		
-		Deck[] decks = testDeck.deal(2,  4);
-		
-		decks[0].selectionSort();
-		decks[1].selectionSort();
+		Deck[] decks = testDeck.deal(1,  8);
 		
 		for (Card card : decks[0].getCards()) {
 			System.out.println(card);
 		}
 		System.out.println();
-		for (Card card : decks[1].getCards()) {
-			System.out.println(card);
-		}
-		System.out.println();
 		
-		Card[] mergedCards = testDeck.merge(decks[0].getCards(), decks[1].getCards());
-		
-		for (Card card : mergedCards) {
+		decks[0].mergeSort();
+		for (Card card : decks[0].getCards()) {
 			System.out.println(card);
 		}
 	}

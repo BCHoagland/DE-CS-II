@@ -1,7 +1,8 @@
 package selectionAndMergeSorts;
 
 public class Deck {
-	private Card[] cards;
+	public Card[] cards;
+	//CHANGE THIS^
 	private int topIndex;
 	
 	public Deck() {
@@ -206,14 +207,36 @@ public class Deck {
 	    }
 	}
 	
-	
-	//////////////////////////////////////////MAKE THESE PRIVATE
-	
-	public Card[] divide(Card[] arr) {
-		return new Card[0];
+	public void mergeSort() {
+		this.cards = divide(this.getCards());
 	}
 	
-	public Card[] merge(Card[] arr1, Card[] arr2) {
+	private Card[] divide(Card[] arr) {
+		if (arr.length > 1) {
+			int arrLengthExtra = 0;
+			if (arr.length % 2 == 1) {
+				arrLengthExtra = 1;
+			}
+
+			Card[] arr1 = new Card[(int)(arr.length / 2) + arrLengthExtra];
+			Card[] arr2 = new Card[(int)(arr.length / 2)];
+
+			for (int i = 0; i < arr.length; i++) {
+				if (i < ((arr.length / 2) + arrLengthExtra)) {
+					arr1[i] = arr[i];
+				} else {
+					arr2[i - (arr.length / 2 + arrLengthExtra)] = arr[i];
+				}
+			}
+			
+			Card[] test = merge(divide(arr1), divide(arr2));
+			return test;
+		}
+		
+		return arr;
+	}
+	
+	private Card[] merge(Card[] arr1, Card[] arr2) {
 		for (Card card1 : arr1) {
 			int index = findMergeIndex(card1, arr2);
 			Card[] tempArr = new Card[arr2.length + 1];
@@ -231,7 +254,7 @@ public class Deck {
 		return arr2;
 	}
 	
-	public int findMergeIndex(Card card, Card[] arr) {
+	private int findMergeIndex(Card card, Card[] arr) {
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i].getRank() >= card.getRank()) {
 				return i;

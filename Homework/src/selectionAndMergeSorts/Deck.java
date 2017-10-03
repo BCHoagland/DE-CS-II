@@ -247,57 +247,49 @@ public class Deck {
 		
 		topIndex--;
 		replaceCards(topIndex + 1);
-		
+
 		return card;
 	}
-	
+
 	/**
-	 * uses the selection sort algorithm to sort the deck
+	 * uses the selection sort algorithm to sort the cards array by suit and rank
 	 */
-	
-	
-	
-	
-	
-	//ADD SUIT AND RANK FUNCTIONALITY
-	
-	
-	
-	
 	public void selectionSort() {
 		int min;
-	    for (int i = 0; i < cards.length; i++) {
-	        min = i;
-	        for (int j = i + 1; j < cards.length; j++) {
-	            //if (cards[j].getRank() < cards[min].getRank()) {
-	        	CardComparator rankComp = new CardComparator(true);
+		for (int i = 0; i < cards.length; i++) {
+			min = i;
+			for (int j = i + 1; j < cards.length; j++) {
+				CardComparator rankComp = new CardComparator(true);
 				CardComparator suitComp = new CardComparator(false);
-				
-	        	if (rankComp.compare(cards[j], cards[min]) > 1) {
-	                min = j;
-	            }
-	        }
-	        if (min != i) {
-	        	swapCardsAtIndices(i, min);
-	        }
-	    }
+
+				if (suitComp.compare(cards[j], cards[min]) < 0) {
+					min = j;
+				} else if (suitComp.compare(cards[j], cards[min]) == 0) {
+					if (rankComp.compare(cards[j], cards[min]) < 0) {
+						min = j;
+					}
+				}
+			}
+			if (min != i) {
+				swapCardsAtIndices(i, min);
+			}
+		}
 	}
-	
+
 	/**
-	 * sorts the cards field of the deck using merge sort
+	 * sorts the cards array by suit and rank using merge sort
 	 */
 	public void mergeSort() {
-		this.cards = divide(this.getCards(), false);
-		this.cards = divide(this.getCards(), true);
+		this.cards = divide(this.getCards());
 	}
-	
+
 	/**
 	 * recursively splits and merges an array of Cards using the merge sort algorithm
 	 * @param arr
 	 * @param rank whether or not to sort the cards by rank
 	 * @return the sorted array of Cards
 	 */
-	private Card[] divide(Card[] arr, boolean rank) {
+	private Card[] divide(Card[] arr/*, boolean rank*/) {
 		if (arr.length > 1) {
 			int arrLengthExtra = 0;
 			if (arr.length % 2 == 1) {
@@ -315,7 +307,7 @@ public class Deck {
 				}
 			}
 			
-			Card[] test = merge(divide(arr1, rank), divide(arr2, rank), rank);
+			Card[] test = merge(divide(arr1), divide(arr2));
 			return test;
 		}
 		
@@ -329,9 +321,9 @@ public class Deck {
 	 * @param rank whether or not to sort the cards by rank
 	 * @return the combined sorted array
 	 */
-	private Card[] merge(Card[] arr1, Card[] arr2, boolean rank) {
+	private Card[] merge(Card[] arr1, Card[] arr2/*, boolean rank*/) {
 		for (Card card1 : arr1) {
-			int index = findMergeIndex(card1, arr2, rank);
+			int index = findMergeIndex(card1, arr2);
 			Card[] tempArr = new Card[arr2.length + 1];
 			
 			for (int i = 0; i < index; i++) {
@@ -354,16 +346,14 @@ public class Deck {
 	 * @param rank whether or not to sort the cards by rank
 	 * @return index of where to insert value
 	 */
-	private int findMergeIndex(Card card, Card[] arr, boolean rank) {
+	private int findMergeIndex(Card card, Card[] arr) {
 		for (int i = 0; i < arr.length; i++) {
-			if (rank) {
-				if (arr[i].getRank() >= card.getRank()) {
+			if (card.getSuitInt(card.getSuit()) == arr[i].getSuitInt(arr[i].getSuit())) {
+				if (card.getRank() <= arr[i].getRank()) {
 					return i;
 				}
-			} else {
-				if (arr[i].getSuitInt(arr[i].getSuit()) >= card.getSuitInt(card.getSuit())) {
-					return i;
-				}
+			} else if (card.getSuitInt(card.getSuit()) < arr[i].getSuitInt(arr[i].getSuit())) {
+				return i;
 			}
 		}
 		return arr.length;

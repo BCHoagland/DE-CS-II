@@ -1,8 +1,7 @@
 package selectionAndMergeSorts;
 
 public class Deck {
-	public Card[] cards;
-	//CHANGE THIS^
+	private Card[] cards;
 	private int topIndex;
 	
 	public Deck() {
@@ -207,10 +206,18 @@ public class Deck {
 	    }
 	}
 	
+	/**
+	 * sorts the cards field of the deck using merge sort
+	 */
 	public void mergeSort() {
 		this.cards = divide(this.getCards());
 	}
 	
+	/**
+	 * recursively splits and merges an array of Cards using the merge sort algorithm
+	 * @param arr
+	 * @return the sorted array of Cards
+	 */
 	private Card[] divide(Card[] arr) {
 		if (arr.length > 1) {
 			int arrLengthExtra = 0;
@@ -236,6 +243,12 @@ public class Deck {
 		return arr;
 	}
 	
+	/**
+	 * merges two sorted arrays into one sorted array
+	 * @param arr1
+	 * @param arr2
+	 * @return the combined sorted array
+	 */
 	private Card[] merge(Card[] arr1, Card[] arr2) {
 		for (Card card1 : arr1) {
 			int index = findMergeIndex(card1, arr2);
@@ -254,6 +267,12 @@ public class Deck {
 		return arr2;
 	}
 	
+	/**
+	 * finds the index at which to insert a card during the merge portion of the merge sort
+	 * @param card
+	 * @param arr
+	 * @return index of where to insert value
+	 */
 	private int findMergeIndex(Card card, Card[] arr) {
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i].getRank() >= card.getRank()) {

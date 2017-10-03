@@ -1,14 +1,34 @@
 package selectionAndMergeSorts;
 
+/**
+ * <h1>Deck</h1> class to store, sort, shuffle, deal, and pick Cards<br/><br/>
+ * @author Braden Hoagland
+ */
 public class Deck {
+	
+	/**
+	 * cards field that stores the Cards in the deck
+	 */
 	private Card[] cards;
+	
+	/**
+	 * topIndex field that stores the index of the last Card in the deck<br/>
+	 * the first card in the deck is at cards[0]
+	 */
 	private int topIndex;
 	
+	/**
+	 * default constructor that creates a standard deck of cards
+	 */
 	public Deck() {
 		this.cards = createDeck();
 		this.topIndex = cards.length - 1;
 	}
 	
+	/**
+	 * constructor that creates either a sorted or shuffled deck of cards, based on given boolean argument
+	 * @param sorted
+	 */
 	public Deck(boolean sorted) {
 		this.cards = createDeck();
 		if (sorted) {
@@ -19,14 +39,26 @@ public class Deck {
 		this.topIndex = cards.length - 1;
 	}
 	
+	/**
+	 * getter function for the cards field
+	 * @return
+	 */
 	public Card[] getCards() {
 		return cards;
 	}
 	
+	/**
+	 * getter function for the topIndex field
+	 * @return
+	 */
 	public int getTopIndex() {
 		return topIndex;
 	}
 	
+	/**
+	 * sets the cards field to a standard deck of cards
+	 * @return
+	 */
 	private Card[] createDeck() {
 		Card[] cards = new Card[52];
 		int index = 0;
@@ -40,12 +72,21 @@ public class Deck {
 		return cards;
 	}
 	
+	/**
+	 * swap two Cards in the cards field at the given indices
+	 * @param index1
+	 * @param index2
+	 */
 	private void swapCardsAtIndices(int index1, int index2) {
 		Card temp = cards[index1];
 		cards[index1] = cards[index2];
 		cards[index2] = temp;
 	}
 	
+	/**
+	 * trim the cards array to the given length
+	 * @param newCardsLength
+	 */
 	private void replaceCards(int newCardsLength) {
 		Card[] newCards = new Card[newCardsLength];
 		for (int i = 0; i < newCardsLength; i++) {
@@ -54,6 +95,11 @@ public class Deck {
 		cards = newCards;
 	}
 	
+	/**
+	 * removes and returns a Card from the cards field at the given index
+	 * @param index
+	 * @return
+	 */
 	private Card remove(int index) {
 		Card card = this.cards[index];
 		replaceCards(cards.length - 1);
@@ -61,6 +107,9 @@ public class Deck {
 		return card;
 	}
 	
+	/**
+	 * switches cards at random indices to shuffle the deck
+	 */
 	public void shuffle() {
 		for (int i = 0; i < cards.length; i++) {
 			int index1 = (int)(Math.random() * cards.length);
@@ -69,15 +118,21 @@ public class Deck {
 		}
 	}
 	
+	/**
+	 * prints the cards in the deck in four columns, separated by suit
+	 */
 	public String toString() {
+		//determine the max number of cards per suit
 		int[] suitLengths = new int[4];
 		for (Card card : this.cards) {
 			suitLengths[card.getSuitInt(card.getSuit())]++;
 		}
 		int maxSuitLength = Math.max(Math.max(suitLengths[0], suitLengths[1]), Math.max(suitLengths[2], suitLengths[3]));
 		
+		//set the number of rows per column to the max number of cards per suit
 		Card[][] cols = new Card[4][maxSuitLength];
 		
+		//add cards to their proper columns
 		int[] counters = new int[4];
 		for (Card card : this.cards) {
 			int suitNum = card.getSuitInt(card.getSuit());
@@ -85,6 +140,7 @@ public class Deck {
 			counters[suitNum]++;
 		}
 		
+		//create a string representing the four columns of cards
 		int cardNameLength = 20;
 		int maxIndex = Math.max(Math.max(cols[0].length, cols[1].length), Math.max(cols[2].length, cols[3].length));
 		String outputStr = "";
@@ -93,10 +149,16 @@ public class Deck {
 			for (int j = 0; j < 4; j++) {
 				if (cols[j][i] != null) {
 					String cardName = cols[j][i].toString();
+					
+					//add white space to card names to ensure each card name is the same length
+					//this will ensure proper formatting
 					while (cardName.length() < cardNameLength) {
 						cardName += " ";
 					}
 					tempStr += cardName;
+					
+					//add empty space for cards that don't exist
+					//this ensures that columns without the same number of rows still print well
 				} else {
 					String nullCardName = "";
 					for (int k = 0; k < cardNameLength; k++) {
@@ -104,8 +166,12 @@ public class Deck {
 					}
 					tempStr += nullCardName;
 				}
+				
+				//add tab after the first three columns
 				if (j < 3) tempStr += "\t";
 			}
+			
+			//move to the next row of cards
 			if (i < (maxIndex - 1)) tempStr = tempStr + "\n";
 			outputStr = outputStr + tempStr;
 		}
@@ -189,7 +255,6 @@ public class Deck {
 	 * uses the selection sort algorithm to sort the deck
 	 */
 	public void selectionSort() {
-		
 		int min;
 	    for (int i = 0; i < cards.length; i++) {
 	        min = i;
@@ -199,9 +264,7 @@ public class Deck {
 	            }
 	        }
 	        if (min != i) {
-	            Card temp = cards[i];
-	            cards[i] = cards[min];
-	            cards[min] = temp;
+	        	swapCardsAtIndices(i, min);
 	        }
 	    }
 	}

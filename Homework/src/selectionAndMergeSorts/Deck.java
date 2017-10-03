@@ -210,15 +210,17 @@ public class Deck {
 	 * sorts the cards field of the deck using merge sort
 	 */
 	public void mergeSort() {
-		this.cards = divide(this.getCards());
+		this.cards = divide(this.getCards(), false);
+		this.cards = divide(this.getCards(), true);
 	}
 	
 	/**
 	 * recursively splits and merges an array of Cards using the merge sort algorithm
 	 * @param arr
+	 * @param rank whether or not to sort the cards by rank
 	 * @return the sorted array of Cards
 	 */
-	private Card[] divide(Card[] arr) {
+	private Card[] divide(Card[] arr, boolean rank) {
 		if (arr.length > 1) {
 			int arrLengthExtra = 0;
 			if (arr.length % 2 == 1) {
@@ -236,7 +238,7 @@ public class Deck {
 				}
 			}
 			
-			Card[] test = merge(divide(arr1), divide(arr2));
+			Card[] test = merge(divide(arr1, rank), divide(arr2, rank), rank);
 			return test;
 		}
 		
@@ -247,11 +249,12 @@ public class Deck {
 	 * merges two sorted arrays into one sorted array
 	 * @param arr1
 	 * @param arr2
+	 * @param rank whether or not to sort the cards by rank
 	 * @return the combined sorted array
 	 */
-	private Card[] merge(Card[] arr1, Card[] arr2) {
+	private Card[] merge(Card[] arr1, Card[] arr2, boolean rank) {
 		for (Card card1 : arr1) {
-			int index = findMergeIndex(card1, arr2);
+			int index = findMergeIndex(card1, arr2, rank);
 			Card[] tempArr = new Card[arr2.length + 1];
 			
 			for (int i = 0; i < index; i++) {
@@ -271,12 +274,19 @@ public class Deck {
 	 * finds the index at which to insert a card during the merge portion of the merge sort
 	 * @param card
 	 * @param arr
+	 * @param rank whether or not to sort the cards by rank
 	 * @return index of where to insert value
 	 */
-	private int findMergeIndex(Card card, Card[] arr) {
+	private int findMergeIndex(Card card, Card[] arr, boolean rank) {
 		for (int i = 0; i < arr.length; i++) {
-			if (arr[i].getRank() >= card.getRank()) {
-				return i;
+			if (rank) {
+				if (arr[i].getRank() >= card.getRank()) {
+					return i;
+				}
+			} else {
+				if (arr[i].getSuitInt(arr[i].getSuit()) >= card.getSuitInt(card.getSuit())) {
+					return i;
+				}
 			}
 		}
 		return arr.length;

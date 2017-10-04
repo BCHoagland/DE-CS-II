@@ -289,7 +289,7 @@ public class Deck {
 	 * @param rank whether or not to sort the cards by rank
 	 * @return the sorted array of Cards
 	 */
-	private Card[] divide(Card[] arr/*, boolean rank*/) {
+	private Card[] divide(Card[] arr) {
 		if (arr.length > 1) {
 			int arrLengthExtra = 0;
 			if (arr.length % 2 == 1) {
@@ -321,7 +321,7 @@ public class Deck {
 	 * @param rank whether or not to sort the cards by rank
 	 * @return the combined sorted array
 	 */
-	private Card[] merge(Card[] arr1, Card[] arr2/*, boolean rank*/) {
+	private Card[] merge(Card[] arr1, Card[] arr2) {
 		for (Card card1 : arr1) {
 			int index = findMergeIndex(card1, arr2);
 			Card[] tempArr = new Card[arr2.length + 1];

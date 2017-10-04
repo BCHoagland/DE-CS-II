@@ -56,13 +56,9 @@ public class Card implements Comparable<Card> {
 	 * default constructor
 	 */
 	public Card() {
-		//DEFAULT SETTING
+		this.rank = -1;
+		this.suit = null;
 	}
-	
-	
-	
-	//CHECK IF RESULTS RETURNED FROM CONVERTERS ARE NOT NULL OR -1
-	
 	
 	/**
 	 * constructor that sets the suit and rank with the given integer inputs

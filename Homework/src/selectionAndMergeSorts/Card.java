@@ -56,13 +56,9 @@ public class Card implements Comparable<Card> {
 	 * default constructor
 	 */
 	public Card() {
-		//DEFAULT SETTING
+		this.rank = -1;
+		this.suit = null;
 	}
-	
-	
-	
-	//CHECK IF RESULTS RETURNED FROM CONVERTERS ARE NOT NULL OR -1
-	
 	
 	/**
 	 * constructor that sets the suit and rank with the given integer inputs
@@ -193,15 +189,27 @@ public class Card implements Comparable<Card> {
 	}
 	
 	/**
-	 * returns a positive number if the rank of this card is greater than the rank of the other card, 0 if the cards have the same rank, and a negative number otherwise
+	 * default compareTo() method that returns a positive number if the rank of this card is greater than the rank of the other card, 0 if the cards have the same rank, and a negative number otherwise
 	 */
-	
-	//ADD SUIT AND RANK FUNCTIONALITY
-	
-	
-	public int compareTo(Card otherCard, boolean rank) {
+	@Override
+	public int compareTo(Card otherCard) {
 		if (otherCard instanceof Card) {
 			return this.getRank() - ((Card)otherCard).getRank();
+		}
+		return 1;
+	}
+	
+	/**
+	 * returns the integer result of comparing this card to another card<br/>
+	 * compares suit or rank, based on given arguments
+	 */
+	public int compareTo(Card otherCard, boolean rank) {
+		if (otherCard instanceof Card) {
+			if (rank) {
+				return this.getRank() - ((Card)otherCard).getRank();
+			} else {
+				return this.getSuitInt(this.getSuit()) - this.getSuitInt(((Card)otherCard).getSuit());
+			}
 		}
 		return 1;
 	}

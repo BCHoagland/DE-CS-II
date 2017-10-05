@@ -52,16 +52,19 @@ public class TestDeck {
 			testDeck.shuffle();
 			Deck[] decks = testDeck.deal(3, 6);
 			for (int i = 0; i < decks.length; i++) {
-				outputFile.println("DECK " + (i + 1) + "\n" + decks[i] + "\n\n");
+				outputFile.println("HAND " + (i + 1) + "\n" + decks[i] + "\n\n");
 			}
 			
 			outputFile.println("----\nPICK\n----");
 			outputFile.println(testDeck.pick());
+			outputFile.println();
 			
 			outputFile.println("------\nEQUALS\n------");
 			testDeck = new Deck(true);
 			Deck testDeck2 = new Deck(true);
 			Deck testDeck3 = new Deck(false);
+			outputFile.println("two sorted decks should be equal. Result of equals(): " + testDeck.equals(testDeck2));
+			outputFile.println("one sorted deck and one shuffled deck should not be equal. Result of equals(): " + testDeck2.equals(testDeck3));
 		}
 		
 		outputFile.close();

@@ -1,58 +1,58 @@
 -------------
 UNSORTED DECK
 -------------
-Ace of Clubs
-Two of Diamonds
-Nine of Diamonds
-Ten of Clubs
-Ten of Spades
-Two of Clubs
-King of Diamonds
-Three of Clubs
-Four of Spades
-Four of Hearts
-Eight of Spades
-Queen of Hearts
-Three of Diamonds
-Ten of Diamonds
-Five of Diamonds
-Ten of Hearts
-Five of Spades
-Two of Spades
-Jack of Clubs
-Ace of Hearts
-Six of Spades
-Five of Clubs
-Nine of Hearts
-King of Spades
-Five of Hearts
-Nine of Clubs
-Two of Hearts
-Eight of Diamonds
-Eight of Clubs
-Three of Spades
-Queen of Diamonds
-Four of Diamonds
-Nine of Spades
-Three of Hearts
-Six of Diamonds
-Ace of Spades
-Eight of Hearts
-Queen of Clubs
-King of Hearts
-King of Clubs
-Ace of Diamonds
-Jack of Hearts
 Six of Hearts
-Six of Clubs
-Seven of Clubs
-Seven of Spades
-Jack of Diamonds
-Seven of Hearts
-Seven of Diamonds
-Jack of Spades
-Queen of Spades
+Nine of Clubs
+Three of Clubs
 Four of Clubs
+Four of Spades
+Nine of Hearts
+Eight of Spades
+Ten of Spades
+Ten of Diamonds
+Ten of Clubs
+Nine of Spades
+Queen of Clubs
+King of Diamonds
+Ace of Diamonds
+Nine of Diamonds
+Three of Diamonds
+Seven of Spades
+Two of Diamonds
+Five of Hearts
+King of Clubs
+Two of Spades
+Six of Spades
+Three of Spades
+Eight of Hearts
+Queen of Diamonds
+Six of Clubs
+Queen of Spades
+Two of Hearts
+Three of Hearts
+Jack of Spades
+Six of Diamonds
+Ace of Clubs
+Seven of Clubs
+King of Spades
+Seven of Hearts
+Eight of Clubs
+Ten of Hearts
+Queen of Hearts
+Eight of Diamonds
+Ace of Spades
+Five of Clubs
+Four of Hearts
+Two of Clubs
+Five of Spades
+Ace of Hearts
+Jack of Hearts
+Five of Diamonds
+Jack of Clubs
+Jack of Diamonds
+Four of Diamonds
+Seven of Diamonds
+King of Hearts
 
 ---------------
 MERGE SORT DECK
@@ -186,24 +186,29 @@ King of Clubs       	King of Diamonds    	King of Hearts      	King of Spades
 ----
 DEAL
 ----
-DECK 1
-Four of Clubs       	Seven of Diamonds   	Eight of Hearts     	Jack of Spades      
-King of Clubs       	                    	                    	Ten of Spades       
+HAND 1
+Three of Clubs      	Ace of Diamonds     	King of Hearts      	King of Spades      
+Nine of Clubs       	                    	                    	Four of Spades      
 
 
-DECK 2
-Ace of Clubs        	Six of Diamonds     	                    	Six of Spades       
-                    	                    	                    	Nine of Spades      
-                    	                    	                    	Three of Spades     
-                    	                    	                    	King of Spades      
+HAND 2
+Ten of Clubs        	King of Diamonds    	                    	Queen of Spades     
+                    	Two of Diamonds     	                    	Three of Spades     
+                    	                    	                    	Seven of Spades     
 
 
-DECK 3
-Queen of Clubs      	Nine of Diamonds    	Queen of Hearts     	Five of Spades      
-                    	Three of Diamonds   	                    	Ace of Spades       
+HAND 3
+Two of Clubs        	Three of Diamonds   	Jack of Hearts      	Two of Spades       
+Ace of Clubs        	                    	Queen of Hearts     	                    
 
 
 ----
 PICK
 ----
-Nine of Clubs
+Eight of Spades
+
+------
+EQUALS
+------
+two sorted decks should be equal. Result of equals(): true
+one sorted deck and one shuffled deck should not be equal. Result of equals(): false

@@ -6,18 +6,6 @@ import java.io.PrintWriter;
 public class TestDeck {
 
 	public static void main(String[] args) {
-		Deck testDeck = new Deck(false);
-		testDeck.mergeSort();
-		for (Card card : testDeck.getCards()) {
-			System.out.println(card);
-		}
-		System.out.println();
-
-		testDeck = new Deck(false);
-		testDeck.selectionSort();
-		for (Card card : testDeck.getCards()) {
-			System.out.println(card);
-		}
 
 
 
@@ -33,7 +21,49 @@ public class TestDeck {
 		}
 
 		if (outputFile != null) {
+			Deck testDeck = new Deck(false);
+			
+			outputFile.println("-------------\nUNSORTED DECK\n-------------");
+			for (Card card : testDeck.getCards()) {
+				outputFile.println(card);
+			}
 			outputFile.println();
+			
+			outputFile.println("---------------\nMERGE SORT DECK\n---------------");
+			testDeck.mergeSort();
+			for (Card card : testDeck.getCards()) {
+				outputFile.println(card);
+			}
+			outputFile.println();
+			
+			outputFile.println("-------------------\nSELECTION SORT DECK\n-------------------");
+			testDeck = new Deck(false);
+			testDeck.selectionSort();
+			for (Card card : testDeck.getCards()) {
+				outputFile.println(card);
+			}
+			outputFile.println();
+			
+			outputFile.println("-------------\nDECK TOSTRING\n-------------");
+			outputFile.println(testDeck);
+			outputFile.println();
+			
+			outputFile.println("----\nDEAL\n----");
+			testDeck.shuffle();
+			Deck[] decks = testDeck.deal(3, 6);
+			for (int i = 0; i < decks.length; i++) {
+				outputFile.println("DECK " + (i + 1) + "\n" + decks[i] + "\n\n");
+			}
+			
+			outputFile.println("----\nPICK\n----");
+			outputFile.println(testDeck.pick());
+			
+			outputFile.println("------\nEQUALS\n------");
+			testDeck = new Deck(true);
+			Deck testDeck2 = new Deck(true);
+			Deck testDeck3 = new Deck(false);
 		}
+		
+		outputFile.close();
 	}
 }

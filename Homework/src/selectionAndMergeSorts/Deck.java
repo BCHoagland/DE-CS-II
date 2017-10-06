@@ -17,6 +17,11 @@ public class Deck {
 	 */
 	private int topIndex;
 	
+	private static final int MAX_CARDS = 52;
+	private static final int NUM_SUITS = 4;
+	private static final int MIN_RANK = 1;
+	private static final int MAX_RANK = 13;
+	
 	/**
 	 * default constructor that creates a standard deck of cards
 	 */
@@ -60,10 +65,10 @@ public class Deck {
 	 * @return
 	 */
 	private Card[] createDeck() {
-		Card[] cards = new Card[52];
+		Card[] cards = new Card[MAX_CARDS];
 		int index = 0;
-		for (int suit = 0; suit < 4; suit++) {
-			for (int rank = 1; rank < 14; rank++) {
+		for (int suit = 0; suit < NUM_SUITS; suit++) {
+			for (int rank = MIN_RANK; rank <= MAX_RANK; rank++) {
 				Card card = new Card(suit, rank);
 				cards[index] = card;
 				index++;
@@ -117,23 +122,37 @@ public class Deck {
 			swapCardsAtIndices(index1, index2);
 		}
 	}
-	
+
+	public int findMax(int[] nums) {
+		if (nums.length > 0) {
+			int min = nums[0];
+			for (int num : nums) {
+				if (num > min) {
+					min = num;
+				}
+			}
+			return min;
+		}
+		
+		return 0;
+	}
+
 	/**
 	 * prints the cards in the deck in four columns, separated by suit
 	 */
 	public String toString() {
 		//determine the max number of cards per suit
-		int[] suitLengths = new int[4];
+		int[] suitLengths = new int[NUM_SUITS];
 		for (Card card : this.cards) {
 			suitLengths[card.getSuitInt(card.getSuit())]++;
 		}
-		int maxSuitLength = Math.max(Math.max(suitLengths[0], suitLengths[1]), Math.max(suitLengths[2], suitLengths[3]));
+		int maxSuitLength = findMax(suitLengths);
 		
 		//set the number of rows per column to the max number of cards per suit
-		Card[][] cols = new Card[4][maxSuitLength];
+		Card[][] cols = new Card[NUM_SUITS][maxSuitLength];
 		
 		//add cards to their proper columns
-		int[] counters = new int[4];
+		int[] counters = new int[NUM_SUITS];
 		for (Card card : this.cards) {
 			int suitNum = card.getSuitInt(card.getSuit());
 			cols[suitNum][counters[suitNum]] = card;
@@ -142,11 +161,15 @@ public class Deck {
 		
 		//create a string representing the four columns of cards
 		int cardNameLength = 20;
-		int maxIndex = Math.max(Math.max(cols[0].length, cols[1].length), Math.max(cols[2].length, cols[3].length));
+		int[] colsLengths = new int[NUM_SUITS];
+		for (int i = 0; i < NUM_SUITS; i++) {
+			colsLengths[i] = cols[i].length;
+		}
+		int maxIndex = findMax(colsLengths);
 		String outputStr = "";
 		for (int i = 0; i < maxIndex; i++) {
 			String tempStr = "";
-			for (int j = 0; j < 4; j++) {
+			for (int j = 0; j < NUM_SUITS; j++) {
 				if (cols[j][i] != null) {
 					String cardName = cols[j][i].toString();
 					
@@ -168,7 +191,7 @@ public class Deck {
 				}
 				
 				//add tab after the first three columns
-				if (j < 3) tempStr += "\t";
+				if (j < (NUM_SUITS - 1)) tempStr += "\t";
 			}
 			
 			//move to the next row of cards

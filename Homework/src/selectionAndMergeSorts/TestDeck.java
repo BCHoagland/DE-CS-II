@@ -18,8 +18,8 @@ public class TestDeck {
 		
 		if (outputFile != null) {
 			
-			//unsorted deck
-			outputFile.println("-------------\nUNSORTED DECK\n-------------");
+			//shuffled deck
+			outputFile.println("-------------\nSHUFFLED DECK\n-------------");
 			Deck testDeck = new Deck(false);
 			for (Card card : testDeck.getCards()) {
 				outputFile.println(card);
@@ -55,12 +55,12 @@ public class TestDeck {
 			for (int i = 0; i < decks.length; i++) {
 				outputFile.println("HAND " + (i + 1) + "\n" + decks[i] + "\n\n");
 			}
-			outputFile.println("REMAINING CARDS IN DECK:\n" + testDeck);
+			outputFile.println("REMAINING CARDS IN DECK (DECK SHOULD BE SHUFFLED):\n" + testDeck);
 			outputFile.println();
 			
 			//test Deck pick method
 			outputFile.println("----\nPICK\n----");
-			testDeck = new Deck(false);
+			testDeck = new Deck(true);
 			outputFile.println("cards should be randomly selected: " + testDeck.pick() + ", " + testDeck.pick() + "\n");
 			outputFile.println("REMAINING CARDS IN DECK:\n" + testDeck);
 			outputFile.println();

@@ -249,13 +249,12 @@ public class Deck {
 				decks[i].cards = new Card[cardsPerHand];
 			}
 			
-			int[] counters = new int[hands];
 			for (int i = 0; i < cardsPerHand; i++) {
 				for (int j = 0; j < hands; j++) {
-					decks[j].cards[counters[j]] = remove(getTopIndex());
-					counters[j]++;
+					decks[j].cards[i] = remove(getTopIndex());
 				}
 			}
+			
 			return decks;
 		}
 	}

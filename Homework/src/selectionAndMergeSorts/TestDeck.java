@@ -50,7 +50,7 @@ public class TestDeck {
 			
 			//test Deck deal method
 			outputFile.println("----\nDEAL\n----");
-			testDeck.shuffle();
+//			testDeck.shuffle();
 			Deck[] decks = testDeck.deal(3, 6);
 			for (int i = 0; i < decks.length; i++) {
 				outputFile.println("HAND " + (i + 1) + "\n" + decks[i] + "\n\n");

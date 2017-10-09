@@ -122,7 +122,12 @@ public class Deck {
 			swapCardsAtIndices(index1, index2);
 		}
 	}
-
+	
+	/**
+	 * finds the largest number from a given array of integers
+	 * @param nums
+	 * @return largest integer in nums
+	 */
 	public int findMax(int[] nums) {
 		if (nums.length > 0) {
 			int min = nums[0];

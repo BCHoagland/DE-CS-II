@@ -37,26 +37,4 @@ public class CardComparator implements Comparator<Card> {
 	public int compare(Card card1, Card card2) {
 		return card1.compareTo(card2, rank);
 	}
-	
-	/**
-	 * returns if two Cards are equal
-	 * checks for rank or suit equality, based on given arguments
-	 * @param card1
-	 * @param card2
-	 * @return whether or not the given Cards are equal
-	 */
-	public boolean equals(Card card1, Card card2) {
-		if (rank) {
-			if (card1.getRank() == card2.getRank()) {
-				return true;
-			}
-			return false;
-		} else {
-			if (card1.getSuitInt(card1.getSuit()) == card2.getSuitInt(card2.getSuit())) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-	}
 }

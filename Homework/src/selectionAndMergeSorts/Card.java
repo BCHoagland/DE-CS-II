@@ -56,8 +56,8 @@ public class Card implements Comparable<Card> {
 	 * default constructor
 	 */
 	public Card() {
-		this.rank = -1;
-		this.suit = null;
+		this.rank = 1;
+		this.suit = CLUBS;
 	}
 	
 	/**
@@ -136,7 +136,25 @@ public class Card implements Comparable<Card> {
 	 * @param rank
 	 */
 	public int getRankInt(String rank) {
-		switch (rank) {
+		switch (rank.toLowerCase()) {
+		case "Two":
+			return 2;
+		case "Three":
+			return 3;
+		case "Four":
+			return 4;
+		case "Five":
+			return 5;
+		case "Six":
+			return 6;
+		case "Seven":
+			return 7;
+		case "Eight":
+			return 8;
+		case "Nine":
+			return 9;
+		case "Ten":
+			return 10;
 		case ACE:
 			return 1;
 		case JACK:
@@ -194,7 +212,11 @@ public class Card implements Comparable<Card> {
 	@Override
 	public int compareTo(Card otherCard) {
 		if (otherCard instanceof Card) {
-			return this.getRank() - ((Card)otherCard).getRank();
+			if (this.getSuitInt(this.getSuit()) == otherCard.getSuitInt(otherCard.getSuit())) {
+				return this.getRank() - ((Card)otherCard).getRank();
+			} else {
+				return this.getSuitInt(this.getSuit()) - otherCard.getSuitInt(otherCard.getSuit());
+			}
 		}
 		return 1;
 	}
@@ -212,5 +234,39 @@ public class Card implements Comparable<Card> {
 			}
 		}
 		return 1;
+	}
+	
+	/**
+	 * returns if two Cards are equal
+	 * checks for rank and suit equality
+	 * @param otherCard
+	 * @return whether or not the given Cards are equal
+	 */
+	public boolean equals(Card otherCard) {
+			if ((this.getRank() == otherCard.getRank()) && (this.getSuit().equals(otherCard.getSuit()))) {
+				return true;
+			}
+			return false;
+	}
+	
+	/**
+	 * returns if two Cards are equal
+	 * checks for rank or suit equality, based on given arguments
+	 * @param otherCard
+	 * @return whether or not the given Cards are equal
+	 */
+	public boolean equals(Card otherCard, boolean rank) {
+		if (rank) {
+			if (otherCard.getRank() == otherCard.getRank()) {
+				return true;
+			}
+			return false;
+		} else {
+			if (this.getSuitInt(this.getSuit()) == otherCard.getSuitInt(otherCard.getSuit())) {
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 }

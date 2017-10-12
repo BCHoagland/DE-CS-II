@@ -116,9 +116,9 @@ public class Deck {
 	 * switches cards at random indices to shuffle the deck
 	 */
 	public void shuffle() {
-		for (int i = 0; i < cards.length; i++) {
-			int index1 = (int)(Math.random() * cards.length);
-			int index2 = (int)(Math.random() * cards.length);
+		for (int i = 0; i <= topIndex; i++) {
+			int index1 = (int)(Math.random() * (topIndex + 1));
+			int index2 = (int)(Math.random() * (topIndex + 1));
 			swapCardsAtIndices(index1, index2);
 		}
 	}
@@ -214,16 +214,13 @@ public class Deck {
 	 */
 	public boolean equals(Object otherDeck) {
 		if (otherDeck instanceof Deck) {
-			Card[] cards1 = this.getCards();
-			Card[] cards2 = ((Deck)otherDeck).getCards();
+			Card[] cards1 = this.divide(this.getCards());
+			Card[] cards2 = this.divide(((Deck)otherDeck).getCards());
 			
 			if (cards1.length == cards2.length) {
 				
-				CardComparator rankComp = new CardComparator(true);
-				CardComparator suitComp = new CardComparator(false);
-				
 				for (int i = 0; i < cards1.length; i++) {
-					if (!rankComp.equals(cards1[i], cards2[i]) || !suitComp.equals(cards1[i], cards2[i])) {
+					if (!cards1[i].equals(cards2[i]) || !cards1[i].equals(cards2[i])) {
 						return false;
 					}
 				}
@@ -241,7 +238,7 @@ public class Deck {
 	 * @return
 	 */
 	public Deck[] deal(int hands, int cardsPerHand) {
-		if (hands * cardsPerHand > this.cards.length) return null;
+		if (hands * cardsPerHand > (topIndex + 1)) return null;
 		else {
 			Deck[] decks = new Deck[hands];
 			for (int i = 0; i < decks.length; i ++) {

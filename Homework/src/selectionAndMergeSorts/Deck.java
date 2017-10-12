@@ -36,12 +36,10 @@ public class Deck {
 	 */
 	public Deck(boolean sorted) {
 		this.cards = createDeck();
-		if (sorted) {
-			selectionSort();
-		} else {
+		this.topIndex = cards.length - 1;
+		if (!sorted) {
 			shuffle();
 		}
-		this.topIndex = cards.length - 1;
 	}
 	
 	/**
@@ -113,13 +111,16 @@ public class Deck {
 	}
 	
 	/**
-	 * switches cards at random indices to shuffle the deck
+	 * switches cards at random indices to shuffle the deck<br/>if this weren't using cards I would've made a costas array and you would've been so proud
 	 */
 	public void shuffle() {
 		for (int i = 0; i <= topIndex; i++) {
-			int index1 = (int)(Math.random() * (topIndex + 1));
-			int index2 = (int)(Math.random() * (topIndex + 1));
-			swapCardsAtIndices(index1, index2);
+			int rand = (int)(Math.random() * (topIndex + 1));
+			for (int j = 0; j < rand; j++) {
+				int index1 = (int)(Math.random() * (topIndex + 1));
+				int index2 = (int)(Math.random() * (topIndex + 1));
+				swapCardsAtIndices(index1, index2);
+			}
 		}
 	}
 	
@@ -149,7 +150,7 @@ public class Deck {
 		//determine the max number of cards per suit
 		int[] suitLengths = new int[NUM_SUITS];
 		for (Card card : this.cards) {
-			suitLengths[card.getSuitInt(card.getSuit())]++;
+			suitLengths[card.getSuitInt()]++;
 		}
 		int maxSuitLength = findMax(suitLengths);
 		
@@ -159,7 +160,7 @@ public class Deck {
 		//add cards to their proper columns
 		int[] counters = new int[NUM_SUITS];
 		for (Card card : this.cards) {
-			int suitNum = card.getSuitInt(card.getSuit());
+			int suitNum = card.getSuitInt();
 			cols[suitNum][counters[suitNum]] = card;
 			counters[suitNum]++;
 		}
@@ -237,25 +238,33 @@ public class Deck {
 	 * @param cardsPerHand
 	 * @return
 	 */
-	public Deck[] deal(int hands, int cardsPerHand) {
+	public Deck[] deal(int hands, int cardsPerHand, boolean alternateHands) {
 		if (hands * cardsPerHand > (topIndex + 1)) return null;
-		else {
-			Deck[] decks = new Deck[hands];
-			for (int i = 0; i < decks.length; i ++) {
-				decks[i] = new Deck();
-				decks[i].cards = new Card[cardsPerHand];
-			}
-			
+		Deck[] decks = new Deck[hands];
+		for (int i = 0; i < decks.length; i ++) {
+			decks[i] = new Deck();
+			decks[i].cards = new Card[cardsPerHand];
+		}
+
+		//deal cards one at a time to each hand
+		if (alternateHands) {
 			for (int i = 0; i < cardsPerHand; i++) {
 				for (int j = 0; j < hands; j++) {
 					decks[j].cards[i] = remove(getTopIndex());
 				}
 			}
-			
-			return decks;
+			//deal all the cards for each deck at once
+		} else {
+			for (int i = 0; i < hands; i++) {
+				for (int j = 0; j < cardsPerHand; j++) {
+					decks[i].cards[j] = remove(getTopIndex());
+				}
+			}
 		}
+
+		return decks;
 	}
-	
+
 	/**
 	 * removes a random card from the deck and collapses the deck
 	 * @return card that was randomly selected
@@ -280,18 +289,13 @@ public class Deck {
 	 */
 	public void selectionSort() {
 		int min;
+		CardComparator comp = new CardComparator();
+		
 		for (int i = 0; i < cards.length; i++) {
 			min = i;
 			for (int j = i + 1; j < cards.length; j++) {
-				CardComparator rankComp = new CardComparator(true);
-				CardComparator suitComp = new CardComparator(false);
-
-				if (suitComp.compare(cards[j], cards[min]) < 0) {
+				if (comp.compare(cards[j], cards[min]) < 0) {
 					min = j;
-				} else if (suitComp.compare(cards[j], cards[min]) == 0) {
-					if (rankComp.compare(cards[j], cards[min]) < 0) {
-						min = j;
-					}
 				}
 			}
 			if (min != i) {
@@ -372,11 +376,11 @@ public class Deck {
 	 */
 	private int findMergeIndex(Card card, Card[] arr) {
 		for (int i = 0; i < arr.length; i++) {
-			if (card.getSuitInt(card.getSuit()) == arr[i].getSuitInt(arr[i].getSuit())) {
+			if (card.getSuitInt() == arr[i].getSuitInt()) {
 				if (card.getRank() <= arr[i].getRank()) {
 					return i;
 				}
-			} else if (card.getSuitInt(card.getSuit()) < arr[i].getSuitInt(arr[i].getSuit())) {
+			} else if (card.getSuitInt() < arr[i].getSuitInt()) {
 				return i;
 			}
 		}

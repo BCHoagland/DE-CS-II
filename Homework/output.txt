@@ -1,114 +1,180 @@
+-----------------
+CARD CONSTRUCTORS
+-----------------
+Prints out every card using every constructor
+
+Ace of Clubs, Ace of Clubs, Ace of Clubs, Ace of Clubs
+Two of Clubs, Two of Clubs, Two of Clubs, Two of Clubs
+Three of Clubs, Three of Clubs, Three of Clubs, Three of Clubs
+Four of Clubs, Four of Clubs, Four of Clubs, Four of Clubs
+Five of Clubs, Five of Clubs, Five of Clubs, Five of Clubs
+Six of Clubs, Six of Clubs, Six of Clubs, Six of Clubs
+Seven of Clubs, Seven of Clubs, Seven of Clubs, Seven of Clubs
+Eight of Clubs, Eight of Clubs, Eight of Clubs, Eight of Clubs
+Nine of Clubs, Nine of Clubs, Nine of Clubs, Nine of Clubs
+Ten of Clubs, Ten of Clubs, Ten of Clubs, Ten of Clubs
+Jack of Clubs, Jack of Clubs, Jack of Clubs, Jack of Clubs
+Queen of Clubs, Queen of Clubs, Queen of Clubs, Queen of Clubs
+King of Clubs, King of Clubs, King of Clubs, King of Clubs
+Ace of Diamonds, Ace of Diamonds, Ace of Diamonds, Ace of Diamonds
+Two of Diamonds, Two of Diamonds, Two of Diamonds, Two of Diamonds
+Three of Diamonds, Three of Diamonds, Three of Diamonds, Three of Diamonds
+Four of Diamonds, Four of Diamonds, Four of Diamonds, Four of Diamonds
+Five of Diamonds, Five of Diamonds, Five of Diamonds, Five of Diamonds
+Six of Diamonds, Six of Diamonds, Six of Diamonds, Six of Diamonds
+Seven of Diamonds, Seven of Diamonds, Seven of Diamonds, Seven of Diamonds
+Eight of Diamonds, Eight of Diamonds, Eight of Diamonds, Eight of Diamonds
+Nine of Diamonds, Nine of Diamonds, Nine of Diamonds, Nine of Diamonds
+Ten of Diamonds, Ten of Diamonds, Ten of Diamonds, Ten of Diamonds
+Jack of Diamonds, Jack of Diamonds, Jack of Diamonds, Jack of Diamonds
+Queen of Diamonds, Queen of Diamonds, Queen of Diamonds, Queen of Diamonds
+King of Diamonds, King of Diamonds, King of Diamonds, King of Diamonds
+Ace of Hearts, Ace of Hearts, Ace of Hearts, Ace of Hearts
+Two of Hearts, Two of Hearts, Two of Hearts, Two of Hearts
+Three of Hearts, Three of Hearts, Three of Hearts, Three of Hearts
+Four of Hearts, Four of Hearts, Four of Hearts, Four of Hearts
+Five of Hearts, Five of Hearts, Five of Hearts, Five of Hearts
+Six of Hearts, Six of Hearts, Six of Hearts, Six of Hearts
+Seven of Hearts, Seven of Hearts, Seven of Hearts, Seven of Hearts
+Eight of Hearts, Eight of Hearts, Eight of Hearts, Eight of Hearts
+Nine of Hearts, Nine of Hearts, Nine of Hearts, Nine of Hearts
+Ten of Hearts, Ten of Hearts, Ten of Hearts, Ten of Hearts
+Jack of Hearts, Jack of Hearts, Jack of Hearts, Jack of Hearts
+Queen of Hearts, Queen of Hearts, Queen of Hearts, Queen of Hearts
+King of Hearts, King of Hearts, King of Hearts, King of Hearts
+Ace of Spades, Ace of Spades, Ace of Spades, Ace of Spades
+Two of Spades, Two of Spades, Two of Spades, Two of Spades
+Three of Spades, Three of Spades, Three of Spades, Three of Spades
+Four of Spades, Four of Spades, Four of Spades, Four of Spades
+Five of Spades, Five of Spades, Five of Spades, Five of Spades
+Six of Spades, Six of Spades, Six of Spades, Six of Spades
+Seven of Spades, Seven of Spades, Seven of Spades, Seven of Spades
+Eight of Spades, Eight of Spades, Eight of Spades, Eight of Spades
+Nine of Spades, Nine of Spades, Nine of Spades, Nine of Spades
+Ten of Spades, Ten of Spades, Ten of Spades, Ten of Spades
+Jack of Spades, Jack of Spades, Jack of Spades, Jack of Spades
+Queen of Spades, Queen of Spades, Queen of Spades, Queen of Spades
+King of Spades, King of Spades, King of Spades, King of Spades
+
+----------------
+CARD COMPARISONS
+----------------
+higher suit and same rank - equals(): false, compareTo(): 1
+higher suit and lower rank - equals(): false, compareTo(): 1
+same suit and lower rank - equals(): false, compareTo(): -1
+same suit and rank - equals(): true, compareTo(): 0
+
+---------
+BASE DECK
+---------
+Ace of Clubs
+Two of Clubs
+Three of Clubs
+Four of Clubs
+Five of Clubs
+Six of Clubs
+Seven of Clubs
+Eight of Clubs
+Nine of Clubs
+Ten of Clubs
+Jack of Clubs
+Queen of Clubs
+King of Clubs
+Ace of Diamonds
+Two of Diamonds
+Three of Diamonds
+Four of Diamonds
+Five of Diamonds
+Six of Diamonds
+Seven of Diamonds
+Eight of Diamonds
+Nine of Diamonds
+Ten of Diamonds
+Jack of Diamonds
+Queen of Diamonds
+King of Diamonds
+Ace of Hearts
+Two of Hearts
+Three of Hearts
+Four of Hearts
+Five of Hearts
+Six of Hearts
+Seven of Hearts
+Eight of Hearts
+Nine of Hearts
+Ten of Hearts
+Jack of Hearts
+Queen of Hearts
+King of Hearts
+Ace of Spades
+Two of Spades
+Three of Spades
+Four of Spades
+Five of Spades
+Six of Spades
+Seven of Spades
+Eight of Spades
+Nine of Spades
+Ten of Spades
+Jack of Spades
+Queen of Spades
+King of Spades
+
 -------------
 SHUFFLED DECK
 -------------
-Nine of Spades
-Queen of Diamonds
-Six of Diamonds
-Five of Clubs
-Two of Diamonds
-King of Diamonds
-Seven of Hearts
 Eight of Clubs
-Five of Spades
-Nine of Clubs
-Jack of Clubs
-Eight of Hearts
-Nine of Diamonds
-Six of Clubs
-Ace of Clubs
-King of Spades
-Eight of Diamonds
-Two of Spades
-Jack of Hearts
-Ten of Clubs
-Queen of Hearts
-King of Clubs
-Ten of Hearts
-Queen of Clubs
-Seven of Diamonds
-Jack of Diamonds
-Seven of Spades
-Three of Hearts
-Two of Hearts
-Ace of Diamonds
-Nine of Hearts
-Four of Clubs
-Three of Clubs
-Five of Hearts
-Ten of Spades
-Ace of Spades
-Ten of Diamonds
-Seven of Clubs
-Eight of Spades
-Five of Diamonds
-Two of Clubs
-Three of Spades
-Four of Spades
-Six of Hearts
-Three of Diamonds
-Ace of Hearts
-King of Hearts
-Four of Diamonds
-Four of Hearts
-Jack of Spades
-Queen of Spades
-Six of Spades
-
----------------
-MERGE SORT DECK
----------------
-Ace of Clubs
-Two of Clubs
-Three of Clubs
-Four of Clubs
-Five of Clubs
 Six of Clubs
 Seven of Clubs
-Eight of Clubs
-Nine of Clubs
-Ten of Clubs
 Jack of Clubs
-Queen of Clubs
-King of Clubs
-Ace of Diamonds
-Two of Diamonds
-Three of Diamonds
-Four of Diamonds
-Five of Diamonds
-Six of Diamonds
-Seven of Diamonds
-Eight of Diamonds
-Nine of Diamonds
-Ten of Diamonds
-Jack of Diamonds
-Queen of Diamonds
-King of Diamonds
-Ace of Hearts
-Two of Hearts
-Three of Hearts
-Four of Hearts
 Five of Hearts
-Six of Hearts
-Seven of Hearts
 Eight of Hearts
-Nine of Hearts
-Ten of Hearts
-Jack of Hearts
-Queen of Hearts
-King of Hearts
+Nine of Clubs
+Ace of Clubs
+Four of Hearts
+King of Diamonds
+Seven of Diamonds
+Queen of Clubs
 Ace of Spades
-Two of Spades
-Three of Spades
-Four of Spades
-Five of Spades
-Six of Spades
-Seven of Spades
-Eight of Spades
-Nine of Spades
+Jack of Hearts
 Ten of Spades
+Eight of Diamonds
+Three of Spades
+Three of Hearts
+Two of Spades
+Three of Clubs
+Six of Diamonds
+Four of Clubs
+Four of Spades
+Ten of Hearts
+Nine of Diamonds
+Three of Diamonds
+Five of Clubs
 Jack of Spades
+Five of Diamonds
+King of Hearts
+Four of Diamonds
+Two of Clubs
+Ten of Clubs
+Five of Spades
+Six of Hearts
 Queen of Spades
+Ace of Diamonds
+Six of Spades
+Queen of Hearts
+Jack of Diamonds
+Ace of Hearts
+Queen of Diamonds
+Two of Diamonds
+Nine of Hearts
+Nine of Spades
+Two of Hearts
 King of Spades
+Eight of Spades
+Seven of Spades
+Seven of Hearts
+King of Clubs
+Ten of Diamonds
 
 -------------------
 SELECTION SORT DECK
@@ -166,6 +232,66 @@ Jack of Spades
 Queen of Spades
 King of Spades
 
+selection sort compared to Arrays.sort - equals(): true
+
+---------------
+MERGE SORT DECK
+---------------
+Ace of Clubs
+Two of Clubs
+Three of Clubs
+Four of Clubs
+Five of Clubs
+Six of Clubs
+Seven of Clubs
+Eight of Clubs
+Nine of Clubs
+Ten of Clubs
+Jack of Clubs
+Queen of Clubs
+King of Clubs
+Ace of Diamonds
+Two of Diamonds
+Three of Diamonds
+Four of Diamonds
+Five of Diamonds
+Six of Diamonds
+Seven of Diamonds
+Eight of Diamonds
+Nine of Diamonds
+Ten of Diamonds
+Jack of Diamonds
+Queen of Diamonds
+King of Diamonds
+Ace of Hearts
+Two of Hearts
+Three of Hearts
+Four of Hearts
+Five of Hearts
+Six of Hearts
+Seven of Hearts
+Eight of Hearts
+Nine of Hearts
+Ten of Hearts
+Jack of Hearts
+Queen of Hearts
+King of Hearts
+Ace of Spades
+Two of Spades
+Three of Spades
+Four of Spades
+Five of Spades
+Six of Spades
+Seven of Spades
+Eight of Spades
+Nine of Spades
+Ten of Spades
+Jack of Spades
+Queen of Spades
+King of Spades
+
+merge sort compared to Arrays.sort - equals(): true
+
 -------------
 DECK TOSTRING
 -------------
@@ -183,30 +309,119 @@ Jack of Clubs       	Jack of Diamonds    	Jack of Hearts      	Jack of Spades
 Queen of Clubs      	Queen of Diamonds   	Queen of Hearts     	Queen of Spades     
 King of Clubs       	King of Diamonds    	King of Hearts      	King of Spades      
 
-----
-DEAL
-----
-HAND 1
+----------------------
+DEAL ALTERNATING HANDS
+----------------------
+HAND 1 TOSTRING()
                     	                    	Jack of Hearts      	King of Spades      
                     	                    	                    	Ten of Spades       
                     	                    	                    	Seven of Spades     
                     	                    	                    	Four of Spades      
                     	                    	                    	Ace of Spades       
 
+HAND 1 CARDS (BOTTOM CARD TO TOP CARD)
 
-HAND 2
+King of Spades
+Ten of Spades
+Seven of Spades
+Four of Spades
+Ace of Spades
+Jack of Hearts
+
+HAND 2 TOSTRING()
                     	                    	King of Hearts      	Queen of Spades     
                     	                    	Ten of Hearts       	Nine of Spades      
                     	                    	                    	Six of Spades       
                     	                    	                    	Three of Spades     
 
+HAND 2 CARDS (BOTTOM CARD TO TOP CARD)
 
-HAND 3
+Queen of Spades
+Nine of Spades
+Six of Spades
+Three of Spades
+King of Hearts
+Ten of Hearts
+
+HAND 3 TOSTRING()
                     	                    	Queen of Hearts     	Jack of Spades      
                     	                    	Nine of Hearts      	Eight of Spades     
                     	                    	                    	Five of Spades      
                     	                    	                    	Two of Spades       
 
+HAND 3 CARDS (BOTTOM CARD TO TOP CARD)
+
+Jack of Spades
+Eight of Spades
+Five of Spades
+Two of Spades
+Queen of Hearts
+Nine of Hearts
+
+REMAINING CARDS IN DECK (DECK SHOULD BE SHUFFLED):
+Ace of Clubs        	Ace of Diamonds     	Ace of Hearts       	                    
+Two of Clubs        	Two of Diamonds     	Two of Hearts       	                    
+Three of Clubs      	Three of Diamonds   	Three of Hearts     	                    
+Four of Clubs       	Four of Diamonds    	Four of Hearts      	                    
+Five of Clubs       	Five of Diamonds    	Five of Hearts      	                    
+Six of Clubs        	Six of Diamonds     	Six of Hearts       	                    
+Seven of Clubs      	Seven of Diamonds   	Seven of Hearts     	                    
+Eight of Clubs      	Eight of Diamonds   	Eight of Hearts     	                    
+Nine of Clubs       	Nine of Diamonds    	                    	                    
+Ten of Clubs        	Ten of Diamonds     	                    	                    
+Jack of Clubs       	Jack of Diamonds    	                    	                    
+Queen of Clubs      	Queen of Diamonds   	                    	                    
+King of Clubs       	King of Diamonds    	                    	                    
+
+--------------------------
+DEAL NOT ALTERNATING HANDS
+--------------------------
+HAND 1 TOSTRING()
+                    	                    	                    	King of Spades      
+                    	                    	                    	Queen of Spades     
+                    	                    	                    	Jack of Spades      
+                    	                    	                    	Ten of Spades       
+                    	                    	                    	Nine of Spades      
+                    	                    	                    	Eight of Spades     
+HAND1 CARDS (BOTTOM CARD TO TOP CARD)
+
+King of Spades
+Queen of Spades
+Jack of Spades
+Ten of Spades
+Nine of Spades
+Eight of Spades
+
+HAND 2 TOSTRING()
+                    	                    	                    	Seven of Spades     
+                    	                    	                    	Six of Spades       
+                    	                    	                    	Five of Spades      
+                    	                    	                    	Four of Spades      
+                    	                    	                    	Three of Spades     
+                    	                    	                    	Two of Spades       
+HAND2 CARDS (BOTTOM CARD TO TOP CARD)
+
+Seven of Spades
+Six of Spades
+Five of Spades
+Four of Spades
+Three of Spades
+Two of Spades
+
+HAND 3 TOSTRING()
+                    	                    	King of Hearts      	Ace of Spades       
+                    	                    	Queen of Hearts     	                    
+                    	                    	Jack of Hearts      	                    
+                    	                    	Ten of Hearts       	                    
+                    	                    	Nine of Hearts      	                    
+HAND3 CARDS (BOTTOM CARD TO TOP CARD)
+
+Ace of Spades
+King of Hearts
+Queen of Hearts
+Jack of Hearts
+Ten of Hearts
+Nine of Hearts
 
 REMAINING CARDS IN DECK (DECK SHOULD BE SHUFFLED):
 Ace of Clubs        	Ace of Diamonds     	Ace of Hearts       	                    
@@ -226,25 +441,26 @@ King of Clubs       	King of Diamonds
 ----
 PICK
 ----
-cards should be randomly selected: Six of Diamonds, Eight of Clubs
+Two cards should be randomly selected: Two of Clubs, Eight of Clubs
 
 REMAINING CARDS IN DECK:
-Ace of Clubs        	Ace of Diamonds     	Ace of Hearts       	Queen of Spades     
-Two of Clubs        	Two of Diamonds     	Two of Hearts       	King of Spades      
-Three of Clubs      	Three of Diamonds   	Three of Hearts     	Ace of Spades       
-Four of Clubs       	Four of Diamonds    	Four of Hearts      	Two of Spades       
-Five of Clubs       	Five of Diamonds    	Five of Hearts      	Three of Spades     
-Six of Clubs        	Seven of Diamonds   	Six of Hearts       	Four of Spades      
-Seven of Clubs      	Eight of Diamonds   	Seven of Hearts     	Five of Spades      
-Nine of Clubs       	Nine of Diamonds    	Eight of Hearts     	Six of Spades       
-Ten of Clubs        	Ten of Diamonds     	Nine of Hearts      	Seven of Spades     
-Jack of Clubs       	Jack of Diamonds    	Ten of Hearts       	Eight of Spades     
-Queen of Clubs      	Queen of Diamonds   	Jack of Hearts      	Nine of Spades      
-King of Clubs       	King of Diamonds    	Queen of Hearts     	Ten of Spades       
-                    	                    	King of Hearts      	Jack of Spades      
+Ace of Clubs        	Ace of Diamonds     	Ace of Hearts       	King of Spades      
+Three of Clubs      	Two of Diamonds     	Two of Hearts       	Queen of Spades     
+Four of Clubs       	Three of Diamonds   	Three of Hearts     	Ace of Spades       
+Five of Clubs       	Four of Diamonds    	Four of Hearts      	Two of Spades       
+Six of Clubs        	Five of Diamonds    	Five of Hearts      	Three of Spades     
+Seven of Clubs      	Six of Diamonds     	Six of Hearts       	Four of Spades      
+Nine of Clubs       	Seven of Diamonds   	Seven of Hearts     	Five of Spades      
+Ten of Clubs        	Eight of Diamonds   	Eight of Hearts     	Six of Spades       
+Jack of Clubs       	Nine of Diamonds    	Nine of Hearts      	Seven of Spades     
+Queen of Clubs      	Ten of Diamonds     	Ten of Hearts       	Eight of Spades     
+King of Clubs       	Jack of Diamonds    	Jack of Hearts      	Nine of Spades      
+                    	Queen of Diamonds   	Queen of Hearts     	Ten of Spades       
+                    	King of Diamonds    	King of Hearts      	Jack of Spades      
 
 ------
 EQUALS
 ------
 two sorted decks should be equal. Result of equals(): true
-one sorted deck and one shuffled deck should not be equal. Result of equals(): false
+one sorted deck and one shuffled deck should be equal. Result of equals(): true
+One card has been taken from the second deck so they shouldn't be equal. Result of equals(): false

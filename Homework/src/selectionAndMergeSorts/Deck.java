@@ -210,16 +210,17 @@ public class Deck {
 	
 	/**
 	 * determines if two decks are equal to each other<br/>decks are equal if they have the same cards (not necessarily in the same order)
-	 * @param otherDeck
+	 * @param otherDeck other deck to compare to the current deck
+	 * @param inOrder whether or not to check if cards are in the same order too
 	 * @return true if decks are equal, false otherwise
 	 */
 	public boolean equals(Object otherDeck) {
 		if (otherDeck instanceof Deck) {
 			Card[] cards1 = this.divide(this.getCards());
 			Card[] cards2 = this.divide(((Deck)otherDeck).getCards());
-			
+
 			if (cards1.length == cards2.length) {
-				
+
 				for (int i = 0; i < cards1.length; i++) {
 					if (!cards1[i].equals(cards2[i]) || !cards1[i].equals(cards2[i])) {
 						return false;

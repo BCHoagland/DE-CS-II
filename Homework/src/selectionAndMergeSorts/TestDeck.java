@@ -23,6 +23,8 @@ public class TestDeck {
 			//comparator for later
 			CardComparator comp = new CardComparator();
 			
+			
+			
 			//card constructors
 			int[] testSuitInts = {0, 1, 2, 3};
 			String[] testSuitStrings = {"Clubs", "Diamonds", "Hearts", "Spades"};
@@ -38,6 +40,8 @@ public class TestDeck {
 			}
 			outputFile.println();
 			
+			
+			
 			//card comparisons
 			Card testCard1 = new Card(3, 1);
 			Card testCard2 = new Card(2, 1);
@@ -52,15 +56,21 @@ public class TestDeck {
 			outputFile.println("same suit and rank - equals(): " + testCard1.equals(testCard5) + ", compareTo(): " + testCard1.compareTo(testCard5));
 			outputFile.println();
 			
+			
+			
 			//base deck
 			outputFile.println("---------\nBASE DECK\n---------");
 			Deck testDeck = new Deck();
 			printCards(testDeck);
 			
+			
+			
 			//shuffled deck
 			outputFile.println("-------------\nSHUFFLED DECK\n-------------");
 			testDeck = new Deck(false);
 			printCards(testDeck);
+			
+			
 			
 			//test selection sort
 			outputFile.println("-------------------\nSELECTION SORT DECK\n-------------------");
@@ -69,11 +79,16 @@ public class TestDeck {
 			
 			Deck checkDeck = new Deck(false);
 			Arrays.sort(checkDeck.getCards(), comp);
-			boolean deckEquals = false;
-			if (testDeck.equals(checkDeck)) {
-				deckEquals = true;
+			boolean deckEquals = true;
+			for (int i = 0; i < checkDeck.getCards().length; i++) {
+				if (!testDeck.getCards()[i].equals(checkDeck.getCards()[i])) {
+					deckEquals = false;
+					break;
+				}
 			}
 			outputFile.println("selection sort compared to Arrays.sort - equals(): " + deckEquals + "\n");
+			
+			
 			
 			//test merge sort
 			outputFile.println("---------------\nMERGE SORT DECK\n---------------");
@@ -83,16 +98,22 @@ public class TestDeck {
 			
 			checkDeck = new Deck(false);
 			Arrays.sort(checkDeck.getCards(), comp);
-			deckEquals = false;
-			if (testDeck.equals(checkDeck)) {
-				deckEquals = true;
+			deckEquals = true;
+			for (int i = 0; i < checkDeck.getCards().length; i++) {
+				if (!testDeck.getCards()[i].equals(checkDeck.getCards()[i])) {
+					deckEquals = false;
+					break;
+				}
 			}
 			outputFile.println("merge sort compared to Arrays.sort - equals(): " + deckEquals + "\n");
+			
 			
 			
 			//test Deck toString method
 			outputFile.println("-------------\nDECK TOSTRING\n-------------");
 			outputFile.println(testDeck + "\n");
+			
+			
 			
 			//Deck deal with alternating hands
 			outputFile.println("----------------------\nDEAL ALTERNATING HANDS\n----------------------");
@@ -103,6 +124,8 @@ public class TestDeck {
 			}
 			outputFile.println("REMAINING CARDS IN DECK (DECK SHOULD BE SHUFFLED):\n" + testDeck);
 			outputFile.println();
+			
+			
 			
 			//Deck deal without alternating hands
 			outputFile.println("--------------------------\nDEAL NOT ALTERNATING HANDS\n--------------------------");
@@ -115,12 +138,16 @@ public class TestDeck {
 			outputFile.println("REMAINING CARDS IN DECK (DECK SHOULD BE SHUFFLED):\n" + testDeck);
 			outputFile.println();
 			
+			
+			
 			//test Deck pick method
 			outputFile.println("----\nPICK\n----");
 			testDeck = new Deck(true);
 			outputFile.println("Two cards should be randomly selected: " + testDeck.pick() + ", " + testDeck.pick() + "\n");
 			outputFile.println("REMAINING CARDS IN DECK:\n" + testDeck);
 			outputFile.println();
+			
+			
 			
 			//test Deck equals method
 			outputFile.println("------\nEQUALS\n------");

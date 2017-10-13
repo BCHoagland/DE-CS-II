@@ -62,8 +62,8 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * constructor that sets the suit and rank with the given integer inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit int
+	 * @param rank int
 	 */
 	public Card(int suit, int rank) {
 		setSuit(suit);
@@ -72,8 +72,8 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * constructor that sets the suit and rank with the given String inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit String
+	 * @param rank String
 	 */
 	public Card(String suit, String rank) {
 		setSuit(suit);
@@ -82,8 +82,8 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * constructor that sets the suit and rank with the given String and integer inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit String
+	 * @param rank int
 	 */
 	public Card(String suit, int rank) {
 		setSuit(suit);
@@ -92,8 +92,8 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * constructor that sets the suit and rank with the given integer and String inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit int
+	 * @param rank String
 	 */
 	public Card(int suit, String rank) {
 		setSuit(suit);
@@ -102,7 +102,7 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * getter for the suit field
-	 * @return
+	 * @return suit as String
 	 */
 	public String getSuit() {
 		return this.suit;
@@ -110,16 +110,24 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * getter for the rank field
-	 * @return
+	 * @return rank as int
 	 */
 	public int getRank() {
 		return this.rank;
 	}
 	
+	/**
+	 * setter for the suit field with String argument
+	 * @param suit String
+	 */
 	public void setSuit(String suit) {
 		this.suit = suit;
 	}
 	
+	/**
+	 * setter for the suit field with int argument
+	 * @param suit int
+	 */
 	public void setSuit(int suit) {
 		String toSet;
 		switch (suit) {
@@ -142,6 +150,10 @@ public class Card implements Comparable<Card> {
 		this.suit = toSet;
 	}
 	
+	/**
+	 * setter for the rank field with String argument
+	 * @param rank String
+	 */
 	public void setRank(String rank) {
 		int toSet;
 		switch (rank) {
@@ -203,6 +215,10 @@ public class Card implements Comparable<Card> {
 		this.rank = toSet;
 	}
 	
+	/**
+	 * setter for the rank field with int argument
+	 * @param rank int
+	 */
 	public void setRank(int rank) {
 		this.rank = rank;
 	}
@@ -215,15 +231,14 @@ public class Card implements Comparable<Card> {
 	}
 	
 	/**
-	 * returns the String representation of the given rank
-	 * @param rank
+	 * returns the String representation of the Card's rank
 	 */
 	public String getRankStr() {
 		return numWords[this.rank];
 	}
 	
 	/**
-	 * returns the integer representation of the given suit
+	 * returns the integer representation of the Card's suit
 	 */
 	public int getSuitInt() {
 		switch (this.suit) {
@@ -241,7 +256,10 @@ public class Card implements Comparable<Card> {
 	}
 	
 	/**
-	 * default compareTo() method that returns a positive number if the rank of this card is greater than the rank of the other card, 0 if the cards have the same rank, and a negative number otherwise
+	 * returns the integer result of comparing this card to another card<br/>
+	 * compares suit and rank
+	 * @param otherCard
+	 * @return int value of comparison
 	 */
 	@Override
 	public int compareTo(Card otherCard) {
@@ -258,6 +276,8 @@ public class Card implements Comparable<Card> {
 	/**
 	 * returns the integer result of comparing this card to another card<br/>
 	 * compares suit or rank, based on given arguments
+	 * @param otherCard
+	 * @return int value of comparison
 	 */
 	public int compareTo(Card otherCard, boolean rank) {
 		if (otherCard instanceof Card) {

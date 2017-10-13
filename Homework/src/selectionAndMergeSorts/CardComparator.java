@@ -9,7 +9,7 @@ import java.util.Comparator;
 public class CardComparator implements Comparator<Card> {
 	
 	/**
-	 * default constructor that creates a CardComparator for rank
+	 * default constructor that creates a CardComparator
 	 */
 	public CardComparator() {
 		super();
@@ -17,6 +17,9 @@ public class CardComparator implements Comparator<Card> {
 	
 	/**
 	 * returns the value of comparing two Cards
+	 * @param card1
+	 * @param card2
+	 * @return int value of comparison
 	 */
 	@Override
 	public int compare(Card card1, Card card2) {

@@ -32,7 +32,7 @@ public class Deck {
 	
 	/**
 	 * constructor that creates either a sorted or shuffled deck of cards, based on given boolean argument
-	 * @param sorted
+	 * @param sorted whether or not the deck should be sorted
 	 */
 	public Deck(boolean sorted) {
 		this.cards = createDeck();
@@ -111,7 +111,7 @@ public class Deck {
 	}
 	
 	/**
-	 * switches cards at random indices to shuffle the deck<br/>if this weren't using cards I would've made a costas array and you would've been so proud
+	 * switches cards at random indices to shuffle the deck
 	 */
 	public void shuffle() {
 		for (int i = 0; i <= topIndex; i++) {
@@ -209,7 +209,7 @@ public class Deck {
 	}
 	
 	/**
-	 * determines if two decks are equal to each other
+	 * determines if two decks are equal to each other<br/>decks are equal if they have the same cards (not necessarily in the same order)
 	 * @param otherDeck
 	 * @return true if decks are equal, false otherwise
 	 */
@@ -233,10 +233,11 @@ public class Deck {
 	}
 	
 	/**
-	 * deals out hands (decks) of cards based on the given parameters
-	 * @param hands
-	 * @param cardsPerHand
-	 * @return
+	 * deals out hands (decks) of cards
+	 * @param hands number of hands to deal to
+	 * @param cardsPerHand numbers of cards in each hand
+	 * @param alternateHands whether to alternate card distribution to each hand or to deal all cards to one hand at a time
+	 * @return Deck[] of the new hands
 	 */
 	public Deck[] deal(int hands, int cardsPerHand, boolean alternateHands) {
 		if (hands * cardsPerHand > (topIndex + 1)) return null;
@@ -267,7 +268,7 @@ public class Deck {
 
 	/**
 	 * removes a random card from the deck and collapses the deck
-	 * @return card that was randomly selected
+	 * @return Card that was randomly selected
 	 */
 	public Card pick() {
 		int index = (int)(Math.random() * (topIndex + 1));
@@ -314,7 +315,6 @@ public class Deck {
 	/**
 	 * recursively splits and merges an array of Cards using the merge sort algorithm
 	 * @param arr
-	 * @param rank whether or not to sort the cards by rank
 	 * @return the sorted array of Cards
 	 */
 	private Card[] divide(Card[] arr) {
@@ -346,7 +346,6 @@ public class Deck {
 	 * merges two sorted arrays into one sorted array
 	 * @param arr1
 	 * @param arr2
-	 * @param rank whether or not to sort the cards by rank
 	 * @return the combined sorted array
 	 */
 	private Card[] merge(Card[] arr1, Card[] arr2) {
@@ -371,7 +370,6 @@ public class Deck {
 	 * finds the index at which to insert a card during the merge portion of the merge sort
 	 * @param card
 	 * @param arr
-	 * @param rank whether or not to sort the cards by rank
 	 * @return index of where to insert value
 	 */
 	private int findMergeIndex(Card card, Card[] arr) {

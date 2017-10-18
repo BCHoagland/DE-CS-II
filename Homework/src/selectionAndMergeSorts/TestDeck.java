@@ -4,6 +4,12 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
+/**
+ * TestDeck Class
+ * @author Braden Hoagland
+ *
+ */
+
 public class TestDeck {
 	
 	public static PrintWriter outputFile;

@@ -123,58 +123,58 @@ King of Spades
 -------------
 SHUFFLED DECK
 -------------
-Ten of Diamonds
-Eight of Diamonds
-Three of Diamonds
-Eight of Spades
-King of Diamonds
-Four of Clubs
-King of Spades
-King of Hearts
-Nine of Diamonds
-Four of Hearts
-Six of Hearts
-King of Clubs
-Seven of Diamonds
-Ace of Clubs
-Seven of Hearts
-Ten of Spades
-Six of Clubs
-Four of Diamonds
-Three of Spades
-Nine of Spades
-Nine of Hearts
-Seven of Clubs
-Eight of Hearts
-Six of Spades
-Queen of Clubs
-Two of Spades
-Four of Spades
-Five of Hearts
-Two of Diamonds
-Two of Clubs
-Three of Clubs
-Ace of Hearts
-Queen of Diamonds
-Jack of Clubs
-Ten of Hearts
-Five of Spades
-Ace of Diamonds
-Five of Diamonds
-Ace of Spades
-Nine of Clubs
-Seven of Spades
-Queen of Hearts
 Jack of Diamonds
-Three of Hearts
-Six of Diamonds
-Queen of Spades
-Two of Hearts
-Jack of Spades
-Jack of Hearts
-Eight of Clubs
-Five of Clubs
+Seven of Diamonds
+Queen of Clubs
+Three of Clubs
 Ten of Clubs
+Ace of Diamonds
+Three of Diamonds
+Nine of Spades
+Two of Hearts
+Six of Hearts
+Five of Hearts
+King of Diamonds
+Nine of Clubs
+Four of Diamonds
+Five of Diamonds
+King of Clubs
+King of Spades
+Ten of Hearts
+Seven of Clubs
+Ace of Clubs
+Six of Clubs
+King of Hearts
+Nine of Hearts
+Queen of Diamonds
+Two of Clubs
+Jack of Hearts
+Seven of Hearts
+Five of Spades
+Four of Spades
+Six of Diamonds
+Ace of Spades
+Three of Hearts
+Nine of Diamonds
+Eight of Diamonds
+Four of Hearts
+Jack of Clubs
+Six of Spades
+Queen of Hearts
+Ace of Hearts
+Queen of Spades
+Ten of Spades
+Ten of Diamonds
+Seven of Spades
+Two of Diamonds
+Three of Spades
+Eight of Hearts
+Five of Clubs
+Two of Spades
+Four of Clubs
+Eight of Spades
+Jack of Spades
+Eight of Clubs
 
 -------------------
 SELECTION SORT DECK
@@ -441,22 +441,22 @@ King of Clubs       	King of Diamonds
 ----
 PICK
 ----
-Two cards should be randomly selected: Queen of Spades, Jack of Hearts
+Two cards should be randomly selected: Ace of Hearts, Six of Diamonds
 
 REMAINING CARDS IN DECK:
-Ace of Clubs        	Ace of Diamonds     	Ace of Hearts       	King of Spades      
-Two of Clubs        	Two of Diamonds     	Two of Hearts       	Ace of Spades       
-Three of Clubs      	Three of Diamonds   	Three of Hearts     	Two of Spades       
-Four of Clubs       	Four of Diamonds    	Four of Hearts      	Three of Spades     
-Five of Clubs       	Five of Diamonds    	Five of Hearts      	Four of Spades      
-Six of Clubs        	Six of Diamonds     	Six of Hearts       	Five of Spades      
-Seven of Clubs      	Seven of Diamonds   	Seven of Hearts     	Six of Spades       
-Eight of Clubs      	Eight of Diamonds   	Eight of Hearts     	Seven of Spades     
-Nine of Clubs       	Nine of Diamonds    	Nine of Hearts      	Eight of Spades     
-Ten of Clubs        	Ten of Diamonds     	Ten of Hearts       	Nine of Spades      
-Jack of Clubs       	Jack of Diamonds    	Queen of Hearts     	Ten of Spades       
-Queen of Clubs      	Queen of Diamonds   	King of Hearts      	Jack of Spades      
-King of Clubs       	King of Diamonds    	                    	                    
+Ace of Clubs        	Ace of Diamonds     	Two of Hearts       	Queen of Spades     
+Two of Clubs        	Two of Diamonds     	Three of Hearts     	King of Spades      
+Three of Clubs      	Three of Diamonds   	Four of Hearts      	Ace of Spades       
+Four of Clubs       	Four of Diamonds    	Five of Hearts      	Two of Spades       
+Five of Clubs       	Five of Diamonds    	Six of Hearts       	Three of Spades     
+Six of Clubs        	Seven of Diamonds   	Seven of Hearts     	Four of Spades      
+Seven of Clubs      	Eight of Diamonds   	Eight of Hearts     	Five of Spades      
+Eight of Clubs      	Nine of Diamonds    	Nine of Hearts      	Six of Spades       
+Nine of Clubs       	Ten of Diamonds     	Ten of Hearts       	Seven of Spades     
+Ten of Clubs        	Jack of Diamonds    	Jack of Hearts      	Eight of Spades     
+Jack of Clubs       	Queen of Diamonds   	Queen of Hearts     	Nine of Spades      
+Queen of Clubs      	King of Diamonds    	King of Hearts      	Ten of Spades       
+King of Clubs       	                    	                    	Jack of Spades      
 
 ------
 EQUALS

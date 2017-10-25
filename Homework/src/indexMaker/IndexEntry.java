@@ -46,6 +46,10 @@ public class IndexEntry {
 		return word;
 	}
 	
+	/**
+	 * returns the formatted index entry
+	 * @return String representation of the index entry
+	 */
 	public String getNumsListAsString() {
 		String str = "";
 		for (int num : numsList) {

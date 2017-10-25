@@ -42,8 +42,16 @@ public class IndexEntry {
 	 * getter function for the word field
 	 * @return the IndexEntry's word field
 	 */
-	String getWord() {
+	public String getWord() {
 		return word;
+	}
+	
+	public String getNumsListAsString() {
+		String str = "";
+		for (int num : numsList) {
+			str += " " + num + ",";
+		}
+		return str.substring(0, str.length() - 1);
 	}
 	
 	/**
@@ -52,6 +60,6 @@ public class IndexEntry {
 	 */
 	@Override
 	public String toString() {
-		return getWord() + numsList.toString();
+		return getWord() + getNumsListAsString();
 	}
 }

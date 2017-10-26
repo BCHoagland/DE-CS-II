@@ -53,6 +53,6 @@ public class Stock implements Comparable<Stock> {
 	@Override
 	public int compareTo(Stock s) {
 		//TODO finish this
-		return (int)(this.getLastPrice() - s.getLastPrice());
+		return (int)Math.signum(this.getLastPrice() - s.getLastPrice());
 	}
 }

@@ -24,6 +24,10 @@ public class TradeOrder {
 		this.market = market;
 	}
 	
+	public String getSymbol() {
+		return this.symbol;
+	}
+	
 	public String toString() {
 		String buyOrSell, marketOrLimit;
 		if (buy) buyOrSell = BUY; else buyOrSell = SELL;

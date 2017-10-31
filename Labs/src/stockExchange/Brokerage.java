@@ -1,5 +1,6 @@
 package stockExchange;
 
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -10,6 +11,7 @@ public class Brokerage implements Login {
 	
 	public Brokerage(StockExchange exchange) {
 		traders = new TreeMap<String, Trader>();
+		activeTraders = new TreeSet<Trader>();
 	}
 	
 	@Override
@@ -54,5 +56,18 @@ public class Brokerage implements Login {
 		return 0;
 	}
 	
-	
+	public String toString() {
+		String str = "All Traders:\n";
+		for(Map.Entry<String, Trader> entry : traders.entrySet()) {
+			String key = entry.getKey();
+			Trader value = entry.getValue();
+			str += "\t" + key + " => " + value + "\n";
+		}
+		
+		str += "Active Traders:\n";
+		for (Trader t : activeTraders) {
+			str += t;
+		}
+		return str;
+	}
 }

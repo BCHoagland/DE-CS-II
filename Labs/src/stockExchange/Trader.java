@@ -14,6 +14,6 @@ public class Trader {
 	
 	public String toString() {
 		//TODO fix this
-		return brokerage + " ---- " + username + ": " + password;
+		return /*brokerage + " ---- " + */username + " - " + password;
 	}
 }

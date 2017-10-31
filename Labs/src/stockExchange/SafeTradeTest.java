@@ -11,7 +11,15 @@ public class SafeTradeTest {
 	public static void main(String[] args) {
 		testStock();
 		testStockExchange();
+		testBrokerage();
+		testTrader();
 	}
+	
+	
+	
+	//WHAT ABOUT CONSTRUCTORS
+	
+	
 	
 	public static void printTitle(String title) {
 		String str = "";
@@ -28,8 +36,14 @@ public class SafeTradeTest {
 	public static void testStock() {
 		printTitle("TESTING STOCK");
 		Stock testStock = new Stock("GOOG", "Google", 1234);
+		
+		//toString()
 		System.out.println("TOSTRING(): " + testStock + "\n");
+		
+		//placeOrder()
 		System.out.println("PLACEORDER(): " + "\n");
+		
+		//compareTo()
 		System.out.println("COMPARETO(): " + "\n");
 	}
 	
@@ -46,5 +60,31 @@ public class SafeTradeTest {
 		TradeOrder testTradeOrder = new TradeOrder(testTrader, 4, 4000, "MSFT", true, true);
 		testExchange.placeOrder(testTradeOrder);
 		//ADD TEST OUTPUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	}
+	
+	public static void testBrokerage() {
+		printTitle("TESTING BROKERAGE");
+		
+		//addUser
+		System.out.println("ADDUSER():\nnew user: " + testBrokerage.addUser("Braden", "password"));
+		System.out.println("ADDUSER():\nanother new user: " + testBrokerage.addUser("Charles", "p8ssw0rd"));
+		System.out.println("name too short: " + testBrokerage.addUser("abc", "password"));
+		System.out.println("name too long: " + testBrokerage.addUser("abcdefghijk", "password"));
+		System.out.println("password too short: " + testBrokerage.addUser("Braden", "a"));
+		System.out.println("password too long: " + testBrokerage.addUser("Braden", "abcdefghijk"));
+		System.out.println("repeat user: " + testBrokerage.addUser("Braden", "password") + "\n");
+		
+		//toString
+		System.out.println("TOSTRING():\n" + testBrokerage);
+		
+		//login
+		System.out.println("LOGIN():" + "\n");
+	}
+	
+	public static void testTrader() {
+		printTitle("TESTING TRADER");
+		
+		//toString
+		System.out.println("TOSTRING(): " + testTrader);
 	}
 }

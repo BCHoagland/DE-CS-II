@@ -7,19 +7,19 @@ public class Stock implements Comparable<Stock> {
 	
 	private String symbol;
 	private String name;
-	private double lowPrice, lastPrice, highPrice;
+	private double lowPrice, lastPrice, highPrice, dayVolume;
 	
 	private PriorityQueue<TradeOrder> buyOrders;
 	private PriorityQueue<TradeOrder> sellOrders;
 	
 	private static DecimalFormat money = new DecimalFormat("$#,##0.00");
 	
-	Stock(String s, String n, double p) {
-		this.symbol = s;
-		this.name = n;
-		this.lastPrice = p;
-		this.lowPrice = p;
-		this.highPrice = p;
+	Stock(String symbol, String name, double price) {
+		this.symbol = symbol;
+		this.name = name;
+		this.lastPrice = price;
+		this.lowPrice = price;
+		this.highPrice = price;
 	}
 	
 	public String getSymbol() {

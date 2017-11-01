@@ -6,10 +6,12 @@ import java.util.TreeSet;
 
 public class Brokerage implements Login {
 	
+	private StockExchange currentStockExchange;
 	private TreeMap<String, Trader> traders;
 	private TreeSet<Trader> activeTraders;
 	
 	public Brokerage(StockExchange exchange) {
+		currentStockExchange = exchange;
 		traders = new TreeMap<String, Trader>();
 		activeTraders = new TreeSet<Trader>();
 	}
@@ -52,11 +54,25 @@ public class Brokerage implements Login {
 		//if (!trader.hasMessages()) trader.receiveMessage("");
 		//WHAT DOES THIS DO^^^^^^^^^^^^^^^
 		
-		//trader.openWindow();
-		//WHAT DOES THIS DO TOO^^^^^^^^^^^^^^^^
+		trader.openWindow();
 		
 		activeTraders.add(trader);
 		return 0;
+	}
+	
+	public void logout(Trader trader) {
+		if (activeTraders.contains(trader)) {
+			activeTraders.remove(trader);
+		}
+	}
+	
+	public void getQuote(String symbol, Trader trader) {
+		String quote = currentStockExchange.getQuote(symbol);
+		trader.receiveMessage(quote);
+	}
+	
+	public void placeOrder(TradeOrder order) {
+		currentStockExchange.placeOrder(order);
 	}
 	
 	public String toString() {

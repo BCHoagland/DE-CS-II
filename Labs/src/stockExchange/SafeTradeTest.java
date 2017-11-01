@@ -15,12 +15,6 @@ public class SafeTradeTest {
 		testTrader();
 	}
 	
-	
-	
-	//WHAT ABOUT CONSTRUCTORS
-	
-	
-	
 	public static void printTitle(String title) {
 		String str = "";
 		for (int i = 0; i < 64; i++) {

@@ -67,7 +67,7 @@ public class SafeTradeTest {
 		
 		//addUser
 		System.out.println("ADDUSER():\nnew user: " + testBrokerage.addUser("Braden", "password"));
-		System.out.println("ADDUSER():\nanother new user: " + testBrokerage.addUser("Charles", "p8ssw0rd"));
+		System.out.println("another new user: " + testBrokerage.addUser("Charles", "p8ssw0rd"));
 		System.out.println("name too short: " + testBrokerage.addUser("abc", "password"));
 		System.out.println("name too long: " + testBrokerage.addUser("abcdefghijk", "password"));
 		System.out.println("password too short: " + testBrokerage.addUser("Braden", "a"));
@@ -78,7 +78,10 @@ public class SafeTradeTest {
 		System.out.println("TOSTRING():\n" + testBrokerage);
 		
 		//login
-		System.out.println("LOGIN():" + "\n");
+		System.out.println("LOGIN():\ngood login: " + testBrokerage.login("Braden", "password"));
+		System.out.println("bad user:" + testBrokerage.login("Barden", "password"));
+		System.out.println("bad password:" + testBrokerage.login("Charles", "password"));
+		System.out.println("already logged in:" + testBrokerage.login("Braden", "password") + "\n");
 	}
 	
 	public static void testTrader() {

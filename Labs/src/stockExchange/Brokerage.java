@@ -34,7 +34,7 @@ public class Brokerage implements Login {
 	
 	@Override
 	public int login(String name, String password) {
-		Trader trader = registeredTraders.get(name);
+		Trader trader = traders.get(name);
 		
 		if (trader == null) {
 			return -1;
@@ -45,14 +45,17 @@ public class Brokerage implements Login {
 			return -2;
 		}
 		
-		if (loggedInTraders.contains(trader)) {
+		if (activeTraders.contains(trader)) {
 			return -3;
 		}
 		
-		if (!trader.hasMessages()) trader.receiveMessage("");
+		//if (!trader.hasMessages()) trader.receiveMessage("");
+		//WHAT DOES THIS DO^^^^^^^^^^^^^^^
 		
-		trader.openWindow();
-		loggedInTraders.add(trader);
+		//trader.openWindow();
+		//WHAT DOES THIS DO TOO^^^^^^^^^^^^^^^^
+		
+		activeTraders.add(trader);
 		return 0;
 	}
 	

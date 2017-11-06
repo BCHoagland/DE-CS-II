@@ -12,7 +12,7 @@ public class StockExchange {
 	
 	public String getQuote(String symbol) {
 		if (stocks.containsKey(symbol)) {
-			return stocks.get(symbol).toString();
+			return stocks.get(symbol).getQuote();
 		} else {
 			return "This stock does not exist rip";
 		}

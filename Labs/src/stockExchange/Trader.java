@@ -1,15 +1,23 @@
 package stockExchange;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Trader implements Comparable<Trader> {
 	
 	private Brokerage brokerage;
 	private String username;
 	private String password;
 	
+	private Queue<String> mailbox;
+	
+	private TraderWindow window;
+	
 	public Trader(Brokerage brokerage, String username, String password) {
 		this.brokerage = brokerage;
 		this.username = username;
 		this.password = password;
+		this.mailbox = new LinkedList<String>();
 	}
 	
 	public String getName() {
@@ -29,20 +37,27 @@ public class Trader implements Comparable<Trader> {
 	}
 	
 	public boolean hasMessages() {
-		//TODO return true if they have messages in their mailbox; false otherwise
-		return false;		//FIX THIS
+		if (mailbox.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 	
 	public void receiveMessage(String msg) {
-		//TODO do this
+		mailbox.add(msg);
+		
+		while (mailbox.size() > 0) {
+			window.showMessage(mailbox.poll());
+		}
 	}
 	
 	public void openWindow() {
-		//TODO idk how this works
+		window = new TraderWindow(this);
 	}
 	
 	public void quit() {
 		this.brokerage.logout(this);
+		window = null;								//TODO is this even necessary?
 	}
 
 	@Override

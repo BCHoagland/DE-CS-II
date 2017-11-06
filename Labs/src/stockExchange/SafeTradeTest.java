@@ -6,7 +6,7 @@ public class SafeTradeTest {
 	private static StockExchange testExchange = new StockExchange();
 	private static Brokerage testBrokerage = new Brokerage(testExchange);
 	private static Trader testTrader = new Trader(testBrokerage, "testUsername", "testPassword");
-	private static TradeOrder testTradeOrder = new TradeOrder(testTrader, 4, 4000, "MSFT", true, true);
+	private static TradeOrder testTradeOrder = new TradeOrder(testTrader, "MSFT", true, true, 4, 4000);
 	
 	public static void main(String[] args) {
 		testStock();
@@ -31,8 +31,8 @@ public class SafeTradeTest {
 		printTitle("TESTING STOCK");
 		Stock testStock = new Stock("GOOG", "Google", 1234);
 		
-		//toString()
-		System.out.println("TOSTRING(): " + testStock + "\n");
+		//getQuote
+		System.out.println("GETQUOTE():\n" + testStock.getQuote() + "\n");
 		
 		//placeOrder()
 		System.out.println("PLACEORDER(): " + "\n");
@@ -51,7 +51,7 @@ public class SafeTradeTest {
 		System.out.println("LISTSTOCK(): " + testExchange.getQuote("MSFT") + "\n");
 		
 		//placeOrder()
-		TradeOrder testTradeOrder = new TradeOrder(testTrader, 4, 4000, "MSFT", true, true);
+		TradeOrder testTradeOrder = new TradeOrder(testTrader, "MSFT", true, true, 4, 4000);
 		testExchange.placeOrder(testTradeOrder);
 		//ADD TEST OUTPUT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	}

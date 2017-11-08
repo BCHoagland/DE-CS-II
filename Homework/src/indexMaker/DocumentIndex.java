@@ -10,7 +10,7 @@ import java.util.TreeMap;
 public class DocumentIndex extends TreeMap<String, IndexEntry> {
 	
 	/**
-	 * I have no idea what this is
+	 * I have no idea what this is but Eclipse gets mad if I don't have it
 	 */
 	private static final long serialVersionUID = 1L;
 	
@@ -18,7 +18,7 @@ public class DocumentIndex extends TreeMap<String, IndexEntry> {
 	 * default constructor to initialize an empty ArrayList for IndexEntry objects
 	 */
 	public DocumentIndex() {
-		super();
+		super(new IndexEntryComparator());
 	}
 	
 	/**
@@ -35,8 +35,10 @@ public class DocumentIndex extends TreeMap<String, IndexEntry> {
 	 * @param num
 	 */
 	void addWord(String word, int num) {
-		int index = foundOrInserted(word);
-		this.get(index).add(num);
+		if (!this.containsKey(word)) {
+			this.put(word, new IndexEntry(word));
+		}
+		this.get(word).add(num);
 	}
 	
 	/**
@@ -51,32 +53,5 @@ public class DocumentIndex extends TreeMap<String, IndexEntry> {
 				addWord(word, num);
 			}
 		}
-	}
-	
-	/**
-	 * find the index of the IndexEntry for the given word, creating a new IndexEntry if necessary
-	 * @param word
-	 * @return
-	 */
-	private int foundOrInserted(String word) {
-		for (int i = 0; i < this.size(); i++) {
-			String wordToFind = this.get(i).getWord().toLowerCase();
-			
-			//if IndexEntry already exists for the given word
-			if (wordToFind.equals(word.toLowerCase())) {
-				return i;
-			}
-			
-			//if IndexEtnry does not exist for the given word and the proper insertion index has been found
-			if (wordToFind.compareTo(word.toLowerCase()) > 0) {
-				this.add(i, new IndexEntry(word));
-				return i;
-			}
-		}
-		
-		//if IndexEntry does not exist for the given word and it fits at the end of the ArrayList
-		int oldSize = this.size();
-		this.add(this.size(), new IndexEntry(word));
-		return oldSize;
 	}
 }

@@ -7,7 +7,7 @@ import java.util.TreeSet;
  * @author HoaglandB1
  * @since November 8, 2017
  */
-public class IndexEntry {
+public class IndexEntry /*implements Comparable<IndexEntry>*/ {
 	
 	/**
 	 * word field to store the current word
@@ -55,4 +55,9 @@ public class IndexEntry {
 		String nums = numsList.toString().substring(1, numsList.toString().length() - 1);
 		return getWord() + " " + nums;
 	}
+
+//	@Override
+//	public int compareTo(IndexEntry other) {
+//		return this.word.toUpperCase().compareTo(other.getWord().toUpperCase());
+//	}
 }

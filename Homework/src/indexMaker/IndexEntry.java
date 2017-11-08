@@ -1,6 +1,6 @@
 package indexMaker;
 
-import java.util.ArrayList;
+import java.util.TreeSet;
 
 /**
  * <h1>IndexEntry</h1> class to house the line numbers a word is found on in a text file<br/><br/>
@@ -15,9 +15,9 @@ public class IndexEntry {
 	private String word;
 	
 	/**
-	 * numsList field to store an ArrayList of line numbers for the current word
+	 * numsList field to store a TreeSet of line numbers for the current word
 	 */
-	private ArrayList<Integer> numsList;
+	private TreeSet<Integer> numsList;
 	
 	/**
 	 * constructor to create a new IndexEntry object for the given word
@@ -25,7 +25,7 @@ public class IndexEntry {
 	 */
 	public IndexEntry(String word) {
 		this.word = word.toUpperCase();
-		this.numsList = new ArrayList<Integer>();
+		this.numsList = new TreeSet<Integer>();
 	}
 	
 	/**
@@ -52,6 +52,7 @@ public class IndexEntry {
 	 */
 	@Override
 	public String toString() {
-		return getWord() + numsList.toString();
+		String nums = numsList.toString().substring(1, numsList.toString().length() - 1);
+		return getWord() + " " + nums;
 	}
 }

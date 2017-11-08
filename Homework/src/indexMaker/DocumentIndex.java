@@ -1,13 +1,13 @@
 package indexMaker;
 
-import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * <h1>DocumentIndex</h1> class to house an AraryList of IndexEntry objects<br/><br/>
  * @author HoaglandB1
  * @since November 8, 2017
  */
-public class DocumentIndex extends ArrayList<IndexEntry> {
+public class DocumentIndex extends TreeMap<String, IndexEntry> {
 	
 	/**
 	 * I have no idea what this is
@@ -25,10 +25,9 @@ public class DocumentIndex extends ArrayList<IndexEntry> {
 	 * constructor that creates an ArrayList of a certain size for IndexEntry objects
 	 * @param size
 	 */
-	public DocumentIndex(int size) {
-		super(size);
-		//foundOrInserted();
-	}
+//	public DocumentIndex(int size) {
+//		super(size);
+//	}
 	
 	/**
 	 * add the given line number to the IndexEntry for the given word

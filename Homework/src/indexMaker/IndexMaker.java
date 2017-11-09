@@ -18,32 +18,33 @@ import java.util.Scanner;
 public class IndexMaker {
 	public static void main(String[] args) throws IOException {
 		Scanner keyboard = new Scanner(System.in);
-		String fileName;
+		String inputName, outputName;
 
-		// Open input file:
-
-		if (args.length > 0)
-			fileName = args[0];
-		else {
-			System.out.print("\nEnter input file name: ");
-			fileName = keyboard.nextLine().trim();
+		//make input file
+		if (args.length > 0) {
+			inputName = args[0];
+		} else {
+			System.out.println("Input file name: ");
+			inputName = keyboard.nextLine().trim();
 		}
 
-		BufferedReader inputFile = new BufferedReader(new FileReader(fileName), 1024);
+		BufferedReader inputFile = new BufferedReader(new FileReader(inputName), 1024);
 
-		// Create output file:
-
-		if (args.length > 1)
-			fileName = args[1];
-		else {
-			System.out.print("\nEnter output file name: ");
-			fileName = keyboard.nextLine().trim();
+		//make output file
+		if (args.length > 1) {
+			outputName = args[1];
+		} else {
+			System.out.println("Output file name: ");
+			outputName = keyboard.nextLine().trim();
+			if (outputName.equals("")) {
+				//TODO fix this so it doesn't make the output file name "input.txtIndex.txt"
+				outputName = inputName + "Index.txt";
+			}
 		}
 
-		PrintWriter outputFile = new PrintWriter(new FileWriter(fileName));
+		PrintWriter outputFile = new PrintWriter(new FileWriter(outputName));
 
-		// Create index:
-
+		//create DocumentIndex for the input file
 		DocumentIndex index = new DocumentIndex();
 
 		String line;
@@ -53,17 +54,13 @@ public class IndexMaker {
 			index.addAllWords(line, lineNum);
 		}
 
-		// Save index:
-
+		//transfer contents of the DocumentIndex to the output file
 		for (Map.Entry<String, IndexEntry> entry : index.entrySet())
 			outputFile.println(entry.getValue());
 
-		// Finish:
-
+		//close files and scanners
 		inputFile.close();
 		outputFile.close();
-
 		keyboard.close();
-		System.out.println("Done.");
 	}
 }

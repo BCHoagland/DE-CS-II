@@ -3,7 +3,7 @@ package indexMaker;
 import java.util.TreeMap;
 
 /**
- * <h1>DocumentIndex</h1> class to house an AraryList of IndexEntry objects<br/><br/>
+ * <h1>DocumentIndex</h1> class to house a TreeMap of IndexEntry objects<br/><br/>
  * @author HoaglandB1
  * @since November 8, 2017
  */
@@ -15,19 +15,11 @@ public class DocumentIndex extends TreeMap<String, IndexEntry> {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * default constructor to initialize an empty ArrayList for IndexEntry objects
+	 * default constructor to initialize an empty TreeMap for IndexEntry objects
 	 */
 	public DocumentIndex() {
-		super(new IndexEntryComparator());
+		super();
 	}
-	
-	/**
-	 * constructor that creates an ArrayList of a certain size for IndexEntry objects
-	 * @param size
-	 */
-//	public DocumentIndex(int size) {
-//		super(size);
-//	}
 	
 	/**
 	 * add the given line number to the IndexEntry for the given word
@@ -35,6 +27,7 @@ public class DocumentIndex extends TreeMap<String, IndexEntry> {
 	 * @param num
 	 */
 	void addWord(String word, int num) {
+		word = word.toUpperCase();
 		if (!this.containsKey(word)) {
 			this.put(word, new IndexEntry(word));
 		}

@@ -1,14 +1,7 @@
 package indexMaker;
 
-/**
- * This program takes a text file, creates an index (by line numbers)
- *  for all the words in the file and writes the index
- *  into the output file.  The program takes input and output file names
- *  from the command-line args or prompts the user for the file names.
- */
-
-import java.io.FileReader;
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
@@ -27,8 +20,14 @@ public class IndexMaker {
 			System.out.println("Input file name: ");
 			inputName = keyboard.nextLine().trim();
 		}
-
-		BufferedReader inputFile = new BufferedReader(new FileReader(inputName), 1024);
+		
+		Scanner inputFile = null;
+		try {
+			inputFile = new Scanner(new File(inputName));
+		} catch (FileNotFoundException ex) {
+			System.out.println(ex);
+			System.exit(1);
+		}
 
 		//make output file
 		if (args.length > 1) {
@@ -37,8 +36,11 @@ public class IndexMaker {
 			System.out.println("Output file name: ");
 			outputName = keyboard.nextLine().trim();
 			if (outputName.equals("")) {
-				//TODO fix this so it doesn't make the output file name "input.txtIndex.txt"
-				outputName = inputName + "Index.txt";
+				if (inputName.contains(".")) {
+					outputName = inputName.substring(0, inputName.lastIndexOf(".")) + "Index.txt";
+				} else {
+					outputName = inputName + "Index.txt";
+				}
 			}
 		}
 
@@ -49,7 +51,8 @@ public class IndexMaker {
 
 		String line;
 		int lineNum = 0;
-		while ((line = inputFile.readLine()) != null) {
+		while (inputFile.hasNextLine()) {
+			line = inputFile.nextLine();
 			lineNum++;
 			index.addAllWords(line, lineNum);
 		}

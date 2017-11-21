@@ -15,6 +15,10 @@ public class ProductionLine {
 		this.currentPyramid = new Tower();
 	}
 	
+	public void setPyramid(Tower t) {
+		this.currentPyramid = t;
+	}
+	
 	public void addDisk(Disk disk) {
 		inputQueue.add(disk);
 	}

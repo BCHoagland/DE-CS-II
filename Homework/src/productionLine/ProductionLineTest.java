@@ -47,7 +47,6 @@ public class ProductionLineTest {
 		
 		Tower t = new Tower();
 		output.println("new tower: " + t + "\n");
-//		output.println("new tower: " + t + ", inverted: " + t.isInverted() + "\n");
 		
 		Disk d1 = new Disk(4);
 		Disk d2 = new Disk(3);
@@ -58,14 +57,10 @@ public class ProductionLineTest {
 		t.add(d3);
 		t.add(d4);
 		output.println("tower with disks of size 4, 3, 2, and 1 added: " + t + "\n");
-		
-//		output.println("should still not be regular -> isRegular: " + t.isRegular());
-//		output.println("should still be inverted -> isInverted: " + t.isInverted() + "\n");
-		
+				
 		t.flip();
 		output.println("flipped tower: " + t);
-//		output.println("should be regular now -> isRegular: " + t.isRegular());
-//		output.println("should not be inverted now -> isInverted: " + t.isInverted());
+
 		output.println();
 	}
 	
@@ -75,19 +70,29 @@ public class ProductionLineTest {
 		ProductionLine p = new ProductionLine();
 		output.println("new production line:\n" + p);
 		
-		//UNLOADROBOT
+		Tower t1 = new Tower();
+		t1.push(new Disk(2));
+		t1.push(new Disk(4));
+		t1.push(new Disk(6));
+		t1.push(new Disk(8));
+		p.setPyramid(t1);
+		output.println("\nproduction line with loaded pyramid: " + p);
 		
+		p.unloadRobot();
+		output.println("\nproduction line after unloadRobot(): " + p);
+		
+		p = new ProductionLine();
 		int[] diskValues = {1, 4, 5, 6, 3, 7, 2, 1, 7, 4, 4, 4, 5, 6, 9, 5};
 		for (int r : diskValues) {
 			p.addDisk(new Disk(r));
 		}
-		output.println("\nproduction line with disks added:\n" + p);
+		output.println("\nnew production line with disks added:\n" + p);
 		
 		p.process();
 		output.println("\nproduction line after processing:\n" + p);
 		
-		Tower t = p.removeTower();
-		output.println("\ntower removed from output queue: " + t);
+		Tower t2 = p.removeTower();
+		output.println("\ntower removed from output queue: " + t2);
 	}
 	
 	public static void printTitle(String title) {

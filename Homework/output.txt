@@ -22,7 +22,15 @@ input: []
 loaded: []
 output: []
 
-production line with disks added:
+production line with loaded pyramid: input: []
+loaded: [2, 4, 6, 8]
+output: []
+
+production line after unloadRobot(): input: []
+loaded: []
+output: [[8, 6, 4, 2]]
+
+new production line with disks added:
 input: [1, 4, 5, 6, 3, 7, 2, 1, 7, 4, 4, 4, 5, 6, 9, 5]
 loaded: []
 output: []

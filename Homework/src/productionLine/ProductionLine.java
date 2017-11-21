@@ -47,6 +47,6 @@ public class ProductionLine {
 	}
 	
 	public String toString() {
-		return "input: " + this.inputQueue + "\noutput: " + this.outputQueue;
+		return "input: " + this.inputQueue + "\nloaded: " + this.currentPyramid + "\noutput: " + this.outputQueue;
 	}
 }

@@ -1,0 +1,35 @@
+====================TESTING DISK====================
+disk 1: 1
+disk 2: 4
+
+disk 1 size: 1
+disk 2 size: 4
+
+disk 1 compared to disk 2 (should be negative): -1
+disk 2 compared to disk 1 (should be positive): 1
+disk 2 compared to an equal disk (should be zero): 0
+
+====================TESTING TOWER====================
+new tower: []
+
+tower with disks of size 4, 3, 2, and 1 added: [4, 3, 2, 1]
+
+flipped tower: [1, 2, 3, 4]
+
+====================TESTING PRODUCTION LINE====================
+new production line:
+input: []
+loaded: []
+output: []
+
+production line with disks added:
+input: [1, 4, 5, 6, 3, 7, 2, 1, 7, 4, 4, 4, 5, 6, 9, 5]
+loaded: []
+output: []
+
+production line after processing:
+input: []
+loaded: []
+output: [[6, 5, 4, 1], [7, 3], [2], [7, 1], [9, 6, 5, 4, 4, 4], [5]]
+
+tower removed from output queue: [6, 5, 4, 1]

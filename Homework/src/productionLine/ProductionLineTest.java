@@ -52,6 +52,17 @@ public class ProductionLineTest {
 	
 	public static void testProductionLine() {
 		printTitle("PRODUCTION LINE");
+		
+		ProductionLine p = new ProductionLine();
+		
+		int[] diskValues = {1, 4, 5, 6, 3, 7, 2, 1, 7, 4, 4, 4, 5, 6, 9, 5};
+		for (int r : diskValues) {
+			p.addDisk(new Disk(r));
+		}
+		System.out.println("production line before processing\n" + p);
+		
+		p.process();
+		System.out.println("\nproduction line after processing\n" + p);
 	}
 	
 	public static void printTitle(String title) {

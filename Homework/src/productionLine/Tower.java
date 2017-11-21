@@ -8,19 +8,14 @@ public class Tower extends Stack<Disk> {
 	
 	private static final long serialVersionUID = 1L;
 	
-	//	private Stack<Disk> pyramid;
 	private boolean isRegular;
 	
+	//THIS NEVER DOES ANYTHING^^^^^^^^^^^^^^^^^^^^
+	
 	public Tower() {
-//		this.pyramid = new Stack<Disk>();
 		super();
-//		this = new Stack<Disk>();
 		this.isRegular = false;
 	}
-	
-//	public Stack<Disk> getPyramid() {
-//		return this.pyramid;
-//	}
 	
 	public boolean isRegular() {
 		return this.isRegular;

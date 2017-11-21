@@ -5,9 +5,9 @@ import java.util.Queue;
 
 public class ProductionLine {
 	
-	Queue<Disk> inputQueue;
-	Queue<Tower> outputQueue;
-	Tower currentPyramid;
+	private Queue<Disk> inputQueue;
+	private Queue<Tower> outputQueue;
+	private Tower currentPyramid;
 	
 	public ProductionLine() {
 		this.inputQueue = new LinkedList<Disk>();
@@ -28,20 +28,25 @@ public class ProductionLine {
 	public void process() {
 		while (!inputQueue.isEmpty()) {
 			Disk tempDisk = inputQueue.remove();
-			//check for size of currentPyramid
-			if (tempDisk.compareTo(this.currentPyramid.peek()) < 0) {
-				unloadRobot();
+			if (!this.currentPyramid.isEmpty()) {
+				if (tempDisk.compareTo(this.currentPyramid.peek()) < 0) {
+					unloadRobot();
+				}
 			}
 			currentPyramid.push(tempDisk);
 		}
 		unloadRobot();
 	}
-	
+
 	public Tower removeTower() {
 		if (!outputQueue.isEmpty()) {
 			return outputQueue.remove();
 		} else {
 			return null;
 		}
+	}
+	
+	public String toString() {
+		return "input: " + this.inputQueue + "\noutput: " + this.outputQueue;
 	}
 }

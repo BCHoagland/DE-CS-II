@@ -18,6 +18,6 @@ public class Disk implements Comparable<Disk> {
 	}
 	
 	public String toString() {
-		return "r -> " + size;
+		return String.valueOf(this.size);
 	}
 }

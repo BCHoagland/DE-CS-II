@@ -14,6 +14,10 @@ public class Disk implements Comparable<Disk> {
 
 	@Override
 	public int compareTo(Disk other) {
-		return this.size - other.getSize();
+		return (int)Math.signum(this.size - other.getSize());
+	}
+	
+	public String toString() {
+		return "r -> " + size;
 	}
 }

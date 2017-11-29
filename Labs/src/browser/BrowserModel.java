@@ -10,6 +10,8 @@ public class BrowserModel {
 	
 	public BrowserModel(BrowserView view) {
 		this.view = view;
+		backStack = new Stack<Integer>();
+		fwdStack = new Stack<Integer>();
 		home();
 	}
 	
@@ -23,14 +25,15 @@ public class BrowserModel {
 
 	public void forward() {
 		if (hasForward()) {
-			
+			backStack.push(lineNum);
+			lineNum = fwdStack.pop();
+			view.update(lineNum);
 		}
 	}
 	
 	public void home() {
 		followLink(0);
 		backStack.clear();
-//		fwdStack.clear();
 	}
 	
 	public void followLink(int n) {

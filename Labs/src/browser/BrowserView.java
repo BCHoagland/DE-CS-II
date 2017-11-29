@@ -1,3 +1,5 @@
+package browser;
+
 /**
  * Browser display
  */

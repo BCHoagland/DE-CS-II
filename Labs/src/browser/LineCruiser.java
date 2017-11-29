@@ -1,3 +1,5 @@
+package browser;
+
 /**
  * Broser main class
  */

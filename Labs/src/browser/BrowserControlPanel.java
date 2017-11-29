@@ -2,6 +2,8 @@
  * Control panel for broser
  */
  
+package browser;
+
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;

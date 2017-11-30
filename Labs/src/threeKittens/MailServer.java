@@ -5,7 +5,7 @@ import java.util.TreeSet;
 
 public class MailServer extends LinkedList<Message> {
 	
-	private TreeSet<Actor> registeredUsers;
+	private TreeSet<Actor> registeredUsers = new TreeSet<Actor>();
 	
 	public void signUp(Actor actor) {
 		if (!registeredUsers.contains(actor)) {

@@ -77,15 +77,34 @@ public class Kitten extends Actor {
 		//read messages in mailbox
 		Message msg = readNextMessage();
 		while (msg != null) {
-			Actor msgSender = msg.getSender();
+			Kitten msgSender = (Kitten) msg.getSender();
 			String msgText = msg.getText();
 			
 			if (msgText.contains("need ")) {
 				String item = msgText.substring(msgText.indexOf("need ") + 5);
-				if (myPossessions.contains(item)) {
+				if (countPossessions(item) > 1) {
 					send(msgSender, "have " + item);
 				}
+			} else if (msgText.contains("have ")) {
+				String item = msgText.substring(msgText.indexOf("have ") + 5);
+				if (countPossessions(item) == 0) {
+					send(msgSender, "ship " + item);
+				}
+			} else if (msgText.contains("ship ")) {
+				String item = msgText.substring(msgText.indexOf("ship ") + 5);
+				if (countPossessions(item) > 1) {
+					boolean received = msgSender.receiveItem(this, item);
+					if (received) {
+						myPossessions.remove(item);
+					}
+				}
 			}
+			
+			if (allSetFlag != true && allSet()) {
+				allSetFlag = true;
+				announce("thx, all set");
+			}
+			
 			msg = readNextMessage();
 		}
 	}

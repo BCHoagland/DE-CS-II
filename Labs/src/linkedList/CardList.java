@@ -25,9 +25,42 @@ public class CardList {
 		tail = card;
 	}
 	
+	//RETURN??????
+	public void remove(Card c) {
+		 Node card = head;
+		 if (head.getCard().equals(c)) {
+			 if (head.getNext() != null) {
+				 head = head.getNext();
+			 } else {
+				 head = null;
+			 }
+			 return;
+		 }
+		 while (card.getNext() != null) {
+			 if (card.getNext().getCard().equals(c)) {
+				 card.setNext(card.getNext().getNext());
+				 return;
+			 }
+			 card = card.getNext();
+		 }
+	}
+	
+	public String toString() {
+		Node card = head;
+		String str = card + "\n";
+		while (card.getNext() != null) {
+			card = card.getNext();
+			str += card + "\n";
+		}
+		return str;
+	}
+	
 	public static void main(String[] args) {
 		CardList myList = new CardList(new Card());
-		myList.add(new Card(11, "Diamonds"));
+		myList.add(new Card("Diamonds", 11));
+		myList.add(new Card("Clubs", 12));
+		myList.add(new Card("Hearts", 13));
+		myList.add(new Card("Spades", 4));
 		System.out.println(myList);
 	}
 }

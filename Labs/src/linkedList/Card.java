@@ -56,53 +56,53 @@ public class Card implements Comparable<Card> {
 	 * default constructor
 	 */
 	public Card() {
-		this.rank = -1;
-		this.suit = null;
+		setSuit(0);
+		setRank(0);
 	}
 	
 	/**
 	 * constructor that sets the suit and rank with the given integer inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit int
+	 * @param rank int
 	 */
 	public Card(int suit, int rank) {
-		this.suit = getSuitStr(suit);
-		this.rank = rank;
+		setSuit(suit);
+		setRank(rank);
 	}
 	
 	/**
 	 * constructor that sets the suit and rank with the given String inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit String
+	 * @param rank String
 	 */
 	public Card(String suit, String rank) {
-		this.suit = suit;
-		this.rank = getRankInt(rank);
+		setSuit(suit);
+		setRank(rank);
 	}
 	
 	/**
 	 * constructor that sets the suit and rank with the given String and integer inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit String
+	 * @param rank int
 	 */
 	public Card(String suit, int rank) {
-		this.suit = suit;
-		this.rank = rank;
+		setSuit(suit);
+		setRank(rank);
 	}
 	
 	/**
 	 * constructor that sets the suit and rank with the given integer and String inputs
-	 * @param suit
-	 * @param rank
+	 * @param suit int
+	 * @param rank String
 	 */
 	public Card(int suit, String rank) {
-		this.suit = getSuitStr(suit);
-		this.rank = getRankInt(rank);
+		setSuit(suit);
+		setRank(rank);
 	}
 	
 	/**
 	 * getter for the suit field
-	 * @return
+	 * @return suit as String
 	 */
 	public String getSuit() {
 		return this.suit;
@@ -110,52 +110,138 @@ public class Card implements Comparable<Card> {
 	
 	/**
 	 * getter for the rank field
-	 * @return
+	 * @return rank as int
 	 */
 	public int getRank() {
 		return this.rank;
 	}
 	
 	/**
+	 * setter for the suit field with String argument
+	 * @param suit String
+	 */
+	public void setSuit(String suit) {
+		this.suit = suit;
+	}
+	
+	/**
+	 * setter for the suit field with int argument
+	 * @param suit int
+	 */
+	public void setSuit(int suit) {
+		String toSet;
+		switch (suit) {
+		case 0:
+			toSet = CLUBS;
+			break;
+		case 1:
+			toSet = DIAMONDS;
+			break;
+		case 2:
+			toSet = HEARTS;
+			break;
+		case 3:
+			toSet = SPADES;
+			break;
+		default:
+			toSet = CLUBS;
+			break;
+		}
+		this.suit = toSet;
+	}
+	
+	/**
+	 * setter for the rank field with String argument
+	 * @param rank String
+	 */
+	public void setRank(String rank) {
+		int toSet;
+		switch (rank) {
+		case "One":
+			toSet = 1;
+			break;
+		case ACE:
+			toSet = 1;
+			break;
+		case "Two":
+			toSet = 2;
+			break;
+		case "Three":
+			toSet = 3;
+			break;
+		case "Four":
+			toSet = 4;
+			break;
+		case "Five":
+			toSet = 5;
+			break;
+		case "Six":
+			toSet = 6;
+			break;
+		case "Seven":
+			toSet = 7;
+			break;
+		case "Eight":
+			toSet = 8;
+			break;
+		case "Nine":
+			toSet = 9;
+			break;
+		case "Ten":
+			toSet = 10;
+			break;
+		case JACK:
+			toSet = 11;
+			break;
+		case "Eleven":
+			toSet = 11;
+			break;
+		case QUEEN:
+			toSet = 12;
+			break;
+		case "Twelve":
+			toSet = 11;
+			break;
+		case KING:
+			toSet = 13;
+			break;
+		case "Thirteen":
+			toSet = 11;
+			break;
+		default:
+			toSet = 0;
+			break;
+		}
+		this.rank = toSet;
+	}
+	
+	/**
+	 * setter for the rank field with int argument
+	 * @param rank int
+	 */
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+	
+	/**
 	 * returns a String representation of the Card
 	 */
 	public String toString() {
-		return getRankStr(rank) + " of " + suit;
+		return getRankStr() + " of " + suit;
 	}
 	
 	/**
-	 * returns the String representation of the given rank
-	 * @param rank
+	 * returns the String representation of the Card's rank
 	 */
-	public String getRankStr(int rank) {
-		return numWords[rank];
+	public String getRankStr() {
+		return numWords[this.rank];
 	}
 	
 	/**
-	 * returns the integer representation of the given rank
-	 * @param rank
+	 * returns the integer representation of the Card's suit
 	 */
-	public int getRankInt(String rank) {
-		switch (rank) {
-		case ACE:
-			return 1;
-		case JACK:
-			return 11;
-		case QUEEN:
-			return 12;
-		case KING:
-			return 13;
-		default:
-			return -1;
-		}
-	}
-	
-	/**
-	 * returns the integer representation of the given suit
-	 * @param suit
-	 */
-	public int getSuitInt(String suit) {
-		switch (suit) {
+	public int getSuitInt() {
+		switch (this.suit) {
 		case CLUBS:
 			return 0;
 		case DIAMONDS:
@@ -165,36 +251,24 @@ public class Card implements Comparable<Card> {
 		case SPADES:
 			return 3;
 		default:
-			return -1;
+			return 0;
 		}
 	}
 	
 	/**
-	 * returns the String representation of the given suit
-	 * @param suit
-	 */
-	public String getSuitStr(int suit) {
-		switch (suit) {
-		case 0:
-			return CLUBS;
-		case 1:
-			return DIAMONDS;
-		case 2:
-			return HEARTS;
-		case 3:
-			return SPADES;
-		default:
-			return null;
-		}
-	}
-	
-	/**
-	 * default compareTo() method that returns a positive number if the rank of this card is greater than the rank of the other card, 0 if the cards have the same rank, and a negative number otherwise
+	 * returns the integer result of comparing this card to another card<br/>
+	 * compares suit and rank
+	 * @param otherCard
+	 * @return int value of comparison
 	 */
 	@Override
 	public int compareTo(Card otherCard) {
 		if (otherCard instanceof Card) {
-			return this.getRank() - ((Card)otherCard).getRank();
+			if (this.getSuitInt() == otherCard.getSuitInt()) {
+				return this.getRank() - ((Card)otherCard).getRank();
+			} else {
+				return this.getSuitInt() - otherCard.getSuitInt();
+			}
 		}
 		return 1;
 	}
@@ -202,15 +276,30 @@ public class Card implements Comparable<Card> {
 	/**
 	 * returns the integer result of comparing this card to another card<br/>
 	 * compares suit or rank, based on given arguments
+	 * @param otherCard
+	 * @return int value of comparison
 	 */
 	public int compareTo(Card otherCard, boolean rank) {
 		if (otherCard instanceof Card) {
 			if (rank) {
 				return this.getRank() - ((Card)otherCard).getRank();
 			} else {
-				return this.getSuitInt(this.getSuit()) - this.getSuitInt(((Card)otherCard).getSuit());
+				return this.getSuitInt() - ((Card)otherCard).getSuitInt();
 			}
 		}
 		return 1;
+	}
+	
+	/**
+	 * returns if two Cards are equal
+	 * checks for rank and suit equality
+	 * @param otherCard
+	 * @return whether or not the given Cards are equal
+	 */
+	public boolean equals(Card otherCard) {
+			if ((this.getRank() == otherCard.getRank()) && (this.getSuit().equals(otherCard.getSuit()))) {
+				return true;
+			}
+			return false;
 	}
 }

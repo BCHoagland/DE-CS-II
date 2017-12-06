@@ -21,4 +21,8 @@ public class Node {
 	public Card getCard() {
 		return card;
 	}
+	
+	public String toString() {
+		return card.toString();
+	}
 }

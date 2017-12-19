@@ -22,11 +22,18 @@ input: []
 loaded: []
 output: []
 
-production line with loaded pyramid: input: []
+result of processing the empty production line:
+input: []
+loaded: []
+output: []
+
+production line with loaded pyramid:
+ input: []
 loaded: [2, 4, 6, 8]
 output: []
 
-production line after unloadRobot(): input: []
+production line after unloadRobot():
+input: []
 loaded: []
 output: [[8, 6, 4, 2]]
 

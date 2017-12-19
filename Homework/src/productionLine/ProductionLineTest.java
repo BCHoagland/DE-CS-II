@@ -3,10 +3,20 @@ package productionLine;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+/**
+ * <h1>ProductionLineTest Class</h1>
+ * Tests the ProductionLine class
+ * @author HoaglandB1
+ *
+ */
 public class ProductionLineTest {
 	
 	private static PrintWriter output;
 	
+	/**
+	 * runs all tests of the productionLine package's classes
+	 * @param args command line arguments - none needed for ProductionLineTest
+	 */
 	public static void main(String[] args) {
 		try {
 			output = new PrintWriter("output.txt");
@@ -23,6 +33,9 @@ public class ProductionLineTest {
 		}
 	}
 	
+	/**
+	 * tests for the Disk Object
+	 */
 	public static void testDisk() {
 		printTitle("DISK");
 		
@@ -42,6 +55,9 @@ public class ProductionLineTest {
 		output.println();
 	}
 	
+	/**
+	 * tests for the Tower object
+	 */
 	public static void testTower() {
 		printTitle("TOWER");
 		
@@ -64,11 +80,17 @@ public class ProductionLineTest {
 		output.println();
 	}
 	
+	/**
+	 * tests for the ProductionLine
+	 */
 	public static void testProductionLine() {
 		printTitle("PRODUCTION LINE");
 		
 		ProductionLine p = new ProductionLine();
 		output.println("new production line:\n" + p);
+		
+		p.process();
+		output.println("\nresult of processing the empty production line:\n" + p);
 		
 		Tower t1 = new Tower();
 		t1.push(new Disk(2));
@@ -76,10 +98,10 @@ public class ProductionLineTest {
 		t1.push(new Disk(6));
 		t1.push(new Disk(8));
 		p.setPyramid(t1);
-		output.println("\nproduction line with loaded pyramid: " + p);
+		output.println("\nproduction line with loaded pyramid:\n " + p);
 		
 		p.unloadRobot();
-		output.println("\nproduction line after unloadRobot(): " + p);
+		output.println("\nproduction line after unloadRobot():\n" + p);
 		
 		p = new ProductionLine();
 		int[] diskValues = {1, 4, 5, 6, 3, 7, 2, 1, 7, 4, 4, 4, 5, 6, 9, 5};
@@ -95,6 +117,10 @@ public class ProductionLineTest {
 		output.println("\ntower removed from output queue: " + t2);
 	}
 	
+	/**
+	 * formats and prints a given title
+	 * @param title section title to print
+	 */
 	public static void printTitle(String title) {
 		String str = "";
 		for (int i = 0; i < 20; i++) {

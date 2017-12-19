@@ -46,6 +46,9 @@ public class CardList {
 	}
 	
 	public String toString() {
+		if (head == null) {
+			return "[empty list]";
+		}
 		Node card = head;
 		String str = card + "\n";
 		while (card.getNext() != null) {
@@ -61,6 +64,19 @@ public class CardList {
 		myList.add(new Card("Clubs", 12));
 		myList.add(new Card("Hearts", 13));
 		myList.add(new Card("Spades", 4));
+		System.out.println(myList);
+		
+		myList.remove(new Card());
+		System.out.println(myList);
+		
+		myList.remove(new Card("Clubs", 12));
+		System.out.println(myList);
+		
+		myList.remove(new Card("Spades", 4));
+		myList.remove(new Card("Hearts", 13));
+		System.out.println(myList);
+		
+		myList.remove(new Card("Diamonds", 11));
 		System.out.println(myList);
 	}
 }

@@ -1,5 +1,7 @@
 package cookieMonster;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -7,26 +9,58 @@ public class Cookies {
 	
 	private static int currentTotal = 0;
 	private static int max;
-	private static Scanner input = new Scanner("cookies.txt");
-	private static int[][] grid = {{1, 3, 0, 5, -1, 7, -1, -1, 0, 4, 2, 1},
-	        {-1, 3, 2, 1, -1, 4, -1, 5, 3, -1, 1, 0},
-	        {5, 4, 8, -1, 3, 2, 2, -1, 4, -1, 0, 0},
-	        {2, 1, 0, 4, 1, -1, 8, 0, 2, -1, 2, 5},
-	        {1, 4, 0, 1,-1, 0, 3, 2, 2, 4, 1, 4},
-	        {0, 1, 4, 1, 1, 6, 1, 4, 5, 2, 1, 0},
-	        {3, 2, 5, 2, 0, 7,-1, 2, 1, 0,-1, 3},
-	        {0, -1,  4, -1, -1,  3,  5,  1, 4, 2, 1, 2},
-	        {5, 4, 8, -1, 3, 2, 2, -1, 4, -1, 0, 0},
-	        {2, 1, 0, 4, 1, -1, 8, 0, 2,-1, 2, 5},
-	        {1, 3, 0, 5, -1, 7, -1, -1, 0, 4, 2, 1},
-	        {0,  0,  3,  1,  5,  2,  1,  5,  4,  1,  3,  3}};			//CHANGE THIS SO IT ISN'T HARDCODED
+	private static File inputFile = new File("cookies.txt");
+	private static Scanner input;
+	private static int[][] grid;
 	private static Point currentPos = new Point();
 	private static Stack<Point> unusedMoves = new Stack<Point>();
 	
-	public void make2DArray() {
+	public static void setScanner() {
+		try {
+			input = new Scanner(inputFile);
+		} catch (FileNotFoundException ex) {
+			System.out.println(ex);
+		}
+	}
+	
+	public static void make2DArray() {
+		//find the proper dimensions for the new array
+		boolean newNum = true;
+		int count = 0;
+		for (char ch : input.nextLine().toCharArray()) {
+			if (ch == ' ') {
+				newNum = true;
+			} else if (newNum) {
+				count++;
+				newNum = false;
+			}
+		}
+		grid = new int[count][count];						//IS IT ALWAYS A SQUARE????????
+		setScanner();
+		
+		
+		//fill the new array with the proper ints
+		int yIndex = 0;
+		while (input.hasNextLine()) {
+			int xIndex = 0;
+			newNum = true;
+			for (char ch : input.nextLine().toCharArray()) {
+				//figure out why this works with negative numbers
+				if (ch == ' ') {
+					newNum = true;
+				} else if (newNum) {
+					grid[yIndex][xIndex] = Character.getNumericValue(ch);
+					xIndex++;
+					newNum = false;
+				}
+			}
+			yIndex++;
+		}
 	}
 	
 	public static void main(String[] args) {
+		setScanner();
+		make2DArray();
 		updateCurrentTotal();
 		while (true) {
 			if (canMoveRight() && canMoveDown()) {
@@ -70,7 +104,6 @@ public class Cookies {
 	
 	public static void updateCurrentTotal() {
 		currentTotal += grid[currentPos.getY()][currentPos.getX()];
-//		System.out.println(currentTotal);
 	}
 	
 	public static void updateMax() {

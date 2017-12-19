@@ -9,8 +9,10 @@ public class Cookies {
 	
 	private static int currentTotal = 0;
 	private static int max;
+	
 	private static File inputFile = new File("cookies.txt");
 	private static Scanner input;
+	
 	private static int[][] grid;
 	private static Point currentPos = new Point();
 	private static Stack<Point> unusedMoves = new Stack<Point>();
@@ -25,6 +27,7 @@ public class Cookies {
 	
 	public static void make2DArray() {
 		//find the proper dimensions for the new array
+		setScanner();
 		boolean newNum = true;
 		int count = 0;
 		for (char ch : input.nextLine().toCharArray()) {
@@ -36,16 +39,15 @@ public class Cookies {
 			}
 		}
 		grid = new int[count][count];						//IS IT ALWAYS A SQUARE????????
-		setScanner();
-		
 		
 		//fill the new array with the proper ints
+		setScanner();
 		int yIndex = 0;
 		while (input.hasNextLine()) {
 			int xIndex = 0;
 			newNum = true;
 			for (char ch : input.nextLine().toCharArray()) {
-				//figure out why this works with negative numbers
+				//figure out why this works with negative numbers!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				if (ch == ' ') {
 					newNum = true;
 				} else if (newNum) {
@@ -59,23 +61,33 @@ public class Cookies {
 	}
 	
 	public static void main(String[] args) {
-		setScanner();
 		make2DArray();
 		updateCurrentTotal();
 		while (true) {
+			//if two moves exist, move down and save this position for later
 			if (canMoveRight() && canMoveDown()) {
 				unusedMoves.push(new Point(currentPos.getX(), currentPos.getY(), currentTotal));
 				moveDown();
+			//if cookie monster can only move right, move right
 			} else if (canMoveRight()) {
 				moveRight();
+			//if cookie monster can only move down, move down
 			} else if (canMoveDown()) {
 				moveDown();
+			//no moves available
 			} else {
+				//if cookie monster is at the bottom corner of the grid, check to see if max needs updating
 				if (isAtBottomRight()) {
 					updateMax();
 				}
-				resetFromStack();
-				moveRight();
+				//move cookie monster back to the last position where he had to choose a direction to move
+				//print the max value if there are no positions left on the stack
+				if (resetFromStack()) {
+					moveRight();
+				} else {
+					System.out.println("max cookies: " + max);
+					return;
+				}
 			}
 		}
 	}
@@ -112,13 +124,13 @@ public class Cookies {
 		}
 	}
 	
-	public static void resetFromStack() {
+	public static boolean resetFromStack() {
 		if (!unusedMoves.isEmpty()) {
 			currentTotal = 0;
 			currentPos = unusedMoves.pop();
+			return true;
 		} else {
-			System.out.println("max cookies: " + max);
-			System.exit(0);
+			return false;
 		}
 	}
 }

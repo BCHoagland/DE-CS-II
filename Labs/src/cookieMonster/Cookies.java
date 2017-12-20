@@ -58,26 +58,15 @@ public class Cookies {
 			}
 			yIndex++;
 		}
-		
-		
-		
-		for (int[] line : grid) {
-			for (int n : line) {
-				System.out.print(n + ", ");
-			}
-			System.out.println();
-		}
 	}
 	
 	public static void main(String[] args) {
 		make2DArray();
 		updateCurrentTotal();
-		System.out.println("first value: " + currentTotal);
 		while (true) {
 			//if two moves exist, move down and save this position for later
 			if (canMoveRight() && canMoveDown()) {
 				unusedMoves.push(new Point(currentPos.getX(), currentPos.getY(), currentTotal));
-				System.out.println(currentTotal);
 				moveDown();
 			//if cookie monster can only move right, move right
 			} else if (canMoveRight()) {
@@ -89,7 +78,6 @@ public class Cookies {
 			} else {
 				//if cookie monster is at the bottom corner of the grid, check to see if max needs updating
 				if (isAtBottomRight()) {
-					System.out.println("current: " + currentTotal + ", max: " + max);
 					updateMax();
 				}
 				//move cookie monster back to the last position where he had to choose a direction to move

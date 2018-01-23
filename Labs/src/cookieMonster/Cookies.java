@@ -62,6 +62,20 @@ public class Cookies {
 	
 	public static void main(String[] args) {
 		make2DArray();
+		
+		/*for (int[] row : grid) {
+			for (int col : row) {
+				System.out.print(col + ", ");
+			}
+			System.out.println();
+		}*/
+		
+		System.out.println("original: " + getOptimalPath());
+		System.out.println("recursive: " + getOptimalPath(11, 11));
+	}
+	
+	//OPTIMAL PATH METHODS
+	public static int getOptimalPath() {
 		updateCurrentTotal();
 		while (true) {
 			//if two moves exist, move down and save this position for later
@@ -85,13 +99,35 @@ public class Cookies {
 				if (resetFromStack()) {
 					moveRight();
 				} else {
-					System.out.println("max cookies: " + max);
-					return;
+					return max;
 				}
 			}
 		}
 	}
 	
+	public static int getOptimalPath(int row, int col) {
+		if (canMoveUp(row, col) && canMoveLeft(row, col)) {
+			return grid[row][col] + Math.max(getOptimalPath(row - 1, col), getOptimalPath(row, col - 1));
+		} else if (canMoveUp(row, col)) {
+			return grid[row][col] + getOptimalPath(row - 1, col);
+		} else if (canMoveLeft(row, col)) {
+			return grid[row][col] + getOptimalPath(row, col - 1);
+		} else {
+			return grid[row][col];
+		}
+	}
+	
+	//RECURSIVE VERSION HELPER METHODS
+	public static boolean canMoveUp(int row, int col) {
+		return row - 1 >= 0 && grid[row - 1][col] != -1;
+	}
+	
+	public static boolean canMoveLeft(int row, int col) {
+		return col - 1 >= 0 && grid[row][col - 1] != -1;
+	}
+
+	
+	//ORIGINAL VERSION HELPER METHODS
 	public static boolean canMoveRight() {
 		return currentPos.getX() + 1 < grid[0].length && grid[currentPos.getY()][currentPos.getX() + 1] != -1;
 	}

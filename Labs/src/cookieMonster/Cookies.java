@@ -125,7 +125,6 @@ public class Cookies {
 	public static boolean canMoveLeft(int row, int col) {
 		return col - 1 >= 0 && grid[row][col - 1] != -1;
 	}
-
 	
 	//ORIGINAL VERSION HELPER METHODS
 	public static boolean canMoveRight() {

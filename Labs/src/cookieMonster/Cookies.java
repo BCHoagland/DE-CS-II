@@ -2,6 +2,7 @@ package cookieMonster;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -60,8 +61,8 @@ public class Cookies {
 			}
 			System.out.println();
 		}*/
-
-		System.out.println("original: " + getOptimalPath());
+		
+		System.out.println("non-recursive: " + getOptimalPath());
 		System.out.println("recursive: " + getOptimalPath(11, 11));
 	}
 
@@ -69,24 +70,17 @@ public class Cookies {
 	public static int getOptimalPath() {
 		updateCurrentTotal();
 		while (true) {
-			//if two moves exist, move down and save this position for later
 			if (canMoveRight() && canMoveDown()) {
 				unusedMoves.push(new Point(currentPos.getX(), currentPos.getY(), currentTotal));
 				moveDown();
-				//if cookie monster can only move right, move right
 			} else if (canMoveRight()) {
 				moveRight();
-				//if cookie monster can only move down, move down
 			} else if (canMoveDown()) {
 				moveDown();
-				//no moves available
 			} else {
-				//if cookie monster is at the bottom corner of the grid, check to see if max needs updating
 				if (isAtBottomRight()) {
 					updateMax();
 				}
-				//move cookie monster back to the last position where he had to choose a direction to move
-				//print the max value if there are no positions left on the stack
 				if (resetFromStack()) {
 					moveRight();
 				} else {

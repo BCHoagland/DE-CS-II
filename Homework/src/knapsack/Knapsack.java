@@ -1,46 +1,39 @@
 package knapsack;
 
+import java.util.ArrayList;
+
 public class Knapsack {
 	
 //	private static int[] weights = {10, 20, 30};
 //	private static int[] values = {60, 100, 120};
 	
-	private static int[] testCapacities;
-	private static int[][] testWeights;
-	private static int[][] testValues;
+	private static int[] testCapacities = {165, 26, 190, 750};
+	private static int[][] testWeights = {
+			{23, 31, 29, 44, 53, 38, 63, 85, 89, 82},
+			{12, 7, 11, 8, 9},
+			{56, 59, 80, 64, 75, 17},
+			{70, 73, 77, 80, 82, 87, 90, 94, 98, 106, 110, 113, 115, 118, 120}};
+	private static int[][] testValues = {
+			{92, 57, 49, 68, 60, 43, 67, 84, 87, 72},
+			{24, 13, 23, 15, 16},
+			{50, 50, 64, 46, 50, 5},
+			{135, 139, 149, 150, 156, 163, 173, 184, 192, 201, 210, 214, 221, 229, 240}};
+	private static int[] testAnswerValues = {309, 51, 150, 1458};
+	private static int[][] testAnswerSets = {
+			{1, 1, 1, 1, 0, 1, 0, 0, 0, 0},
+			{0, 1, 1, 1, 0},
+			{1, 1, 0, 0, 1, 0},
+			{1, 0,1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1}};
+	
+	private static ArrayList<Integer> sets = new ArrayList<Integer>();
 	
 	private static int knapsack(int capacity, int n, int[] weights, int[] values) {
 		if (n < 0 || capacity <= 0) return 0;
 		if (weights[n] > capacity) return knapsack(capacity, n - 1, weights, values);
-		return Math.max(knapsack(capacity, n - 1, weights, values), values[n] + knapsack(capacity - weights[n], n, weights, values));
-	}
-	
-	private static void setTestValues(int n) {
-		int[] capacities = new int[n];
-		int[][] weights = new int[n][];
-		int[][] values = new int[n][];
-		int numItems;
-		for (int i = 0; i < n; i++) {
-			capacities[i] = (int)(Math.random() * 100);
-			
-			numItems = (int)(Math.random() * 10) + 1;
-			int[] weightsInner = new int[numItems];
-			int[] valuesInner = new int[numItems];
-			for (int j = 0; j < numItems; j++) {
-				weightsInner[j] = (int)(Math.random() * 50) + 1;
-				valuesInner[j] = (int)(Math.random() * 100) + 1;
-			}
-			weights[i] = weightsInner;
-			values[i] = valuesInner;
-		}
-		
-		testCapacities = capacities;
-		testWeights = weights;
-		testValues = values;
+		return Math.max(knapsack(capacity, n - 1, weights, values), values[n] + knapsack(capacity - weights[n], n - 1, weights, values));
 	}
 	
 	public static void main(String[] args) {
-		setTestValues(4);
 		for (int i = 0; i < testCapacities.length; i++) {
 			System.out.print("capacity: " + testCapacities[i] + "\nweights: ");
 			for (int num : testWeights[i]) {
@@ -50,8 +43,7 @@ public class Knapsack {
 			for (int num : testValues[i]) {
 				System.out.print(num + " ");
 			}
-			System.out.println("\nmax value: " + knapsack(testCapacities[i], testWeights[i].length - 1, testWeights[i], testValues[i]));
-			System.out.println();
+			System.out.println("\nmax value: " + knapsack(testCapacities[i], testWeights[i].length - 1, testWeights[i], testValues[i]) + " -> correct max value: " + testAnswerValues[i] + "\n");
 		}
 	}
 }

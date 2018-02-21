@@ -24,38 +24,41 @@ public class Knapsack {
 	
 	private static ArrayList<Integer> sets = new ArrayList<Integer>();
 	
-	private static int knapsack(int capacity, int n, int[] weights, int[] values) {
-//		ArrayList<Integer> list1 = new ArrayList<Integer>();
-//		ArrayList<Integer> list2 = new ArrayList<Integer>();
-		
-//		list1.add(0);
-//		list2.add(1);
+	private static int knapsack(int capacity, int n, int[] weights, int[] values, ArrayList<Integer> list) {
+		ArrayList<Integer> list1 = new ArrayList<Integer>();
+		ArrayList<Integer> list2 = new ArrayList<Integer>();
 		
 		if (n < 0 || capacity <= 0) {
 			return 0;
 		}
+		
+		//REVERSE SETS VARIABLE AFTER YOU'RE DONE WITH IT
+		
+		
+//		list1.add(0);
+		list2.add(weights[n]);
+		
 		if (weights[n] > capacity) {
-//			sets.set(n, 0);
-			return knapsack(capacity, n - 1, weights, values);
+			return knapsack(capacity, n - 1, weights, values, list1);
 		}
 		else {
-			int withCurrentElement = values[n] + knapsack(capacity - weights[n], n - 1, weights, values);
-			int withoutCurrentElement = knapsack(capacity, n - 1, weights, values);
-			if (withCurrentElement > withoutCurrentElement) {
-//				sets.set(n, 1);
-				return withCurrentElement;
+			int incCurrent = values[n] + knapsack(capacity - weights[n], n - 1, weights, values, list2);
+			int excCurrent = knapsack(capacity, n - 1, weights, values, list1);
+			if (incCurrent > excCurrent) {
+				list.addAll(list2);
+				return incCurrent;
 			}
-//			sets.set(n, 0);
-			return withoutCurrentElement;
+			list.addAll(list1);
+			return excCurrent;
 		}
 	}
 	
 	public static void main(String[] args) {
 		for (int i = 0; i < testCapacities.length; i++) {
 			sets.clear();
-			for (int j = 0; j < testWeights[i].length; j++) {
-				sets.add(0);
-			}
+//			for (int j = 0; j < testWeights[i].length; j++) {
+//				sets.add(0);
+//			}
 			
 			System.out.print("capacity: " + testCapacities[i] + "\nweights: ");
 			for (int num : testWeights[i]) {
@@ -65,7 +68,7 @@ public class Knapsack {
 			for (int num : testValues[i]) {
 				System.out.print(num + " ");
 			}
-			System.out.print("\nmax value: " + knapsack(testCapacities[i], testWeights[i].length - 1, testWeights[i], testValues[i]) + " -> correct max value: " + testAnswerValues[i]);
+			System.out.print("\nmax value: " + knapsack(testCapacities[i], testWeights[i].length - 1, testWeights[i], testValues[i], sets) + " -> correct max value: " + testAnswerValues[i]);
 			System.out.print("\nobjects chosen: " + sets + " -> " + "correct objects: [");
 			for (int num : testAnswerSets[i]) {
 				System.out.print(num + ", ");

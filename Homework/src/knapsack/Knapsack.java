@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class Knapsack {
 	
-//	private static int[] weights = {10, 20, 30};
-//	private static int[] values = {60, 100, 120};
-	
 	private static int[] testCapacities = {165, 26, 190, 750};
 	private static int[][] testWeights = {
 			{23, 31, 29, 44, 53, 38, 63, 85, 89, 82},
@@ -23,18 +20,43 @@ public class Knapsack {
 			{1, 1, 1, 1, 0, 1, 0, 0, 0, 0},
 			{0, 1, 1, 1, 0},
 			{1, 1, 0, 0, 1, 0},
-			{1, 0,1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1}};
+			{1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1}};
 	
 	private static ArrayList<Integer> sets = new ArrayList<Integer>();
 	
 	private static int knapsack(int capacity, int n, int[] weights, int[] values) {
-		if (n < 0 || capacity <= 0) return 0;
-		if (weights[n] > capacity) return knapsack(capacity, n - 1, weights, values);
-		return Math.max(knapsack(capacity, n - 1, weights, values), values[n] + knapsack(capacity - weights[n], n - 1, weights, values));
+//		ArrayList<Integer> list1 = new ArrayList<Integer>();
+//		ArrayList<Integer> list2 = new ArrayList<Integer>();
+		
+//		list1.add(0);
+//		list2.add(1);
+		
+		if (n < 0 || capacity <= 0) {
+			return 0;
+		}
+		if (weights[n] > capacity) {
+//			sets.set(n, 0);
+			return knapsack(capacity, n - 1, weights, values);
+		}
+		else {
+			int withCurrentElement = values[n] + knapsack(capacity - weights[n], n - 1, weights, values);
+			int withoutCurrentElement = knapsack(capacity, n - 1, weights, values);
+			if (withCurrentElement > withoutCurrentElement) {
+//				sets.set(n, 1);
+				return withCurrentElement;
+			}
+//			sets.set(n, 0);
+			return withoutCurrentElement;
+		}
 	}
 	
 	public static void main(String[] args) {
 		for (int i = 0; i < testCapacities.length; i++) {
+			sets.clear();
+			for (int j = 0; j < testWeights[i].length; j++) {
+				sets.add(0);
+			}
+			
 			System.out.print("capacity: " + testCapacities[i] + "\nweights: ");
 			for (int num : testWeights[i]) {
 				System.out.print(num + " ");
@@ -43,7 +65,12 @@ public class Knapsack {
 			for (int num : testValues[i]) {
 				System.out.print(num + " ");
 			}
-			System.out.println("\nmax value: " + knapsack(testCapacities[i], testWeights[i].length - 1, testWeights[i], testValues[i]) + " -> correct max value: " + testAnswerValues[i] + "\n");
+			System.out.print("\nmax value: " + knapsack(testCapacities[i], testWeights[i].length - 1, testWeights[i], testValues[i]) + " -> correct max value: " + testAnswerValues[i]);
+			System.out.print("\nobjects chosen: " + sets + " -> " + "correct objects: [");
+			for (int num : testAnswerSets[i]) {
+				System.out.print(num + ", ");
+			}
+			System.out.println("]\n");
 		}
 	}
 }

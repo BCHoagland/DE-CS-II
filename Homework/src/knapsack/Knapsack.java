@@ -1,6 +1,7 @@
 package knapsack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Knapsack {
 	
@@ -35,10 +36,12 @@ public class Knapsack {
 		//REVERSE SETS VARIABLE AFTER YOU'RE DONE WITH IT
 		
 		
-//		list1.add(0);
-		list2.add(weights[n]);
+		list1.add(0);
+		list2.add(1);
+//		list2.add(weights[n]);
 		
 		if (weights[n] > capacity) {
+			list.addAll(list1);
 			return knapsack(capacity, n - 1, weights, values, list1);
 		}
 		else {

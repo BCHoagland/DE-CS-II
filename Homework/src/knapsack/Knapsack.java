@@ -34,14 +34,14 @@ public class Knapsack {
 	private static int knapsack(int capacity, int n, int[] weights, int[] values, ArrayList<Integer> list) {
 		ArrayList<Integer> list1 = new ArrayList<Integer>();
 		ArrayList<Integer> list2 = new ArrayList<Integer>();
-//		list1.add(0);
-//		list2.add(1);
+		list1.add(0);
+		list2.add(1);
 		
 		if (n < 0) {
 			return 0;
 		}
 		
-		list2.add(values[n]);
+//		list2.add(values[n]);
 
 		if (capacity <= 0) {
 			list.addAll(list1);
@@ -49,8 +49,9 @@ public class Knapsack {
 		}
 
 		if (weights[n] > capacity) {
+			int excCurrent = knapsack(capacity, n - 1, weights, values, list1);
 			list.addAll(list1);
-			return knapsack(capacity, n - 1, weights, values, list1);
+			return excCurrent;
 		}
 		
 		int incCurrent = values[n] + knapsack(capacity - weights[n], n - 1, weights, values, list2);

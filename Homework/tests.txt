@@ -3,3 +3,6 @@ oops.txt
 watermelonTest02.txt
 watermelonTest03.txt
 watermelonTest04.txt
+watermelonTest05.txt
+watermelonTest06.txt
+watermelonTest07.txt

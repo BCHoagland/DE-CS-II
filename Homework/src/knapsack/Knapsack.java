@@ -1,10 +1,7 @@
 package knapsack;
 
-import java.awt.List;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,6 +13,23 @@ public class Knapsack {
 	
 	private static ArrayList<Integer> set = new ArrayList<Integer>();
 	private static String outputStr = "";
+	
+	private static Scanner getScannerForFile(Scanner kb, String givenFileName) {
+		String inputFileName = givenFileName;
+		
+		Scanner testFiles = null;
+		while (testFiles == null) {
+			try {
+				testFiles = new Scanner(new File(inputFileName));
+			} catch (FileNotFoundException ex) {
+				System.out.println("Please enter the name of an actual file:");
+				inputFileName = kb.next();
+			}
+		}
+		kb.close();
+		
+		return testFiles;
+	}
 	
 	private static ArrayList<String> getTestFileNames(Scanner testFiles) {
 		ArrayList<String> testFileNames = new ArrayList<String>();
@@ -85,7 +99,11 @@ public class Knapsack {
 		for (int weight : weights) {
 			if (!weightsWithoutRepeats.contains(weight)) {
 				weightsWithoutRepeats.add(weight);
-				amounts.add(1);
+				if (set.contains(weight)) {
+					amounts.add(1);
+				} else {
+					amounts.add(0);
+				}
 			} else {
 				int index = weightsWithoutRepeats.indexOf(weight);
 				amounts.set(index, amounts.get(index) + 1);
@@ -138,6 +156,7 @@ public class Knapsack {
 	private static int knapsack(int[] w, int[] r, int n, int limit, ArrayList<Integer> list) {
 		int maxValue = knapsackHelper(limit, n, w, r, list);
 		Collections.reverse(set);
+		System.out.println(maxValue);
 		return maxValue;
 	}
 	
@@ -151,7 +170,7 @@ public class Knapsack {
 			return 0;
 		}
 		
-		list2.add(values[n]);
+		list2.add(weights[n]);
 
 		if (capacity <= 0) {
 			list.addAll(list1);
@@ -173,38 +192,19 @@ public class Knapsack {
 		list.addAll(list1);
 		return excCurrent;
 	}
-
+	
 	public static void main(String[] args) {
 		if (args.length > 0) {
 			String inputFileName = args[0];
-			
 			Scanner kb = new Scanner(System.in);
-			Scanner testFiles = null;
-			while (testFiles == null) {
-				try {
-					testFiles = new Scanner(new File(inputFileName));
-				} catch (FileNotFoundException ex) {
-					System.out.println("Please enter the name of an actual file:");
-					inputFileName = kb.next();
-				}
-			}
+			Scanner testFiles = getScannerForFile(kb, inputFileName);
 			kb.close();
-			
 			runAllTests(testFiles);
 		} else {
 			Scanner kb = new Scanner(System.in);
 			System.out.println("Please enter your file name: ");
 			String inputFileName = kb.next();
-			
-			Scanner testFiles = null;
-			while (testFiles == null) {
-				try {
-					testFiles = new Scanner(new File(inputFileName));
-				} catch (FileNotFoundException ex) {
-					System.out.println("Please enter the name of an actual file:");
-					inputFileName = kb.next();
-				}
-			}
+			Scanner testFiles = getScannerForFile(kb, inputFileName);
 			kb.close();
 			
 			runAllTests(testFiles);

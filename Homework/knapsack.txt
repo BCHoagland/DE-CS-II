@@ -1,0 +1,50 @@
+watermelonTest01.txt	165	23, 31, 29, 44, 53, 38, 63, 85, 89, 82	92, 57, 49, 68, 60, 43, 67, 84, 87, 72
+
+1 23 pound watermelons
+1 31 pound watermelons
+1 29 pound watermelons
+1 44 pound watermelons
+1 53 pound watermelons
+1 38 pound watermelons
+1 63 pound watermelons
+1 85 pound watermelons
+1 89 pound watermelons
+1 82 pound watermelons
+
+
+watermelonTest02.txt	26	12, 7, 11, 8, 9	24, 13, 23, 15, 16
+
+1 12 pound watermelons
+1 7 pound watermelons
+1 11 pound watermelons
+1 8 pound watermelons
+1 9 pound watermelons
+
+
+watermelonTest03.txt	190	56, 59, 80, 64, 75, 17	50, 50, 64, 46, 50, 5
+
+1 56 pound watermelons
+1 59 pound watermelons
+1 80 pound watermelons
+1 64 pound watermelons
+1 75 pound watermelons
+1 17 pound watermelons
+
+
+watermelonTest04.txt	750	70, 73, 77, 80, 82, 87, 90, 94, 98, 106, 110, 113, 115, 118, 120	135, 139, 149, 150, 156, 163, 173, 184, 192, 201, 210, 214, 221, 229, 240
+
+1 70 pound watermelons
+1 73 pound watermelons
+1 77 pound watermelons
+1 80 pound watermelons
+1 82 pound watermelons
+1 87 pound watermelons
+1 90 pound watermelons
+1 94 pound watermelons
+1 98 pound watermelons
+1 106 pound watermelons
+1 110 pound watermelons
+1 113 pound watermelons
+1 115 pound watermelons
+1 118 pound watermelons
+1 120 pound watermelons

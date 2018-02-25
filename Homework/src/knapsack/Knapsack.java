@@ -25,7 +25,6 @@ public class Knapsack {
 				testFileNames.add(testFiles.nextLine().trim());
 			}
 			testFiles.close();
-			System.out.println("hi brady");
 		}
 		return testFileNames;
 	}

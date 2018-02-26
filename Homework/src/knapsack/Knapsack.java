@@ -76,7 +76,7 @@ public class Knapsack {
 			r[i] = values.get(i);
 		}
 		
-		int maxValue = knapsack(w, r, w.length - 1, limit, set);
+		int maxValue = knapsackSum(w, r, w.length - 1, limit, set);
 		
 		outputStr += getOutputStr(fileName, limit, weights, values);
 		
@@ -120,9 +120,8 @@ public class Knapsack {
 	private static void runAllTests(Scanner testFilesScanner) {
 		ArrayList<String> testFiles = getTestFileNames(testFilesScanner);
 		
-		int maxValue;
 		for (String fileName : testFiles) {
-			maxValue = runKnapsackOnFile(fileName);
+			runKnapsackOnFile(fileName);
 		}
 		
 		PrintWriter output = null;
@@ -139,21 +138,21 @@ public class Knapsack {
 		}
 	}
 	
-	private static int knapsack(int[] w, int[] r, int n, int limit) {
+	private static int knapsackSum(int[] w, int[] r, int n, int limit) {
 		if (n < 0 || limit <= 0) {
 			return 0;
 		}
 
 		if (w[n] > limit) {
-			return knapsack(w, r, n - 1, limit);
+			return knapsackSum(w, r, n - 1, limit);
 		}
 		
-		int incCurrent = r[n] + knapsack(w, r, n - 1, limit - w[n]);
-		int excCurrent = knapsack(w, r, n - 1, limit);
+		int incCurrent = r[n] + knapsackSum(w, r, n - 1, limit - w[n]);
+		int excCurrent = knapsackSum(w, r, n - 1, limit);
 		return Math.max(incCurrent, excCurrent);
 	}
 	
-	private static int knapsack(int[] w, int[] r, int n, int limit, ArrayList<Integer> list) {
+	private static int knapsackSum(int[] w, int[] r, int n, int limit, ArrayList<Integer> list) {
 		int maxValue = knapsackHelper(limit, n, w, r, list);
 		Collections.reverse(set);
 //		System.out.println(maxValue);

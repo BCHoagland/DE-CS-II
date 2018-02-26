@@ -156,7 +156,7 @@ public class Knapsack {
 	private static int knapsack(int[] w, int[] r, int n, int limit, ArrayList<Integer> list) {
 		int maxValue = knapsackHelper(limit, n, w, r, list);
 		Collections.reverse(set);
-		System.out.println(maxValue);
+//		System.out.println(maxValue);
 		return maxValue;
 	}
 	

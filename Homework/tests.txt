@@ -6,3 +6,5 @@ watermelonTest04.txt
 watermelonTest05.txt
 watermelonTest06.txt
 watermelonTest07.txt
+imNotAFile
+watermelonTest08.txt

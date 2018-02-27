@@ -7,13 +7,33 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+/**
+ * <h1>Knapsack</h1> Class
+ * @author Braden Hoagland
+ */
 public class Knapsack {
 	
+	/**
+	 * constant name of output file
+	 */
 	private static final String OUTPUT_FILE_NAME = "knapsack.txt";
 	
+	/**
+	 * weights of selected watermelons
+	 */
 	private static ArrayList<Integer> set = new ArrayList<Integer>();
+	
+	/**
+	 * String that will be print to the output file
+	 */
 	private static String outputStr = "";
 	
+	/**
+	 * get scanner for a given file, prompting the user until they give a valid name
+	 * @param kb Scanner for System.in
+	 * @param givenFileName name of file to be read
+	 * @return scanner for the given file
+	 */
 	private static Scanner getScannerForFile(Scanner kb, String givenFileName) {
 		String inputFileName = givenFileName;
 		
@@ -31,6 +51,11 @@ public class Knapsack {
 		return testFiles;
 	}
 	
+	/**
+	 * get the names of each test file that will be run later on
+	 * @param testFiles scanner for the file containing the names of the test files
+	 * @return names of the test files
+	 */
 	private static ArrayList<String> getTestFileNames(Scanner testFiles) {
 		ArrayList<String> testFileNames = new ArrayList<String>();
 
@@ -43,6 +68,11 @@ public class Knapsack {
 		return testFileNames;
 	}
 	
+	/**
+	 * find the maximum score possible using a file containing a limit, weights, and values
+	 * @param fileName name of the file with the data
+	 * @return maximum score possible given the data in the given file
+	 */
 	private static int runKnapsackOnFile(String fileName) {
 		int limit = -1;
 		ArrayList<Integer> weights = new ArrayList<Integer>();
@@ -83,6 +113,14 @@ public class Knapsack {
 		return maxValue;
 	}
 	
+	/**
+	 * get a string to represent the output of running the knapsack function on a given file
+	 * @param fileName file with the data
+	 * @param limit limit of the knapsack
+	 * @param weights all weights to be put in the knapsack
+	 * @param values all values of the weights
+	 * @return String representation of the knapsack output for the given file
+	 */
 	private static String getOutputStr(String fileName, int limit, ArrayList<Integer> weights, ArrayList<Integer> values) {
 		String finalStr = "";
 		
@@ -117,6 +155,10 @@ public class Knapsack {
 		return finalStr;
 	}
 	
+	/**
+	 * run knapsack tests on all files in the given file scanner
+	 * @param testFilesScanner scanner to read in the names of the test files
+	 */
 	private static void runAllTests(Scanner testFilesScanner) {
 		ArrayList<String> testFiles = getTestFileNames(testFilesScanner);
 		
@@ -138,6 +180,14 @@ public class Knapsack {
 		}
 	}
 	
+	/**
+	 * find the maximum possible value of putting weights into the knapsack
+	 * @param w weights to be put in the bag
+	 * @param r values of the weights
+	 * @param n current item type
+	 * @param limit weight limit of the knapsack
+	 * @return the maximum possible score of values in the knapsack
+	 */
 	private static int knapsackSum(int[] w, int[] r, int n, int limit) {
 		if (n < 0 || limit <= 0) {
 			return 0;
@@ -152,6 +202,14 @@ public class Knapsack {
 		return Math.max(incCurrent, excCurrent);
 	}
 	
+	/**
+	 * find the maximum possible value of putting weights into the knapsack and fix the order of the list of weights that got included in the knapsack
+	 * @param w weights to be put in the bag
+	 * @param r values of the weights
+	 * @param n current item type
+	 * @param limit weight limit of the knapsack
+	 * @return the maximum possible score of values in the knapsack
+	 */
 	private static int knapsackSum(int[] w, int[] r, int n, int limit, ArrayList<Integer> list) {
 		int maxValue = knapsackHelper(limit, n, w, r, list);
 		Collections.reverse(set);
@@ -159,6 +217,15 @@ public class Knapsack {
 		return maxValue;
 	}
 	
+	/**
+	 * actual knapsack function that gets called by KnapsackSum()
+	 * @param capacity weight limit of the knapsack
+	 * @param n current item type
+	 * @param weights weights to be put in the bag
+	 * @param values values of the weights
+	 * @param list list of weights in the knapsack
+	 * @return the maximum possible score of values in the knapsack
+	 */
 	private static int knapsackHelper(int capacity, int n, int[] weights, int[] values, ArrayList<Integer> list) {
 		ArrayList<Integer> list1 = new ArrayList<Integer>();
 		ArrayList<Integer> list2 = new ArrayList<Integer>();
@@ -192,6 +259,10 @@ public class Knapsack {
 		return excCurrent;
 	}
 	
+	/**
+	 * get input file from user, if not given as a command line argument
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		if (args.length > 0) {
 			String inputFileName = args[0];

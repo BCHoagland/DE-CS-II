@@ -1,7 +1,5 @@
 package expressionTrees;
 
-import javax.swing.tree.TreeNode;
-
 public interface Expressions {
 	TreeNode buildTree(String[] exp);
 	int evalTree();

@@ -4,8 +4,17 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class ExpressionTree extends TreeNode implements Expressions {
-
+	
 	public static final String[] OPERATORS = {"*", "+"};
+	
+	public ExpressionTree(Object initValue) {
+		super(initValue);
+		String[] exp = initValue.toString().split("\\s+");
+		TreeNode node = buildTree(exp);
+		this.setValue(node.getValue());
+		this.setLeft(node.getLeft());
+		this.setRight(node.getRight());
+	}
 	
 	public boolean isOperator(String str) {
 		return Arrays.asList(OPERATORS).contains(str);
@@ -40,8 +49,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 
 	@Override
 	public int evalTree() {
-		// TODO Auto-generated method stub
-		return 0;
+		return evalTree(this);
 	}
 	
 	public int evalTree(TreeNode node) {
@@ -59,8 +67,9 @@ public class ExpressionTree extends TreeNode implements Expressions {
 
 	@Override
 	public String toPrefixNotation() {
-		// TODO Auto-generated method stub
-		return null;
+		String str = "";
+		toPrefixNotation(this, str);
+		return str;
 	}
 	
 	public void toPrefixNotation(TreeNode node, String str) {
@@ -74,8 +83,9 @@ public class ExpressionTree extends TreeNode implements Expressions {
 
 	@Override
 	public String toInfixNotation() {
-		// TODO Auto-generated method stub
-		return null;
+		String str = "";
+		toInfixNotation(this, str);
+		return str;
 	}
 	
 	public void toInfixNotation(TreeNode node, String str) {
@@ -89,8 +99,9 @@ public class ExpressionTree extends TreeNode implements Expressions {
 
 	@Override
 	public String toPostfixNotation() {
-		// TODO Auto-generated method stub
-		return null;
+		String str = "";
+		toPostfixNotation(this, str);
+		return str;
 	}
 	
 	public void toPostfixNotation(TreeNode node, String str) {

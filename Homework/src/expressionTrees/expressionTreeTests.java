@@ -14,5 +14,7 @@ public class expressionTreeTests {
 		System.out.println("prefix: " + tree.toPrefixNotation());
 		System.out.println("infix: " + tree.toInfixNotation());
 		System.out.println("postfix: " + tree.toPostfixNotation());
+		String[] expArr = {"3", "1", "2", "+", "*"};
+		System.out.println("postfixEval(): " + tree.postfixEval(expArr));
 	}
 }

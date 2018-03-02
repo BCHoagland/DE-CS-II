@@ -68,51 +68,58 @@ public class ExpressionTree extends TreeNode implements Expressions {
 	@Override
 	public String toPrefixNotation() {
 		String str = "";
-		toPrefixNotation(this, str);
+		str = toPrefixNotation(this, str);
 		return str;
 	}
 	
-	public void toPrefixNotation(TreeNode node, String str) {
+	public String toPrefixNotation(TreeNode node, String str) {
 		if (node != null) {
 			String nodeValue = node.getValue().toString();
 			str += nodeValue;
-			toPrefixNotation(node.getLeft(), str);
-			toPrefixNotation(node.getRight(), str);
+			str = toPrefixNotation(node.getLeft(), str);
+			str = toPrefixNotation(node.getRight(), str);
 		}
+		return str;
 	}
 
 	@Override
 	public String toInfixNotation() {
+		//TODO: make it add parentheses
 		String str = "";
-		toInfixNotation(this, str);
+		str = toInfixNotation(this, str);
 		return str;
 	}
 	
-	public void toInfixNotation(TreeNode node, String str) {
+	public String toInfixNotation(TreeNode node, String str) {
 		if (node != null) {
 			String nodeValue = node.getValue().toString();
-			toInfixNotation(node.getLeft(), str);
+			TreeNode left = node.getLeft();
+			TreeNode right = node.getRight();
+			
+			if (left != null) str = toInfixNotation(left, str);
 			str += nodeValue;
-			toInfixNotation(node.getRight(), str);
+			if (right != null) str = toInfixNotation(right, str);
 		}
+		return str;
 	}
-
+	
 	@Override
 	public String toPostfixNotation() {
 		String str = "";
-		toPostfixNotation(this, str);
+		str = toPostfixNotation(this, str);
 		return str;
 	}
 	
-	public void toPostfixNotation(TreeNode node, String str) {
+	public String toPostfixNotation(TreeNode node, String str) {
 		if (node != null) {
 			String nodeValue = node.getValue().toString();
-			toPostfixNotation(node.getLeft(), str);
+			str = toPostfixNotation(node.getLeft(), str);
+			str = toPostfixNotation(node.getRight(), str);
 			str += nodeValue;
-			toPostfixNotation(node.getRight(), str);
 		}
+		return str;
 	}
-
+	
 	@Override
 	public int postfixEval(String[] exp) {
 		Stack<Integer> stack = new Stack<Integer>();

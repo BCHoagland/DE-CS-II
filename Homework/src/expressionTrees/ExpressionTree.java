@@ -95,15 +95,9 @@ public class ExpressionTree extends TreeNode implements Expressions {
 			TreeNode left = node.getLeft();
 			TreeNode right = node.getRight();
 			
-			if (left != null) {
-				str += "(";
-				str = toInfixNotation(left, str);
-			}
+			if (left != null) str = toInfixNotation(left, str + "(");
 			str += nodeValue;
-			if (right != null) {
-				str = toInfixNotation(right, str);
-				str += ")";
-			}
+			if (right != null) str = toInfixNotation(right, str) + ")";
 		}
 		return str;
 	}

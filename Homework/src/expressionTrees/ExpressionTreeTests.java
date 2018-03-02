@@ -5,23 +5,16 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * @author Braden Hoagland
+ * <h1>ExpressionTreeTests</h1>
+ * <h2>Class to test the ExpressionTree class</h2>
+ */
 public class ExpressionTreeTests {
 	
 	public static void main(String[] args) {
-//		ExpressionTree tree = new ExpressionTree("3 1 2 5 7 * + *");
-//		System.out.println("\t\t" + tree.getValue());
-//		System.out.print("\t" + tree.getLeft().getValue() + "\t\t");
-//		System.out.println(tree.getRight().getValue());
-//		System.out.print("\t\t" + tree.getRight().getLeft().getValue());
-//		System.out.println("\t\t" + tree.getRight().getRight().getValue());
-//		
-//		System.out.println("\nevalTree(): " + tree.evalTree());
-//		System.out.println("prefix: " + tree.toPrefixNotation());
-//		System.out.println("infix: " + tree.toInfixNotation());
-//		System.out.println("postfix: " + tree.toPostfixNotation());
-//		String[] expArr = {"3", "1", "2", "5", "7", "*", "+", "*"};
-//		System.out.println("postfixEval(): " + tree.postfixEval(expArr));
 		
+		//EXPS IS ARRAY NOT ARRAYLIST????
 		ArrayList<String> exps = new ArrayList<String>();
 		
 		Scanner input = null;

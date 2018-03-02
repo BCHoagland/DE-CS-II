@@ -10,6 +10,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 	public ExpressionTree(Object initValue) {
 		super(initValue);
 		String[] exp = initValue.toString().split("\\s+");
+		
 		TreeNode node = buildTree(exp);
 		this.setValue(node.getValue());
 		this.setLeft(node.getLeft());
@@ -68,14 +69,14 @@ public class ExpressionTree extends TreeNode implements Expressions {
 	@Override
 	public String toPrefixNotation() {
 		String str = "";
-		str = toPrefixNotation(this, str);
+		str = toPrefixNotation(this, str).trim();
 		return str;
 	}
 	
 	public String toPrefixNotation(TreeNode node, String str) {
 		if (node != null) {
 			String nodeValue = node.getValue().toString();
-			str += nodeValue;
+			str += nodeValue + " ";
 			str = toPrefixNotation(node.getLeft(), str);
 			str = toPrefixNotation(node.getRight(), str);
 		}
@@ -105,7 +106,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 	@Override
 	public String toPostfixNotation() {
 		String str = "";
-		str = toPostfixNotation(this, str);
+		str = toPostfixNotation(this, str).trim();
 		return str;
 	}
 	
@@ -114,7 +115,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 			String nodeValue = node.getValue().toString();
 			str = toPostfixNotation(node.getLeft(), str);
 			str = toPostfixNotation(node.getRight(), str);
-			str += nodeValue;
+			str += nodeValue + " ";
 		}
 		return str;
 	}

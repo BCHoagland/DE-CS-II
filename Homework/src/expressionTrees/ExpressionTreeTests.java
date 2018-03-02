@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class expressionTreeTests {
+public class ExpressionTreeTests {
 	
 	public static void main(String[] args) {
 //		ExpressionTree tree = new ExpressionTree("3 1 2 5 7 * + *");

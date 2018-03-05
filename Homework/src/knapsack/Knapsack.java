@@ -76,7 +76,7 @@ public class Knapsack {
 	public static int runKnapsackOnFile(String fileName) {
 		int limit = -1;
 		ArrayList<Integer> weights = new ArrayList<Integer>();
-		ArrayList<Integer> values = new ArrayList<Integer>(); 
+//		ArrayList<Integer> values = new ArrayList<Integer>(); 
 		
 		Scanner lines = null;
 		try {
@@ -86,29 +86,32 @@ public class Knapsack {
 		}
 		
 		if (lines != null) {
-			int n = 0;
+//			int n = 0;
 			while (lines.hasNextInt()) {
 				if (limit == -1) limit = lines.nextInt();
-				else if (n % 2 == 0) {
+				else weights.add(lines.nextInt());
+				/*else if (n % 2 == 0) {
 					weights.add(lines.nextInt());
 					n++;
 				} else {
 					values.add(lines.nextInt());
 					n++;
-				}
+				}*/
 			}
 		}
 		
 		int[] w = new int[weights.size()];
-		int[] r = new int[values.size()];
+//		int[] r = new int[values.size()];
 		for (int i = 0; i < weights.size(); i++) {
 			w[i] = weights.get(i);
-			r[i] = values.get(i);
+//			r[i] = values.get(i);
 		}
 		
-		int maxValue = knapsackSum(w, r, w.length - 1, limit, set);
+//		int maxValue = knapsackSum(w, r, w.length - 1, limit, set);
+		int maxValue = knapsackSum(w, w.length - 1, limit, set);
 		
-		outputStr += getOutputStr(fileName, limit, weights, values);
+//		outputStr += getOutputStr(fileName, limit, weights, values);
+		outputStr += getOutputStr(fileName, limit, weights);
 		
 		return maxValue;
 	}
@@ -121,16 +124,20 @@ public class Knapsack {
 	 * @param values all values of the weights
 	 * @return String representation of the knapsack output for the given file
 	 */
-	public static String getOutputStr(String fileName, int limit, ArrayList<Integer> weights, ArrayList<Integer> values) {
+	public static String getOutputStr(String fileName, int limit, ArrayList<Integer> weights/*, ArrayList<Integer> values*/) {
 		String finalStr = "";
 		
 		if (limit == -1) {
 			return finalStr;
 		}
 
+		
+		System.out.println(weights);
+		
 		String weightsStr = weights.toString();
-		String valuesStr = values.toString();
-		finalStr += fileName + "\t" + limit + "\t" + weightsStr.substring(1, weightsStr.length() - 1) + "\t" + valuesStr.substring(1, valuesStr.length() - 1) + "\n";
+//		String valuesStr = values.toString();
+//		finalStr += fileName + "\t" + limit + "\t" + weightsStr.substring(1, weightsStr.length() - 1) + "\t" + valuesStr.substring(1, valuesStr.length() - 1) + "\n";
+		finalStr += fileName + "\t" + limit + "\t" + weightsStr.substring(1, weightsStr.length() - 1) + "\n";
 
 		ArrayList<Integer> weightsWithoutRepeats = new ArrayList<Integer>();
 		ArrayList<Integer> amounts = new ArrayList<Integer>();
@@ -138,6 +145,8 @@ public class Knapsack {
 			if (!weightsWithoutRepeats.contains(weight)) {
 				weightsWithoutRepeats.add(weight);
 				if (set.contains(weight)) {
+					int index = set.indexOf(weight);
+					set.remove(index);
 					amounts.add(1);
 				} else {
 					amounts.add(0);
@@ -147,6 +156,8 @@ public class Knapsack {
 				amounts.set(index, amounts.get(index) + 1);
 			}
 		}
+		System.out.println(weightsWithoutRepeats);
+		System.out.println(amounts);
 		for (int i = 0; i < amounts.size(); i++) {
 			finalStr += "\n" + amounts.get(i) + " " + weightsWithoutRepeats.get(i) + " pound watermelons";
 		}
@@ -181,7 +192,80 @@ public class Knapsack {
 	}
 	
 	/**
-	 * find the maximum possible value of putting weights into the knapsack
+	 * WEIGHTS ONLY: find the maximum possible weight of putting weights into the knapsack
+	 * @param w weights to be put in the bag
+	 * @param n current item type
+	 * @param limit weight limit of the knapsack
+	 * @return the maximum possible score of weights in the knapsack
+	 */
+	public static int knapsackSum(int[] w, int n, int limit) {
+		if (n < 0 || limit <= 0) {
+			return 0;
+		}
+
+		if (w[n] > limit) {
+			return knapsackSum(w, n - 1, limit);
+		}
+		
+		int incCurrent = w[n] + knapsackSum(w, n - 1, limit - w[n]);
+		int excCurrent = knapsackSum(w, n - 1, limit);
+		return Math.max(incCurrent, excCurrent);
+	}
+	
+	/**
+	 * WEIGHTS ONLY: find the maximum possible weight of putting weights into the knapsack and fix the order of the list of weights that got included in the knapsack
+	 * @param w weights to be put in the bag
+	 * @param n current item type
+	 * @param limit weight limit of the knapsack
+	 * @return the maximum possible score of values in the knapsack
+	 */
+	public static int knapsackSum(int[] w, int n, int limit, ArrayList<Integer> list) {
+		int maxValue = knapsackHelper(limit, n, w, list);
+		Collections.reverse(set);
+		return maxValue;
+	}
+	
+	/**
+	 * WEIGHTS ONLY: actual knapsack function that gets called by KnapsackSum()
+	 * @param capacity weight limit of the knapsack
+	 * @param n current item type
+	 * @param weights weights to be put in the bag
+	 * @param list list of weights in the knapsack
+	 * @return the maximum possible score of values in the knapsack
+	 */
+	public static int knapsackHelper(int capacity, int n, int[] weights, ArrayList<Integer> list) {
+		ArrayList<Integer> list1 = new ArrayList<Integer>();
+		ArrayList<Integer> list2 = new ArrayList<Integer>();
+		
+		if (n < 0) {
+			return 0;
+		}
+		
+		list2.add(weights[n]);
+
+		if (capacity <= 0) {
+			list.addAll(list1);
+			return 0;
+		}
+
+		if (weights[n] > capacity) {
+			int excCurrent = knapsackHelper(capacity, n - 1, weights, list1);
+			list.addAll(list1);
+			return excCurrent;
+		}
+		
+		int incCurrent = weights[n] + knapsackHelper(capacity - weights[n], n - 1, weights, list2);
+		int excCurrent = knapsackHelper(capacity, n - 1, weights, list1);
+		if (incCurrent > excCurrent) {
+			list.addAll(list2);
+			return incCurrent;
+		}
+		list.addAll(list1);
+		return excCurrent;
+	}
+	
+	/**
+	 * WEIGHTS AND VALUES: find the maximum possible value of putting weights into the knapsack
 	 * @param w weights to be put in the bag
 	 * @param r values of the weights
 	 * @param n current item type
@@ -203,7 +287,7 @@ public class Knapsack {
 	}
 	
 	/**
-	 * find the maximum possible value of putting weights into the knapsack and fix the order of the list of weights that got included in the knapsack
+	 * WEIGHTS AND VALUES: find the maximum possible value of putting weights into the knapsack and fix the order of the list of weights that got included in the knapsack
 	 * @param w weights to be put in the bag
 	 * @param r values of the weights
 	 * @param n current item type
@@ -213,12 +297,11 @@ public class Knapsack {
 	public static int knapsackSum(int[] w, int[] r, int n, int limit, ArrayList<Integer> list) {
 		int maxValue = knapsackHelper(limit, n, w, r, list);
 		Collections.reverse(set);
-//		System.out.println(maxValue);
 		return maxValue;
 	}
 	
 	/**
-	 * actual knapsack function that gets called by KnapsackSum()
+	 * WEIGHTS AND VALUES: actual knapsack function that gets called by KnapsackSum()
 	 * @param capacity weight limit of the knapsack
 	 * @param n current item type
 	 * @param weights weights to be put in the bag
@@ -229,8 +312,6 @@ public class Knapsack {
 	public static int knapsackHelper(int capacity, int n, int[] weights, int[] values, ArrayList<Integer> list) {
 		ArrayList<Integer> list1 = new ArrayList<Integer>();
 		ArrayList<Integer> list2 = new ArrayList<Integer>();
-//		list1.add(0);
-//		list2.add(1);
 		
 		if (n < 0) {
 			return 0;

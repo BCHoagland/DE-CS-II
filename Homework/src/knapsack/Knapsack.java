@@ -130,9 +130,6 @@ public class Knapsack {
 		if (limit == -1) {
 			return finalStr;
 		}
-
-		
-		System.out.println(weights);
 		
 		String weightsStr = weights.toString();
 //		String valuesStr = values.toString();
@@ -144,20 +141,18 @@ public class Knapsack {
 		for (int weight : weights) {
 			if (!weightsWithoutRepeats.contains(weight)) {
 				weightsWithoutRepeats.add(weight);
-				if (set.contains(weight)) {
-					int index = set.indexOf(weight);
-					set.remove(index);
-					amounts.add(1);
-				} else {
-					amounts.add(0);
-				}
-			} else {
-				int index = weightsWithoutRepeats.indexOf(weight);
-				amounts.set(index, amounts.get(index) + 1);
 			}
 		}
-		System.out.println(weightsWithoutRepeats);
-		System.out.println(amounts);
+		
+		for (int i = 0; i < weightsWithoutRepeats.size(); i++) {
+			amounts.add(0);
+		}
+		
+		for (int setWeight : set) {
+			int index = weightsWithoutRepeats.indexOf(setWeight);
+			amounts.set(index, amounts.get(index) + 1);
+		}
+		
 		for (int i = 0; i < amounts.size(); i++) {
 			finalStr += "\n" + amounts.get(i) + " " + weightsWithoutRepeats.get(i) + " pound watermelons";
 		}

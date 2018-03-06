@@ -13,7 +13,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 	/**
 	 * constant array containing all possible operators
 	 */
-	public static final String[] OPERATORS = {"*", "+"};
+	public static final String[] OPERATORS = {"*", "/", "+", "-"};
 	
 	/**
 	 * constructor for the ExpressionTree that takes a postfix expression as an argument
@@ -49,8 +49,12 @@ public class ExpressionTree extends TreeNode implements Expressions {
 		switch (operand) {
 			case "*":
 				return n1 * n2;
+			case "/":
+				return n1 / n2;
 			case "+":
 				return n1 + n2;
+			case "-":
+				return n1 - n2;
 			default:
 				return -1;
 		}
@@ -199,7 +203,9 @@ public class ExpressionTree extends TreeNode implements Expressions {
 		for (String ch : exp) {
 			int value;
 			if (isOperator(ch)) {
-				value = runOperation(ch, stack.pop(), stack.pop());
+				int n2 = stack.pop();
+				int n1 = stack.pop();
+				value = runOperation(ch, n1, n2);
 			} else {
 				value = Integer.parseInt(ch);
 			}

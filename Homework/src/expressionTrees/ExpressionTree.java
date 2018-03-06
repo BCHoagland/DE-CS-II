@@ -50,9 +50,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 			case "*":
 				return n1 * n2;
 			case "/":
-				if (n2 == 0) {
-					return Integer.MAX_VALUE;
-				}
+				//TODO: divide by zero stuff
 				return n1 / n2;
 			case "+":
 				return n1 + n2;

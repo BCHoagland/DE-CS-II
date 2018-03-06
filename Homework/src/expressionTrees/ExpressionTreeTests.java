@@ -13,18 +13,73 @@ import java.util.Scanner;
  */
 public class ExpressionTreeTests {
 	
-	public static final String outputFileName = "Hoagland_Expressions.txt";
+	public static final String DEFAULT_INPUT_FILE_NAME = "postFixExpressions.txt";
 	
-	public static String runTestsOnExpression(String exp) {
+	public static final String OUTPUT_FILE_NAME = "Hoagland_Expressions.txt";
+	
+	/**
+	 * get scanner for a given file, prompting the user until they give a valid name
+	 * @param kb Scanner for System.in
+	 * @param givenFileName name of file to be read
+	 * @return scanner for the given file
+	 */
+	public static Scanner getScannerForFile(Scanner kb, String givenFileName) {
+		String inputFileName = givenFileName;
+		
+		Scanner exps = null;
+		while (exps == null) {
+			try {
+				exps = new Scanner(new File(inputFileName));
+			} catch (FileNotFoundException ex) {
+				System.out.println("Please enter the name of an actual file:");
+				inputFileName = kb.next();
+			}
+		}
+		kb.close();
+		
+		return exps;
+	}
+	
+	/**
+	 * get an array of expressions for the given file
+	 * @param file scanner for the file with the expressions
+	 * @return String[] array of expressions from the file
+	 */
+	public static String[] getExpsArray(Scanner file) {
+		ArrayList<String> exps = new ArrayList<String>();
+		while (file.hasNextLine()) {
+			String line = file.nextLine().trim();
+			if (!line.equals("")) {
+				exps.add(line);
+			}
+		}
+		
+		return (String[]) exps.toArray(new String[0]);
+	}
+	
+	/**
+	 * run all necessary functions for the tree created by the given expression
+	 * @param exp String representation of the expression
+	 * @return output of all the function calls on the expression tree
+	 */
+	public static String evalExp(String exp) {
 		ExpressionTree tree = new ExpressionTree(exp);
 		String str = tree.evalTree() + "\n" + tree.toPrefixNotation() + "\n" + tree.toInfixNotation() + "\n" + tree.toPostfixNotation() + "\n" + tree.postfixEval(exp.split("\\s+")) + "\n\n\n";
 		return str;
 	}
 	
+	public static String evalAllExps(String[] exps) {
+		String output = "";
+		for (String exp : exps) {
+			output += evalExp(exp);
+		}
+		return output.trim();
+	}
+	
 	public static void printToOutputFile(String output) {
 		PrintWriter file = null;
 		try {
-			file = new PrintWriter(new File(outputFileName));
+			file = new PrintWriter(new File(OUTPUT_FILE_NAME));
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex);
 			System.exit(1);
@@ -37,28 +92,21 @@ public class ExpressionTreeTests {
 	}
 	
 	public static void main(String[] args) {
-		
-		//EXPS IS ARRAY NOT ARRAYLIST????
-		ArrayList<String> exps = new ArrayList<String>();
-		
-		Scanner input = null;
-		try {
-			input = new Scanner(new File("myExpressions.txt"));
-		} catch (FileNotFoundException ex) {
-			System.out.println(ex);
+		Scanner expFile = null;
+		if (args.length > 0) {
+			String inputFileName = args[0];
+			Scanner kb = new Scanner(System.in);
+			expFile = getScannerForFile(kb, inputFileName);
+			kb.close();
+		} else {
+			Scanner kb = new Scanner(System.in);
+			expFile = getScannerForFile(kb, DEFAULT_INPUT_FILE_NAME);
+			kb.close();
 		}
 		
-		if (input != null) {
-			while (input.hasNextLine()) {
-				exps.add(input.nextLine());
-			}
-		}
-		
-		String output = "";
-		for (String exp : exps) {
-			output += runTestsOnExpression(exp);
-		}
-		printToOutputFile(output.trim());
+		String[] exps = getExpsArray(expFile);
+		String output = evalAllExps(exps);
+		printToOutputFile(output);
 		System.out.println("All expressions processed");
 	}
 }

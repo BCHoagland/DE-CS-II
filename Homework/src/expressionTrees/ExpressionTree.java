@@ -142,7 +142,7 @@ public class ExpressionTree extends TreeNode implements Expressions {
 	@Override
 	public String toInfixNotation() {
 		String str = "";
-		str = toInfixNotation(this, str);
+		str = toInfixNotation(this, str).trim();
 		str = str.substring(1, str.length() - 1);
 		return str;
 	}

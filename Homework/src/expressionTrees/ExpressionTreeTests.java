@@ -68,6 +68,11 @@ public class ExpressionTreeTests {
 		return str;
 	}
 	
+	/**
+	 * evaluate each expression in the given array of expressions
+	 * @param exps String[] array of expressions
+	 * @return combined String output of each expression
+	 */
 	public static String evalAllExps(String[] exps) {
 		String output = "";
 		for (String exp : exps) {
@@ -76,6 +81,10 @@ public class ExpressionTreeTests {
 		return output.trim();
 	}
 	
+	/**
+	 * print given String to the output file
+	 * @param output String to be printed to the output file
+	 */
 	public static void printToOutputFile(String output) {
 		PrintWriter file = null;
 		try {
@@ -91,6 +100,10 @@ public class ExpressionTreeTests {
 		}
 	}
 	
+	/**
+	 * evaluate all expressions from the given input file, prompting the user for the input file name if necessary
+	 * @param args command-line argument -> name of the input file
+	 */
 	public static void main(String[] args) {
 		Scanner expFile = null;
 		if (args.length > 0) {

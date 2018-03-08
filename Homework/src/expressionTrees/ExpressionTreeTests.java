@@ -13,9 +13,28 @@ import java.util.Scanner;
  */
 public class ExpressionTreeTests {
 	
+	/**
+	 * default name of the input file; will check if this file exists if no file name is given as a command line argument
+	 */
 	public static final String DEFAULT_INPUT_FILE_NAME = "postFixExpressions.txt";
 	
+	/**
+	 * name of the file to print output to
+	 */
 	public static final String OUTPUT_FILE_NAME = "Hoagland_Expressions.txt";
+	
+	/**
+	 * please don't take points off for this, Mrs. Kelly. It's all in good fun
+	 */
+	public static final String BHOAGS_BAR_AND_GRILL = "   (      )                   (         (                             (      (               (   (   \r\n" + 
+			" ( )\\  ( /(          )  (  (  )\\      ( )\\     )  (        )          )\\ )   )\\ )    (   (   )\\  )\\  \r\n" + 
+			" )((_) )\\())  (   ( /(  )\\))(((_)(    )((_) ( /(  )(    ( /(   (     (()/(  (()/(    )(  )\\ ((_)((_) \r\n" + 
+			"((_)_ ((_)\\   )\\  )(_))((_))\\    )\\  ((_)_  )(_))(()\\   )(_))  )\\ )   ((_))  /(_))_ (()\\((_) _   _   \r\n" + 
+			" | _ )| |(_) ((_)((_)_  (()(_)  ((_)  | _ )((_)_  ((_) ((_)_  _(_/(   _| |  (_)) __| ((_)(_)| | | |  \r\n" + 
+			" | _ \\| ' \\ / _ \\/ _` |/ _` |   (_-<  | _ \\/ _` || '_| / _` || ' \\))/ _` |    | (_ || '_|| || | | |  \r\n" + 
+			" |___/|_||_|\\___/\\__,_|\\__, |   /__/  |___/\\__,_||_|   \\__,_||_||_| \\__,_|     \\___||_|  |_||_| |_|  \r\n" + 
+			"                       |___/                                                                         \r\n" + 
+			"\r\n";
 	
 	/**
 	 * get scanner for a given file, prompting the user until they give a valid name
@@ -105,16 +124,7 @@ public class ExpressionTreeTests {
 	 * @param args command-line argument -> name of the input file
 	 */
 	public static void main(String[] args) {
-		System.out.println("Welcome to \n                                                                                                     \r\n" + 
-				"   (      )                   (         (                             (      (               (   (   \r\n" + 
-				" ( )\\  ( /(          )  (  (  )\\      ( )\\     )  (        )          )\\ )   )\\ )    (   (   )\\  )\\  \r\n" + 
-				" )((_) )\\())  (   ( /(  )\\))(((_)(    )((_) ( /(  )(    ( /(   (     (()/(  (()/(    )(  )\\ ((_)((_) \r\n" + 
-				"((_)_ ((_)\\   )\\  )(_))((_))\\    )\\  ((_)_  )(_))(()\\   )(_))  )\\ )   ((_))  /(_))_ (()\\((_) _   _   \r\n" + 
-				" | _ )| |(_) ((_)((_)_  (()(_)  ((_)  | _ )((_)_  ((_) ((_)_  _(_/(   _| |  (_)) __| ((_)(_)| | | |  \r\n" + 
-				" | _ \\| ' \\ / _ \\/ _` |/ _` |   (_-<  | _ \\/ _` || '_| / _` || ' \\))/ _` |    | (_ || '_|| || | | |  \r\n" + 
-				" |___/|_||_|\\___/\\__,_|\\__, |   /__/  |___/\\__,_||_|   \\__,_||_||_| \\__,_|     \\___||_|  |_||_| |_|  \r\n" + 
-				"                       |___/                                                                         \r\n" + 
-				"\r\n");
+		System.out.println("Welcome to \n" + BHOAGS_BAR_AND_GRILL);
 		
 		Scanner expFile = null;
 		if (args.length > 0) {
@@ -131,6 +141,6 @@ public class ExpressionTreeTests {
 		String[] exps = getExpsArray(expFile);
 		String output = evalAllExps(exps);
 		printToOutputFile(output);
-		System.out.println("All expressions processed");
+		System.out.println("All expressions processed. Come again soon to \n" + BHOAGS_BAR_AND_GRILL);
 	}
 }

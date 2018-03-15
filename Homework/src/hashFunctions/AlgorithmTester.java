@@ -8,8 +8,6 @@ import java.util.Scanner;
 
 public class AlgorithmTester {
 	
-	public static final int MAX = 30;
-	public static final int DIV = 4;
 	public static ArrayList<String> hashesStrs = new ArrayList<String>();
 	
 	public static int hash(char ch) {

@@ -9,7 +9,6 @@ import java.util.Scanner;
 public class TicTacToeHashCode extends Board {
 
 	boolean [] winners;  // True if the hash string that maps to this index is a winner, false otherwise
-	public static final int POSSIBILITIES = (int)Math.pow(3, 9);
 	
 	TicTacToeHashCode(String s) {
 		super(s);
@@ -17,7 +16,7 @@ public class TicTacToeHashCode extends Board {
 	}
 	
 	public void setupWinnersArray() {
-		winners = new boolean[POSSIBILITIES];
+		winners = new boolean[TicTacToe.POSSIBILITIES];
 		
 		Scanner file = null;
 		try {
@@ -30,6 +29,7 @@ public class TicTacToeHashCode extends Board {
 		if (file != null) {
 			while (file.hasNextLine()) {
 				String boardConfig = file.nextLine();
+				
 				//somehow get hash for the string even though myHashCode takes no parameters MRS KELLY WHAT IS THIS
 				int hash = 0; //get rid of this
 				winners[hash] = true;
@@ -54,11 +54,12 @@ public class TicTacToeHashCode extends Board {
 	//   possible values the game board (3 ^ 9) and it MUST use the super.charAt(row, col) function
 	@Override
 	public int myHashCode() {
+		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
 		int hash = 0;
 		int i = 0;
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 3; x++) {
-				hash += prehash(super.charAt(y, x)) * Math.pow(3, 9 - 1 - i);
+		for (int y = 0; y < TicTacToe.ROWS; y++) {
+			for (int x = 0; x < TicTacToe.COLS; x++) {
+				hash += prehash(super.charAt(y, x)) * pows3[pows3.length - 1 - i];
 				i++;
 			}
 		}
@@ -73,7 +74,7 @@ public class TicTacToeHashCode extends Board {
 
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode("Tic Tac Toe");
-				
+		
 		while (true) {
 
 			String currentBoard = board.boardValues[(int)(Math.random()* board.boardValues.length)];

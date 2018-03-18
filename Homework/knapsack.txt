@@ -1,9 +1,17 @@
-test01.txt	30	5, 4, 3, 1, 6, 3, 8, 9, 9, 8
+wat1.txt	26	12, 7, 11, 8, 9
 
-1 5 pound watermelons
-1 4 pound watermelons
-2 3 pound watermelons
-1 1 pound watermelons
-1 6 pound watermelons
+0 12 pound watermelons
+1 7 pound watermelons
+1 11 pound watermelons
 1 8 pound watermelons
 0 9 pound watermelons
+
+
+wat2.txt	190	56, 59, 80, 64, 75, 17
+
+1 56 pound watermelons
+1 59 pound watermelons
+0 80 pound watermelons
+0 64 pound watermelons
+1 75 pound watermelons
+0 17 pound watermelons

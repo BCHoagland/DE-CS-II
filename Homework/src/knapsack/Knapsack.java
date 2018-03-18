@@ -113,6 +113,8 @@ public class Knapsack {
 //		outputStr += getOutputStr(fileName, limit, weights, values);
 		outputStr += getOutputStr(fileName, limit, weights);
 		
+		set.clear();
+		
 		return maxValue;
 	}
 	

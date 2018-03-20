@@ -158,7 +158,7 @@ abstract class Board extends JFrame implements ActionListener {
 				default : letter = "" + ch;
 				}       
 				buttons[r][c].setText(letter);
-				ch++;
+				pos++;
 			}
 	}
 	

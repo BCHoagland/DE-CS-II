@@ -12,28 +12,26 @@ public class TicTacToeHashCode extends Board {
 
 	TicTacToeHashCode(String s) {
 		super(s);
-		// TODO Instantiate/fill winners array.
 
 		winners = new boolean[TicTacToe.POSSIBILITIES];
 
-		Scanner inputFile = null;
+		Scanner winnersFile = null;
 		try {
-			inputFile = new Scanner(new File("TicTacToeWinners.txt"));
+			winnersFile = new Scanner(new File("TicTacToeWinners.txt"));
 		} catch (FileNotFoundException ex) {
 			System.out.println(ex);
 			System.exit(1);
 		}
-		
-		int n = 0;
-		if (inputFile != null) {
-			while (inputFile.hasNextLine() && n < 1) {
-				String line = inputFile.nextLine();
+
+		if (winnersFile != null) {
+			while (winnersFile.hasNextLine()) {
+				String line = winnersFile.nextLine();
 				super.setBoardString(line);
-				System.out.println("\n\nboard string: " + line);
-				System.out.println("final2: " + myHashCode() + "\n\n\n");
-				n++;
+				int hash = myHashCode();
+				winners[hash] = true;
 			}
 		}
+
 	}
 
 	public int prehash(char ch) {
@@ -56,36 +54,42 @@ public class TicTacToeHashCode extends Board {
 		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
 		int hash = 0;
 		int i = 0;
+		int numSpaces = TicTacToe.ROWS * TicTacToe.COLS;
 		for (int y = 0; y < TicTacToe.ROWS; y++) {
 			for (int x = 0; x < TicTacToe.COLS; x++) {
-				System.out.println(x + ", " + y + ": " + super.charAt(y, x));
-				hash += prehash(super.charAt(y, x)) * pows3[pows3.length - 1 - i];
+				hash += prehash(super.charAt(y, x)) * pows3[numSpaces - 1 - i];
 				i++;
 			}
 		}
-		System.out.println("final: " + hash);
 		return hash;
 	}
 
 	public boolean isWin(String s) {
-		// return the value in the winner array for the hash code of the board string sent in.
-		return true;
+		super.setBoardString(s);
+		int hash = myHashCode();
+		return winners[hash];
 	}
 
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode ("Tic Tac Toe");
 
-		/*while (true) {
+		//READ IN TEST BOARD STRINGS
+		String[] boardStrs = {"  xoxoxox", "         ", "ooooooooo", "xxxxxxxxx"};
+		//TODO this line no longer works
+		//  String currentBoard = board.boardValues[(int)(Math.random()* board.boardValues.length)];
 
-			//TODO this line no longer works
-			//  String currentBoard = board.boardValues[(int)(Math.random()* board.boardValues.length)];
 
-			board.displayRandomString();
+		for (String boardStr : boardStrs) {
+//			board.setBoardString(boardStr);
+			board.setWinnerLabel(board.isWin(boardStr));
 			board.setHashCodeLabel(board.myHashCode());
-			// TODO Update this line to call your isWin method.
-			board.setWinner(TicTacToe.isWin(currentBoard));
+			Thread.sleep(4000);
+		}
 
-			Thread.sleep(4000);      
-		}*/
+
+//		board.displayRandomString();
+//		board.setHashCodeLabel(board.myHashCode());
+//		// TODO Update this line to call your isWin method.
+//		board.setWinner(TicTacToe.isWin(currentBoard));
 	}
-}  
+}

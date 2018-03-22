@@ -47,8 +47,6 @@ public class TicTacToeHashCode extends Board {
 		}
 	}
 
-	// TODO - write the myHashCode function.  It must create a unique hashcode for all of the 
-	//   possible values the game board (3 ^ 9) and it MUST use the super.charAt(row, col) function
 	@Override
 	public int myHashCode() {
 		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
@@ -64,8 +62,28 @@ public class TicTacToeHashCode extends Board {
 		return hash;
 	}
 
+	//IDK HOW TO DO THIS WITHOUT CHANGING BOARD
+	//CAN I DO MY OWN HASH FUNCTION AGAIN IN HERE? IDK
+	@Override
 	public boolean isWin(String s) {
-		super.setBoardString(s);
+//		super.setBoardString(s);
+//		int hash = myHashCode();
+//		return winners[hash];
+		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
+		int hash = 0;
+		int i = 0;
+		int numSpaces = TicTacToe.ROWS * TicTacToe.COLS;
+		for (int y = 0; y < TicTacToe.ROWS; y++) {
+			for (int x = 0; x < TicTacToe.COLS; x++) {
+				hash += prehash(super.charAt(s, y, x)) * pows3[numSpaces - 1 - i];
+				i++;
+			}
+		}
+		return winners[hash];
+	}
+	
+	@Override
+	boolean isWin() {
 		int hash = myHashCode();
 		return winners[hash];
 	}
@@ -75,21 +93,14 @@ public class TicTacToeHashCode extends Board {
 
 		//READ IN TEST BOARD STRINGS
 		String[] boardStrs = {"  xoxoxox", "         ", "ooooooooo", "xxxxxxxxx"};
-		//TODO this line no longer works
-		//  String currentBoard = board.boardValues[(int)(Math.random()* board.boardValues.length)];
-
 
 		for (String boardStr : boardStrs) {
-//			board.setBoardString(boardStr);
-			board.setWinnerLabel(board.isWin(boardStr));
-			board.setHashCodeLabel(board.myHashCode());
-			Thread.sleep(4000);
+			if (board.isWin(boardStr)) {
+				board.setBoardString(boardStr);
+				board.setWinnerLabel(true);
+				board.setHashCodeLabel(board.myHashCode());
+				Thread.sleep(4000);
+			}
 		}
-
-
-//		board.displayRandomString();
-//		board.setHashCodeLabel(board.myHashCode());
-//		// TODO Update this line to call your isWin method.
-//		board.setWinner(TicTacToe.isWin(currentBoard));
 	}
 }

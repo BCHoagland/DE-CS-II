@@ -2,26 +2,56 @@ package hashFunctions;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashSet;
 import java.util.Scanner;
 
-//TODO Make sure you remove all of the TODO comments from this file before turning itin
-
+/**
+ * <h1>TicTacToeHashCode Class</h1><br/>
+ * Represents a special version of the Board class that is used to calculate hash values for winning tic tac toe board setups
+ * @author Braden Hoagland
+ */
 public class TicTacToeHashCode extends Board {
-
-	boolean[] winners;  // True if the hash string that maps to this index is a winner, false otherwise
-
+	
+	/**
+	 * name of the file with the winning tic tac toe setups
+	 */
+	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
+	
+	/**
+	 * name of the file with my test tic tac toe strings
+	 */
+	public static final String TESTS_FILE_NAME = "TTT_Tests.txt";
+	
+	/**
+	 * set with all valid tic tac toe characters
+	 */
+	public static final HashSet<Character> VALID_CHARS = new HashSet<Character>() {{add(' ');add('o');add('x');}};
+	
+	/**
+	 * time (in milliseconds) that passes before switching to the next winning tic tac toe test string
+	 */
+	public static final int DELAY = 4000;
+	
+	/**
+	 * boolean array that stores a value of true at all indices mapped to by running my hash function on winning tic tac toe setups
+	 */
+	boolean[] winners;
+	
+	/**
+	 * constructor for the TicTacToeHashCode class that instantiates and fills the winners array with the proper T/F values
+	 * @param s title of the JFrame for the board
+	 */
 	TicTacToeHashCode(String s) {
 		super(s);
-
+		
+//		VALID_CHARS.add(' ');
+//		VALID_CHARS.add('o');
+//		VALID_CHARS.add('x');
+//		is this better than the double bracket style?
+		
 		winners = new boolean[TicTacToe.POSSIBILITIES];
 
-		Scanner winnersFile = null;
-		try {
-			winnersFile = new Scanner(new File("TicTacToeWinners.txt"));
-		} catch (FileNotFoundException ex) {
-			System.out.println(ex);
-			System.exit(1);
-		}
+		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
 
 		if (winnersFile != null) {
 			while (winnersFile.hasNextLine()) {
@@ -33,7 +63,30 @@ public class TicTacToeHashCode extends Board {
 		}
 
 	}
+	
+	/**
+	 * get a scanner for the file with the given name, if possible
+	 * @param fileName name of the file to return a scanner for
+	 * @return scanner for the given file; if no file exists, exit with an error
+	 */
+	//IS HAVING THIS THROW AN ERROR OKAY?
+	public Scanner getScannerForFile(String fileName) {
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new File(fileName));
+		} catch (FileNotFoundException ex) {
+			System.out.println(ex);
+			System.exit(1);
+		}
 
+		return sc;
+	}
+
+	/**
+	 * prehash function that maps each valid tic tac toe character to a certain int
+	 * @param ch character to be mapped to an int
+	 * @return int representing the given character
+	 */
 	public int prehash(char ch) {
 		switch(ch) {
 		case ' ':
@@ -47,6 +100,10 @@ public class TicTacToeHashCode extends Board {
 		}
 	}
 
+	/**
+	 * my hash code function that calculates a hash for the current boardString
+	 * @return hash value of the current boardString
+	 */
 	@Override
 	public int myHashCode() {
 		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
@@ -64,11 +121,16 @@ public class TicTacToeHashCode extends Board {
 
 	//IDK HOW TO DO THIS WITHOUT CHANGING BOARD
 	//CAN I DO MY OWN HASH FUNCTION AGAIN IN HERE? IDK
+	/**
+	 * determine if the given board setup is a winning setup by checking it against the winners array
+	 * @param s board setup to check
+	 * @return true if s is a winning setup, false otherwise
+	 */
 	@Override
 	public boolean isWin(String s) {
-//		super.setBoardString(s);
-//		int hash = myHashCode();
-//		return winners[hash];
+		//		super.setBoardString(s);
+		//		int hash = myHashCode();
+		//		return winners[hash];
 		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
 		int hash = 0;
 		int i = 0;
@@ -81,25 +143,51 @@ public class TicTacToeHashCode extends Board {
 		}
 		return winners[hash];
 	}
-	
+
+	/**
+	 * determine if the current boardString is a winning setup by checking it against the winners array
+	 * @return true if the current boardString is a winning setup, false otherwise
+	 */
 	@Override
 	boolean isWin() {
 		int hash = myHashCode();
 		return winners[hash];
 	}
 
+	/**
+	 * main method that displays all winning board setups from the test file at regular intervals
+	 * @param args
+	 * @throws InterruptedException
+	 */
 	public static void main(String[] args) throws InterruptedException {
 		TicTacToeHashCode board = new TicTacToeHashCode ("Tic Tac Toe");
 
-		//READ IN TEST BOARD STRINGS
-		String[] boardStrs = {"  xoxoxox", "         ", "ooooooooo", "xxxxxxxxx"};
+		int correctStrLength = TicTacToe.ROWS * TicTacToe.COLS;
 
-		for (String boardStr : boardStrs) {
-			if (board.isWin(boardStr)) {
-				board.setBoardString(boardStr);
-				board.setWinnerLabel(true);
-				board.setHashCodeLabel(board.myHashCode());
-				Thread.sleep(4000);
+		Scanner testFile = board.getScannerForFile(TESTS_FILE_NAME);
+
+		if (testFile != null) {
+			while (testFile.hasNextLine()) {
+				String boardStr = testFile.nextLine();
+				if (boardStr.length() != correctStrLength) continue;
+				boolean allCharsCorrect = true;
+				for (char ch : boardStr.toCharArray()) {
+					//AM I ALLOWED TO MAKE THE STRING LOWER CASE
+					
+					
+//					if (ch != ' ' && ch != 'o' && ch != 'x') {
+					if (!VALID_CHARS.contains(ch)) {
+						allCharsCorrect = false;
+						break;
+					}
+				}
+				if (!allCharsCorrect) continue;
+				if (board.isWin(boardStr)) {
+					board.setBoardString(boardStr);
+					board.setWinnerLabel(true);
+					board.setHashCodeLabel(board.myHashCode());
+					Thread.sleep(DELAY);
+				}
 			}
 		}
 	}

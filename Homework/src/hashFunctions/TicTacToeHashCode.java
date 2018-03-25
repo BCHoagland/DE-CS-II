@@ -61,7 +61,6 @@ public class TicTacToeHashCode extends Board {
 				winners[hash] = true;
 			}
 		}
-
 	}
 	
 	/**

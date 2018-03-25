@@ -68,7 +68,7 @@ public class TTT_HC {
 	}
 	
 	public int hash(String str) {
-		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
+		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561};
 		int hash = 0;
 		int i = 0;
 		for (char ch: str.toCharArray()) {
@@ -80,9 +80,7 @@ public class TTT_HC {
 	
 	public static void main(String[] args) {
 		TTT_HC t = new TTT_HC();
-		
-		int numItems = 0;
-		
+				
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		for (HashBoolean hb : t.winners) {
 			int n = 0;
@@ -91,20 +89,54 @@ public class TTT_HC {
 				hb = hb.getNext();
 			}
 			nums.add(n);
-			numItems += n;
 		}
 		System.out.println(nums);
 		
-		int x = 0;
-		for (int m : nums) {
-			if (m != 0) {
-				System.out.print(m + ",");
-				x++;
+		int numItems = 0;
+		int numChains = 0;
+		int totalChainLength = 0;
+		int maxChainLength = 0;
+		for (int n : nums) {
+			numItems += n;
+			if (n > 1) {
+				numChains++;
+				totalChainLength += n;
+				if (n > maxChainLength) maxChainLength = n;
 			}
 		}
 		
-		System.out.println("\n" + x + " of " + MAX_HASH + " spots have items");
-		System.out.println(numItems + " items in lookup table");
+		System.out.println("array size: " + MAX_HASH);
+//		System.out.println(numItems + " items in lookup table");
 		System.out.println("load factor: " + ((double)(numItems) / MAX_HASH));
+		
+		//HOW BIG IS TOO BIG OF A LOAD FACTOR????
+		//HOW MANY COLLISIONS IS TOO MANY COLLISIONS????
+		
+		System.out.println("\nnum chains: " + numChains);
+		System.out.println("avg chain length: " + ((double)totalChainLength / numChains));
+		System.out.println("max chain length: " + maxChainLength);
+		
+		System.out.println();
+		for (int i = 0; i < 4; i++) {
+			int beginIndex = MAX_HASH * i / 4;
+			int endIndex = MAX_HASH * (i + 1) / 4;
+			int quarterItems = 0;
+			for (int index = beginIndex; index < endIndex; index++) {
+				quarterItems += nums.get(index);
+			}
+			System.out.println("quarter #" + (i + 1) + " entries: " + quarterItems);
+		}
+		
+		System.out.println();
+		for (int i = 0; i < 10; i++) {
+			int beginIndex = MAX_HASH * i / 10;
+			int endIndex = MAX_HASH * (i + 1) / 10;
+			int tenthCollisions = 0;
+			for (int index = beginIndex; index < endIndex; index++) {
+				if (nums.get(index) > 1) tenthCollisions++;
+			}
+			System.out.println("tenth #" + (i + 1) + " collisions: " + tenthCollisions);
+			//COUNT EACH INDIVDUAL COLLISION, OR JUST NUMBER OF INDICES WITH COLLISIONS????
+		}
 	}
 }

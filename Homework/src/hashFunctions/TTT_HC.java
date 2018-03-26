@@ -16,9 +16,35 @@ public class TTT_HC {
 	
 	public HashBoolean[] winners;
 	
+	//REMOVE THIS\/ \/ \/ \/ \/ \/ \/ \/
+	public static int[] pv = {0, 1, 2};
+	
 	public TTT_HC() {
 		winners = new HashBoolean[MAX_HASH];
 
+		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
+
+		if (winnersFile != null) {
+			while (winnersFile.hasNextLine()) {
+				String line = winnersFile.nextLine();
+				int hash = hash(line);
+				if (winners[hash] == null) {
+					winners[hash] = new HashBoolean(line, true);
+				} else {
+					HashBoolean hb = winners[hash];
+					winners[hash] = new HashBoolean(line, true, hb);
+				}
+			}
+		}
+	}
+	
+	public TTT_HC(int a, int b, int c) {
+		winners = new HashBoolean[MAX_HASH];
+		
+		pv[0] = a;
+		pv[1] = b;
+		pv[2] = c;
+		
 		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
 
 		if (winnersFile != null) {
@@ -56,11 +82,11 @@ public class TTT_HC {
 	public int prehash(char ch) {
 		switch (ch) {
 		case ' ':
-			return 0;
+			return pv[0];
 		case 'o':
-			return 1;
+			return pv[1];
 		case 'x':
-			return 2;
+			return pv[2];
 		default:
 			return -1;
 		}
@@ -77,9 +103,48 @@ public class TTT_HC {
 		return hash % MAX_HASH;
 	}
 	
+	public static int getNumCollisions(TTT_HC t) {
+		int numCollisions = 0;
+		for (HashBoolean hb : t.winners) {
+			int n = 0;
+			while (hb != null) {
+				n++;
+				hb = hb.getNext();
+			}
+			if (n > 1) numCollisions += n;
+		}
+		return numCollisions;
+	}
+	
 	public static void main(String[] args) {
-		TTT_HC t = new TTT_HC();
+		int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199};
+		int len = primes.length;
+		int min = 333;
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+//		int minA = 100;
+//		int minB = 100;
+//		int minC = 100;
+		for (int a = 0; a < len; a++) {
+			for (int b = 0; b < len; b++) {
+				for (int c = 0; c < len; c++) {
+					TTT_HC t = new TTT_HC(primes[a], primes[b], primes[c]);
+					int num = getNumCollisions(t);
+					if (num == min) {
+						nums.add(a);
+						nums.add(b);
+						nums.add(c);
+					}
+//					if (num < min) {min = num;minA = a;minB = b;minC = c;}
+				}
+			}
+		}
+//		System.out.println("(" + minA + ", " + minB + ", " + minC + "): " + min);
+		for (int i = 0; i < nums.size(); i += 3) {
+			System.out.println("(" + nums.get(i) + ", " + nums.get(i + 1) + ", " + nums.get(i + 2) + ")");
+		}
 				
+		/*TTT_HC t = new TTT_HC();
+		
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		for (HashBoolean hb : t.winners) {
 			int n = 0;
@@ -108,9 +173,6 @@ public class TTT_HC {
 //		System.out.println(numItems + " items in lookup table");
 		System.out.println("load factor: " + ((double)(numItems) / MAX_HASH));
 		
-		//HOW BIG IS TOO BIG OF A LOAD FACTOR????
-		//HOW MANY COLLISIONS IS TOO MANY COLLISIONS????
-		
 		System.out.println("\nnum chains: " + numChains);
 		System.out.println("avg chain length: " + ((double)numCollisions / numChains));
 		System.out.println("max chain length: " + maxChainLength);
@@ -137,5 +199,7 @@ public class TTT_HC {
 			}
 			System.out.println("tenth #" + (i + 1) + " collisions: " + tenthCollisions);
 		}
+		
+		System.out.println("\ntotal collisions: " + numCollisions);*/
 	}
 }

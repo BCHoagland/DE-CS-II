@@ -130,6 +130,7 @@ public class TicTacToeHashCode extends Board {
 		//		super.setBoardString(s);
 		//		int hash = myHashCode();
 		//		return winners[hash];
+		
 		int[] pows3 = {1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683};
 		int hash = 0;
 		int i = 0;

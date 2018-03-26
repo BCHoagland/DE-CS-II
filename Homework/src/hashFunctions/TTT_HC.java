@@ -27,8 +27,7 @@ public class TTT_HC {
 				int hash = hash(line);
 				if (winners[hash] == null) {
 					winners[hash] = new HashBoolean(line, true);
-				}
-				else {
+				} else {
 					HashBoolean hb = winners[hash];
 					winners[hash] = new HashBoolean(line, true, hb);
 				}
@@ -94,13 +93,13 @@ public class TTT_HC {
 		
 		int numItems = 0;
 		int numChains = 0;
-		int totalChainLength = 0;
+		int numCollisions = 0;
 		int maxChainLength = 0;
 		for (int n : nums) {
 			numItems += n;
 			if (n > 1) {
 				numChains++;
-				totalChainLength += n;
+				numCollisions += n;
 				if (n > maxChainLength) maxChainLength = n;
 			}
 		}
@@ -113,7 +112,7 @@ public class TTT_HC {
 		//HOW MANY COLLISIONS IS TOO MANY COLLISIONS????
 		
 		System.out.println("\nnum chains: " + numChains);
-		System.out.println("avg chain length: " + ((double)totalChainLength / numChains));
+		System.out.println("avg chain length: " + ((double)numCollisions / numChains));
 		System.out.println("max chain length: " + maxChainLength);
 		
 		System.out.println();
@@ -133,10 +132,10 @@ public class TTT_HC {
 			int endIndex = MAX_HASH * (i + 1) / 10;
 			int tenthCollisions = 0;
 			for (int index = beginIndex; index < endIndex; index++) {
-				if (nums.get(index) > 1) tenthCollisions++;
+				int n = nums.get(index);
+				if (n > 1) tenthCollisions += n;
 			}
 			System.out.println("tenth #" + (i + 1) + " collisions: " + tenthCollisions);
-			//COUNT EACH INDIVDUAL COLLISION, OR JUST NUMBER OF INDICES WITH COLLISIONS????
 		}
 	}
 }

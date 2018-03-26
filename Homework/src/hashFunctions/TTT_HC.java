@@ -12,12 +12,11 @@ public class TTT_HC {
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
 	
-	public static final int MAX_HASH = 300;
+	public static final int MAX_HASH = 400;
 	
 	public HashBoolean[] winners;
 	
-	//REMOVE THIS\/ \/ \/ \/ \/ \/ \/ \/
-	public static int[] pv = {0, 1, 2};
+	public static int[] pv = {5, 2, 71};
 	
 	public TTT_HC() {
 		winners = new HashBoolean[MAX_HASH];
@@ -116,34 +115,27 @@ public class TTT_HC {
 		return numCollisions;
 	}
 	
-	public static void main(String[] args) {
+	public static void optimizeHashFunction() {
 		int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199};
 		int len = primes.length;
-		int min = 333;
-		ArrayList<Integer> nums = new ArrayList<Integer>();
-//		int minA = 100;
-//		int minB = 100;
-//		int minC = 100;
+		int min = 1000;
+		int minA = 100;
+		int minB = 100;
+		int minC = 100;
 		for (int a = 0; a < len; a++) {
 			for (int b = 0; b < len; b++) {
 				for (int c = 0; c < len; c++) {
 					TTT_HC t = new TTT_HC(primes[a], primes[b], primes[c]);
 					int num = getNumCollisions(t);
-					if (num == min) {
-						nums.add(a);
-						nums.add(b);
-						nums.add(c);
-					}
-//					if (num < min) {min = num;minA = a;minB = b;minC = c;}
+					if (num < min) {min = num;minA = a;minB = b;minC = c;}
 				}
 			}
 		}
-//		System.out.println("(" + minA + ", " + minB + ", " + minC + "): " + min);
-		for (int i = 0; i < nums.size(); i += 3) {
-			System.out.println("(" + nums.get(i) + ", " + nums.get(i + 1) + ", " + nums.get(i + 2) + ")");
-		}
-				
-		/*TTT_HC t = new TTT_HC();
+		System.out.println("(" + primes[minA] + ", " + primes[minB] + ", " + primes[minC] + "): " + min);
+	}
+	
+	public static void reportOnHash() {
+		TTT_HC t = new TTT_HC();
 		
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		for (HashBoolean hb : t.winners) {
@@ -200,6 +192,12 @@ public class TTT_HC {
 			System.out.println("tenth #" + (i + 1) + " collisions: " + tenthCollisions);
 		}
 		
-		System.out.println("\ntotal collisions: " + numCollisions);*/
+		System.out.println("\ntotal collisions: " + numCollisions);
+		System.out.println(getNumCollisions(t));
+	}
+	
+	public static void main(String[] args) {
+//		optimizeHashFunction();
+		reportOnHash();
 	}
 }

@@ -23,11 +23,6 @@ public class TicTacToeHashCode extends Board {
 	public static final String TESTS_FILE_NAME = "TTT_Tests.txt";
 	
 	/**
-	 * set with all valid tic tac toe characters
-	 */
-	public static final HashSet<Character> VALID_CHARS = new HashSet<Character>() {{add(' ');add('o');add('x');}};
-	
-	/**
 	 * time (in milliseconds) that passes before switching to the next winning tic tac toe test string
 	 */
 	public static final int DELAY = 4000;
@@ -44,11 +39,6 @@ public class TicTacToeHashCode extends Board {
 	TicTacToeHashCode(String s) {
 		super(s);
 		
-//		VALID_CHARS.add(' ');
-//		VALID_CHARS.add('o');
-//		VALID_CHARS.add('x');
-//		is this better than the double bracket style?
-		
 		winners = new boolean[TicTacToe.POSSIBILITIES];
 
 		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
@@ -60,6 +50,7 @@ public class TicTacToeHashCode extends Board {
 				int hash = myHashCode();
 				winners[hash] = true;
 			}
+			winnersFile.close();
 		}
 	}
 	
@@ -68,7 +59,6 @@ public class TicTacToeHashCode extends Board {
 	 * @param fileName name of the file to return a scanner for
 	 * @return scanner for the given file; if no file exists, exit with an error
 	 */
-	//IS HAVING THIS THROW AN ERROR OKAY?
 	public Scanner getScannerForFile(String fileName) {
 		Scanner sc = null;
 		try {
@@ -118,8 +108,6 @@ public class TicTacToeHashCode extends Board {
 		return hash;
 	}
 
-	//IDK HOW TO DO THIS WITHOUT CHANGING BOARD
-	//CAN I DO MY OWN HASH FUNCTION AGAIN IN HERE? IDK
 	/**
 	 * determine if the given board setup is a winning setup by checking it against the winners array
 	 * @param s board setup to check
@@ -170,18 +158,7 @@ public class TicTacToeHashCode extends Board {
 			while (testFile.hasNextLine()) {
 				String boardStr = testFile.nextLine();
 				if (boardStr.length() != correctStrLength) continue;
-				boolean allCharsCorrect = true;
-				for (char ch : boardStr.toCharArray()) {
-					//AM I ALLOWED TO MAKE THE STRING LOWER CASE
-					
-					
-//					if (ch != ' ' && ch != 'o' && ch != 'x') {
-					if (!VALID_CHARS.contains(ch)) {
-						allCharsCorrect = false;
-						break;
-					}
-				}
-				if (!allCharsCorrect) continue;
+				if (!TicTacToe.valid(TicTacToe.stringToBoard(boardStr))) continue;
 				if (board.isWin(boardStr)) {
 					board.setBoardString(boardStr);
 					board.setWinnerLabel(true);
@@ -189,6 +166,7 @@ public class TicTacToeHashCode extends Board {
 					Thread.sleep(DELAY);
 				}
 			}
+			testFile.close();
 		}
 	}
 }

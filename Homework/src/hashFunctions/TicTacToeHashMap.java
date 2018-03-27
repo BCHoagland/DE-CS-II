@@ -1,18 +1,55 @@
 package hashFunctions;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class TicTacToeHashMap  {
 	
-	HashMap winners = new HashMap();
+	/**
+	 * name of the file with the winning tic tac toe setups
+	 */
+	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
+	
+	public static int numItems = 0;
+	
+	HashMap<String, Integer> winners = new HashMap<String, Integer>();
+	
+	/**
+	 * get a scanner for the file with the given name, if possible
+	 * @param fileName name of the file to return a scanner for
+	 * @return scanner for the given file; if no file exists, exit with an error
+	 */
+	public Scanner getScannerForFile(String fileName) {
+		Scanner sc = null;
+		try {
+			sc = new Scanner(new File(fileName));
+		} catch (FileNotFoundException ex) {
+			System.out.println(ex);
+			System.exit(1);
+		}
+
+		return sc;
+	}
 	
 	TicTacToeHashMap() {
 		// TODO Instantiate/fill your HashMap ... pay attention to initial capacity and load values
+		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
 		
+		if (winnersFile != null) {
+			while (winnersFile.hasNextLine()) {
+				String boardStr = winnersFile.nextLine();
+				int hash = boardStr.hashCode();
+				winners.put(boardStr, hash);
+				numItems++;
+			}
+			winnersFile.close();
+		}
 	}
 
-	// TODO This method uses reflect to investigae the objects inside the HashMap
+	// TODO This method uses reflect to investigate the objects inside the HashMap
 	// You should be able to update this with your information and determine 
 	// Information about capacity (different than size()) and what is stored in the cells
 
@@ -34,11 +71,10 @@ public class TicTacToeHashMap  {
 
 		TicTacToeHashMap m = new TicTacToeHashMap();
 
-		// TODO read in and store the strings in your hashmap, then close the file
-
-		// TODO print out the capacity using the capcity() method
-		// TODO print out the other analytical statistics as required in the assignment
-
+		System.out.println(m.capacity());
+		System.out.println(numItems);
+		
+		double loadFactor = ((double)numItems) / m.capacity();
 	}
 
 }

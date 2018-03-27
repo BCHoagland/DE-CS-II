@@ -34,6 +34,7 @@ public class TTT_HC {
 					winners[hash] = new HashBoolean(line, true, hb);
 				}
 			}
+			winnersFile.close();
 		}
 	}
 	
@@ -57,6 +58,7 @@ public class TTT_HC {
 					winners[hash] = new HashBoolean(line, true, hb);
 				}
 			}
+			winnersFile.close();
 		}
 	}
 	
@@ -101,7 +103,7 @@ public class TTT_HC {
 		return hash % MAX_HASH;
 	}
 	
-	public static double getDiffFromLoadFactor(TTT_HC t) {
+	public static double getAvgChainLength(TTT_HC t) {
 		int numItems = 0;
 		int numCollisions = 0;
 		int numChains = 0;
@@ -118,9 +120,8 @@ public class TTT_HC {
 			}
 		}
 		
-		double loadFactor = ((double)numItems) / MAX_HASH;
 		double avgChainLength = ((double)numCollisions) / numChains;
-		return avgChainLength - loadFactor;
+		return avgChainLength;
 	}
 	
 	/**
@@ -138,7 +139,7 @@ public class TTT_HC {
 			for (int b = 0; b < len; b++) {
 				for (int c = 0; c < len; c++) {
 					TTT_HC t = new TTT_HC(primes[a], primes[b], primes[c]);
-					double num = getDiffFromLoadFactor(t);
+					double num = getAvgChainLength(t);
 					if (num < min) {min = num;A = a;B = b;C = c;}
 				}
 			}
@@ -208,7 +209,6 @@ public class TTT_HC {
 		}
 		
 		System.out.println("\ntotal collisions: " + numCollisions);
-//		System.out.println(getNumCollisions(t));
 	}
 	
 	public static void main(String[] args) {

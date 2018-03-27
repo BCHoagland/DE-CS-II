@@ -12,11 +12,11 @@ public class TTT_HC {
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
 	
-	public static final int MAX_HASH = 400;
+	public static final int MAX_HASH = 1000;
 	
 	public HashBoolean[] winners;
 	
-	public static int[] pv = {5, 2, 71};
+	public static int[] pv = {13, 2, 199};
 	
 	public TTT_HC() {
 		winners = new HashBoolean[MAX_HASH];
@@ -65,7 +65,6 @@ public class TTT_HC {
 	 * @param fileName name of the file to return a scanner for
 	 * @return scanner for the given file; if no file exists, exit with an error
 	 */
-	//IS HAVING THIS THROW AN ERROR OKAY?
 	public Scanner getScannerForFile(String fileName) {
 		Scanner sc = null;
 		try {
@@ -102,36 +101,49 @@ public class TTT_HC {
 		return hash % MAX_HASH;
 	}
 	
-	public static int getNumCollisions(TTT_HC t) {
+	public static double getDiffFromLoadFactor(TTT_HC t) {
+		int numItems = 0;
 		int numCollisions = 0;
+		int numChains = 0;
 		for (HashBoolean hb : t.winners) {
 			int n = 0;
 			while (hb != null) {
 				n++;
 				hb = hb.getNext();
 			}
-			if (n > 1) numCollisions += n;
+			numItems += n;
+			if (n > 1) {
+				numCollisions += n;
+				numChains++;
+			}
 		}
-		return numCollisions;
+		
+		double loadFactor = ((double)numItems) / MAX_HASH;
+		double avgChainLength = ((double)numCollisions) / numChains;
+		return avgChainLength - loadFactor;
 	}
 	
+	/**
+	 * determines the prehash values needed to minimize the number of empty spaces in the array
+	 * I'm okay with my hash function having lots of collisions. I just want them to be as spread out as possible so all my chains can be searched in constant time
+	 */
 	public static void optimizeHashFunction() {
 		int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199};
 		int len = primes.length;
-		int min = 1000;
-		int minA = 100;
-		int minB = 100;
-		int minC = 100;
+		double min = 100;
+		int A = 100;
+		int B = 100;
+		int C = 100;
 		for (int a = 0; a < len; a++) {
 			for (int b = 0; b < len; b++) {
 				for (int c = 0; c < len; c++) {
 					TTT_HC t = new TTT_HC(primes[a], primes[b], primes[c]);
-					int num = getNumCollisions(t);
-					if (num < min) {min = num;minA = a;minB = b;minC = c;}
+					double num = getDiffFromLoadFactor(t);
+					if (num < min) {min = num;A = a;B = b;C = c;}
 				}
 			}
 		}
-		System.out.println("(" + primes[minA] + ", " + primes[minB] + ", " + primes[minC] + "): " + min);
+		System.out.println("(" + primes[A] + ", " + primes[B] + ", " + primes[C] + "): " + min);
 	}
 	
 	public static void reportOnHash() {
@@ -148,6 +160,7 @@ public class TTT_HC {
 		}
 		System.out.println(nums);
 		
+		int numEmpty = 0;
 		int numItems = 0;
 		int numChains = 0;
 		int numCollisions = 0;
@@ -159,11 +172,13 @@ public class TTT_HC {
 				numCollisions += n;
 				if (n > maxChainLength) maxChainLength = n;
 			}
+			if (n == 0) numEmpty++;
 		}
 		
 		System.out.println("array size: " + MAX_HASH);
 //		System.out.println(numItems + " items in lookup table");
 		System.out.println("load factor: " + ((double)(numItems) / MAX_HASH));
+		System.out.println("number of empty indices: " + numEmpty);
 		
 		System.out.println("\nnum chains: " + numChains);
 		System.out.println("avg chain length: " + ((double)numCollisions / numChains));
@@ -193,7 +208,7 @@ public class TTT_HC {
 		}
 		
 		System.out.println("\ntotal collisions: " + numCollisions);
-		System.out.println(getNumCollisions(t));
+//		System.out.println(getNumCollisions(t));
 	}
 	
 	public static void main(String[] args) {

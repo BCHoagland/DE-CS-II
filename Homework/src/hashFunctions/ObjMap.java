@@ -31,7 +31,6 @@ public class ObjMap {
 				System.out.println();
 			}
 		}
-
 	}
 
 	public static void main(String[] args) throws java.io.FileNotFoundException, NoSuchFieldException, IllegalAccessException {

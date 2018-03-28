@@ -46,16 +46,6 @@ public class TicTacToeHashMap {
 			while (winnersFile.hasNextLine()) {
 				String boardStr = winnersFile.nextLine();
 				winners.put(boardStr, true);
-				
-				int hash = boardStr.hashCode() % 2048;
-				if (hashes.contains(hash)) {
-					int index = hashes.indexOf(hash);
-//					System.out.println(boardStr + " and " + strs.get(index) + ": " + hash);
-					break;
-				} else {
-					strs.add(boardStr);
-					hashes.add(hash);
-				}
 			}
 			winnersFile.close();
 		}
@@ -76,10 +66,27 @@ public class TicTacToeHashMap {
 		Field tableField = HashMap.class.getDeclaredField("table");
 		tableField.setAccessible(true);
 		Object[] table = (Object[]) tableField.get(winners);
+		
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		
 		for (Object tb : table) {
+			int n = 0;
 			if (tb != null) {
-				String nodeStr = tb.toString();
-				String boardStr = nodeStr.substring(0, nodeStr.indexOf("="));
+				Object entry = tb;
+				while (entry != null) {
+					n++;
+					Field keyField = entry.getClass().getDeclaredField("key");
+					keyField.setAccessible(true);
+					String boardStr = (String) keyField.get(entry);
+					System.out.print(boardStr + ", ");
+
+					Field nextField = entry.getClass().getDeclaredField("next");
+					nextField.setAccessible(true);
+
+					entry = nextField.get(entry);
+				}
+				nums.add(n);
+				System.out.println();
 			}
 		}
 	}

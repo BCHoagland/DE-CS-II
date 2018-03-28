@@ -7,13 +7,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * TicTacToeMyHashMap Class<br/>
+ * tic tac toe hash map created using my custom hash function
+ * @author Braden Hoagland
+ *
+ */
 public class TicTacToeMyHashMap {
 
 	/**
 	 * name of the file with the winning tic tac toe setups
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
-
+	
+	/**
+	 * hash map that stores the board strings from the winners file with the board string (made into an object) as the key and true as the value
+	 */
 	HashMap<FunkyString, Boolean> winners = new HashMap<FunkyString, Boolean>();
 
 	/**
@@ -33,6 +42,9 @@ public class TicTacToeMyHashMap {
 		return sc;
 	}
 
+	/**
+	 * constructor that fills the hash map with the board strings in the winners file
+	 */
 	TicTacToeMyHashMap() {
 		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
 
@@ -44,11 +56,13 @@ public class TicTacToeMyHashMap {
 			winnersFile.close();
 		}
 	}
-	
-//	public int hashCode() {
-//		
-//	}
 
+	/**
+	 * finds the capacity of the hash map using reflection
+	 * @return capacity of the hash map
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 */
 	private int capacity() throws NoSuchFieldException, IllegalAccessException {
 		Field tableField = HashMap.class.getDeclaredField("table");
 		tableField.setAccessible(true);
@@ -56,6 +70,11 @@ public class TicTacToeMyHashMap {
 		return table == null ? 0 : table.length;   
 	}
 
+	/**
+	 * reports on all required information about the hash map using reflection
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 */
 	private void reportOnHashMap() throws NoSuchFieldException, IllegalAccessException {
 		Field tableField = HashMap.class.getDeclaredField("table");
 		tableField.setAccessible(true);
@@ -146,6 +165,13 @@ public class TicTacToeMyHashMap {
 		System.out.println("max chain length: " + maxChainLength);
 	}
 
+	/**
+	 * create and report on a new hash map
+	 * @param args
+	 * @throws java.io.FileNotFoundException
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 */
 	public static void main(String[] args) throws java.io.FileNotFoundException, NoSuchFieldException, IllegalAccessException {
 
 		TicTacToeMyHashMap m = new TicTacToeMyHashMap();

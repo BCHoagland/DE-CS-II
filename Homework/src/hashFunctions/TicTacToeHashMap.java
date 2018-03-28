@@ -79,16 +79,27 @@ public class TicTacToeHashMap {
 					keyField.setAccessible(true);
 					String boardStr = (String) keyField.get(entry);
 					System.out.print(boardStr + ", ");
-
+					
 					Field nextField = entry.getClass().getDeclaredField("next");
 					nextField.setAccessible(true);
-
+					
 					entry = nextField.get(entry);
 				}
 				nums.add(n);
 			}
 			System.out.println();
 		}
+		
+		int capacity = capacity();
+		int numEntries = 0;
+		double loadFactor = 0;
+		
+		//num entries per quarter
+		//num collisions per tenth
+		
+		int avgChainLength = 0;
+		int maxChainLength = 0;
+		
 	}
 
 	// TODO using the same code to get the table of entries as in the capacity method,

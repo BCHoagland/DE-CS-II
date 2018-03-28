@@ -3,20 +3,21 @@ package hashFunctions;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 
-public class TicTacToeHashMap  {
-	
+public class TicTacToeHashMap {
+
 	/**
 	 * name of the file with the winning tic tac toe setups
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
-	
-	public static int numItems = 0;
-	
-	HashMap<String, Integer> winners = new HashMap<String, Integer>();
-	
+
+	HashMap<String, Boolean> winners = new HashMap<String, Boolean>();
+
 	/**
 	 * get a scanner for the file with the given name, if possible
 	 * @param fileName name of the file to return a scanner for
@@ -33,17 +34,28 @@ public class TicTacToeHashMap  {
 
 		return sc;
 	}
-	
+
 	TicTacToeHashMap() {
 		// TODO Instantiate/fill your HashMap ... pay attention to initial capacity and load values
 		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
 		
+		ArrayList<String> strs = new ArrayList<String>();
+		ArrayList<Integer> hashes = new ArrayList<Integer>();
+		
 		if (winnersFile != null) {
 			while (winnersFile.hasNextLine()) {
 				String boardStr = winnersFile.nextLine();
-				int hash = boardStr.hashCode();
-				winners.put(boardStr, hash);
-				numItems++;
+				winners.put(boardStr, true);
+				
+				int hash = boardStr.hashCode() % 2048;
+				if (hashes.contains(hash)) {
+					int index = hashes.indexOf(hash);
+//					System.out.println(boardStr + " and " + strs.get(index) + ": " + hash);
+					break;
+				} else {
+					strs.add(boardStr);
+					hashes.add(hash);
+				}
 			}
 			winnersFile.close();
 		}
@@ -59,22 +71,43 @@ public class TicTacToeHashMap  {
 		Object[] table = (Object[]) tableField.get(winners);
 		return table == null ? 0 : table.length;   
 	}
+	
+	private void reportOnHashMap() throws NoSuchFieldException, IllegalAccessException {
+		Field tableField = HashMap.class.getDeclaredField("table");
+		tableField.setAccessible(true);
+		Object[] table = (Object[]) tableField.get(winners);
+		for (Object tb : table) {
+			if (tb != null) {
+				String nodeStr = tb.toString();
+				String boardStr = nodeStr.substring(0, nodeStr.indexOf("="));
+			}
+		}
+	}
 
 	// TODO using the same code to get the table of entries as in the capacity method,
 	// create a method that will evaluate the table as directed in the assignment.
 	// note - if an entry is not null, then it has a value, it may have more than one value
 	// see if you can determine how many values it has.  Using the debugger will assist.
 
-	public static void main(String[] args) throws java.io.FileNotFoundException,
-	NoSuchFieldException, 
-	IllegalAccessException {
+	public static void main(String[] args) throws java.io.FileNotFoundException, NoSuchFieldException, IllegalAccessException {
 
 		TicTacToeHashMap m = new TicTacToeHashMap();
 
-		System.out.println(m.capacity());
-		System.out.println(numItems);
+		m.reportOnHashMap();
 		
-		double loadFactor = ((double)numItems) / m.capacity();
+//		int capacity = m.capacity();		
+//		int numItems = 0;
+//
+//		for (Entry<String, Boolean> entry : m.winners.entrySet()) {
+//			String str = entry.getKey();
+//			Boolean bool = entry.getValue();
+//			numItems++;
+//		}
+//		
+//		double loadFactor = ((double)numItems) / m.capacity();
+//		
+//		System.out.println("capacity: " + capacity);
+//		System.out.println("number of entries in table: " + numItems);
+//		System.out.println("load factor: " + loadFactor);
 	}
-
 }

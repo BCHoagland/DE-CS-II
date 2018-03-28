@@ -86,8 +86,8 @@ public class TicTacToeHashMap {
 					entry = nextField.get(entry);
 				}
 				nums.add(n);
-				System.out.println();
 			}
+			System.out.println();
 		}
 	}
 

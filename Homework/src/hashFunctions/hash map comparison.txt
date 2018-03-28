@@ -1,0 +1,54 @@
+DEFAULT HASH CODE
+capacity of the table: 2048
+number of entries in the table (indices filled): 1008
+load factor (total item count / capacity of table): 0.68359375
+
+quarter #1 entries: 397
+quarter #2 entries: 362
+quarter #3 entries: 315
+quarter #4 entries: 326
+
+tenth #1 collisions: 78
+tenth #2 collisions: 114
+tenth #3 collisions: 68
+tenth #4 collisions: 56
+tenth #5 collisions: 91
+tenth #6 collisions: 77
+tenth #7 collisions: 40
+tenth #8 collisions: 59
+tenth #9 collisions: 64
+tenth #10 collisions: 60
+
+average chain length: 2.2444444444444445
+max chain length: 4
+
+
+
+
+
+
+
+
+MY HASH CODE
+capacity of the table: 2048
+number of entries in the table (indices filled): 1053
+load factor (total item count / capacity of table): 0.68359375
+
+quarter #1 entries: 378
+quarter #2 entries: 355
+quarter #3 entries: 314
+quarter #4 entries: 353
+
+tenth #1 collisions: 82
+tenth #2 collisions: 68
+tenth #3 collisions: 67
+tenth #4 collisions: 72
+tenth #5 collisions: 71
+tenth #6 collisions: 37
+tenth #7 collisions: 56
+tenth #8 collisions: 70
+tenth #9 collisions: 76
+tenth #10 collisions: 56
+
+average chain length: 2.1266233766233764
+max chain length: 5

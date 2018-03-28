@@ -12,7 +12,7 @@ public class TTT_HC {
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
 	
-	public static final int MAX_HASH = 1000;
+	public static final int MAX_HASH = 2048;
 	
 	public HashBoolean[] winners;
 	
@@ -104,7 +104,6 @@ public class TTT_HC {
 	}
 	
 	public static double getAvgChainLength(TTT_HC t) {
-		int numItems = 0;
 		int numCollisions = 0;
 		int numChains = 0;
 		for (HashBoolean hb : t.winners) {
@@ -113,7 +112,6 @@ public class TTT_HC {
 				n++;
 				hb = hb.getNext();
 			}
-			numItems += n;
 			if (n > 1) {
 				numCollisions += n;
 				numChains++;
@@ -212,7 +210,7 @@ public class TTT_HC {
 	}
 	
 	public static void main(String[] args) {
-//		optimizeHashFunction();
-		reportOnHash();
+		optimizeHashFunction();
+//		reportOnHash();
 	}
 }

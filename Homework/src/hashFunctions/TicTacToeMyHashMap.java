@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class TicTacToeHashMap {
+public class TicTacToeMyHashMap {
 
 	/**
 	 * name of the file with the winning tic tac toe setups
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
 
-	HashMap<String, Boolean> winners = new HashMap<String, Boolean>();
+	HashMap<FunkyString, Boolean> winners = new HashMap<FunkyString, Boolean>();
 
 	/**
 	 * get a scanner for the file with the given name, if possible
@@ -33,17 +33,21 @@ public class TicTacToeHashMap {
 		return sc;
 	}
 
-	TicTacToeHashMap() {
+	TicTacToeMyHashMap() {
 		Scanner winnersFile = getScannerForFile(WINNERS_FILE_NAME);
 
 		if (winnersFile != null) {
 			while (winnersFile.hasNextLine()) {
 				String boardStr = winnersFile.nextLine();
-				winners.put(boardStr, true);
+				winners.put(new FunkyString(boardStr), true);
 			}
 			winnersFile.close();
 		}
 	}
+	
+//	public int hashCode() {
+//		
+//	}
 
 	private int capacity() throws NoSuchFieldException, IllegalAccessException {
 		Field tableField = HashMap.class.getDeclaredField("table");
@@ -67,7 +71,8 @@ public class TicTacToeHashMap {
 					n++;
 //					Field keyField = entry.getClass().getDeclaredField("key");
 //					keyField.setAccessible(true);
-//					String boardStr = (String) keyField.get(entry);
+//					FunkyString funkyBoardStr = (FunkyString) keyField.get(entry);
+//					String boardStr = funkyBoardStr.getStr();
 //					System.out.print(boardStr + ", ");
 
 					Field nextField = entry.getClass().getDeclaredField("next");
@@ -143,7 +148,7 @@ public class TicTacToeHashMap {
 
 	public static void main(String[] args) throws java.io.FileNotFoundException, NoSuchFieldException, IllegalAccessException {
 
-		TicTacToeHashMap m = new TicTacToeHashMap();
+		TicTacToeMyHashMap m = new TicTacToeMyHashMap();
 
 		m.reportOnHashMap();
 	}

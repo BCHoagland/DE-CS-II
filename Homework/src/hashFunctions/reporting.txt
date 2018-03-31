@@ -1,5 +1,19 @@
 ----------------------------------------
-PART 1
+HASH FUNCTION DESCRIPTIONS
+----------------------------------------
+
+hash function for part 1:
+
+I messed around a lot with multiplying an integer representation of each char in the board string with its position in the string. I could not manipulate what I multiplied the char value by to the point where I got no collisions, though, until I found the formula in the textbook. I tried using a coefficient of 3 because we're working with three different characters, and sure enough I got no collisions.
+
+--------------------------------------------------------------
+
+hash function for part 2:
+
+I wanted to work with the same exponent idea as from part 1, so I started changing number around to see if I got different results. I tried multiplying by powers of 3 in the reverse order as in part 1. I also used modulo to fit every element into the array. What I spent most of the time on was trying to optimize the algorithm I had by changing which integers the three possible characters were represented by. I ended up choosing to represent each character with a prime number to minimize collisions, and I ran through each permutation of numbers to find the setup with the smallest average chain length. Since the array capacities are different in parts 2 and 3, the character conversion uses different integers in those parts.
+
+----------------------------------------
+PART 1 REPORTING
 ----------------------------------------
 
 winning board string: "  oxoxo  " with hash 9959. Updating the GUI
@@ -38,7 +52,7 @@ winning board string: " xx xoxoo" with hash 1124. Updating the GUI
 
 
 ----------------------------------------
-PART 2
+PART 2 REPORTING
 ----------------------------------------
 
 number of collisions at each index of the lookup table: [0, 1, 1, 0, 1, 3, 2, 0, 1, 0, 1, 0, 0, 2, 2, 3, 2, 1, 1, 3, 4, 1, 1, 1, 2, 1, 1, 2, 3, 2, 3, 1, 0, 2, 2, 2, 1, 1, 1, 3, 2, 2, 1, 0, 2, 2, 0, 2, 2, 0, 1, 3, 1, 1, 1, 2, 2, 2, 2, 0, 2, 0, 1, 0, 2, 1, 2, 0, 1, 2, 2, 1, 2, 1, 3, 2, 1, 1, 2, 2, 4, 2, 2, 0, 2, 0, 1, 1, 1, 2, 0, 0, 1, 1, 2, 2, 0, 4, 2, 3, 2, 0, 1, 0, 2, 0, 0, 2, 1, 0, 1, 2, 2, 0, 0, 0, 0, 1, 1, 2, 2, 2, 1, 2, 2, 0, 3, 1, 2, 0, 2, 2, 2, 2, 1, 2, 2, 0, 0, 2, 1, 0, 4, 0, 1, 0, 2, 1, 1, 0, 1, 2, 1, 2, 3, 1, 0, 0, 3, 3, 2, 1, 2, 1, 2, 0, 1, 0, 3, 1, 1, 0, 0, 2, 4, 1, 4, 2, 1, 2, 3, 0, 2, 1, 1, 3, 3, 3, 0, 0, 1, 1, 1, 1, 0, 1, 0, 2, 0, 0, 2, 1, 1, 1, 0, 1, 3, 0, 3, 1, 1, 2, 0, 2, 1, 2, 2, 1, 1, 0, 1, 1, 2, 0, 0, 0, 2, 1, 0, 0, 1, 1, 0, 1, 2, 1, 0, 4, 3, 4, 3, 1, 1, 2, 1, 1, 2, 1, 0, 0, 2, 1, 0, 1, 2, 4, 1, 2, 1, 2, 1, 4, 2, 0, 0, 2, 3, 1, 0, 0, 1, 0, 5, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 2, 3, 0, 1, 0, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 0, 0, 3, 2, 2, 1, 1, 2, 0, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0, 3, 1, 2, 1, 0, 2, 1, 2, 1, 2, 0, 1, 2, 0, 0, 3, 2, 2, 1, 0, 1, 2, 0, 3, 1, 1, 3, 0, 2, 2, 1, 1, 2, 0, 0, 2, 2, 1, 1, 0, 2, 1, 0, 0, 2, 3, 1, 2, 1, 2, 1, 2, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 2, 2, 0, 1, 1, 1, 1, 2, 0, 3, 2, 2, 3, 1, 1, 2, 3, 0, 2, 3, 1, 3, 3, 2, 1, 1, 1, 2, 1, 2, 1, 0, 3, 0, 1, 0, 4, 2, 4, 2, 0, 1, 1, 1, 1, 0, 1, 1, 1, 3, 0, 2, 0, 1, 1, 1, 0, 2, 2, 0, 0, 2, 0, 2, 2, 2, 1, 4, 3, 1, 1, 1, 2, 2, 0, 1, 1, 0, 2, 4, 1, 0, 1, 2, 1, 0, 1, 3, 1, 0, 1, 1, 2, 0, 1, 1, 2, 1, 2, 1, 1, 0, 1, 1, 1, 3, 1, 1, 1, 0, 0, 1, 1, 0, 1, 3, 3, 2, 1, 1, 1, 1, 3, 3, 3, 1, 3, 2, 1, 1, 3, 3, 3, 1, 3, 1, 2, 0, 1, 0, 2, 0, 1, 1, 1, 4, 0, 1, 1, 2, 1, 2, 1, 2, 1, 3, 4, 1, 3, 1, 2, 2, 0, 1, 1, 1, 2, 0, 0, 0, 3, 1, 4, 1, 3, 1, 2, 3, 5, 1, 0, 3, 1, 1, 4, 1, 1, 2, 0, 0, 1, 1, 3, 1, 1, 0, 1, 0, 3, 1, 1, 2, 2, 2, 3, 4, 0, 2, 0, 1, 3, 0, 0, 2, 1, 0, 0, 2, 0, 3, 3, 1, 0, 2, 1, 1, 1, 3, 1, 2, 2, 1, 2, 1, 1, 1, 2, 0, 3, 1, 1, 1, 1, 1, 4, 1, 2, 0, 2, 0, 2, 2, 1, 1, 2, 1, 2, 0, 1, 4, 1, 1, 1, 1, 0, 0, 0, 2, 2, 0, 1, 0, 4, 2, 2, 1, 0, 2, 1, 2, 1, 3, 2, 0, 2, 2, 2, 1, 0, 2, 5, 1, 2, 1, 1, 0, 1, 2, 4, 0, 3, 0, 2, 1, 1, 4, 0, 3, 1, 1, 1, 0, 0, 3, 2, 2, 2, 2, 3, 4, 0, 0, 2, 2, 0, 1, 3, 1, 0, 1, 0, 2, 2, 2, 2, 0, 2, 1, 2, 2, 2, 0, 2, 0, 1, 3, 2, 1, 3, 1, 1, 0, 2, 2, 1, 2, 1, 0, 2, 3, 2, 3, 0, 2, 1, 1, 1, 0, 2, 1, 0, 3, 3, 1, 1, 0, 0, 3, 2, 0, 1, 2, 1, 0, 0, 3, 1, 4, 2, 1, 0, 0, 2, 1, 1, 1, 1, 2, 3, 3, 3, 2, 2, 1, 1, 0, 2, 3, 0, 0, 2, 0, 3, 2, 2, 1, 1, 2, 2, 2, 2, 1, 2, 0, 2, 4, 1, 1, 1, 3, 2, 2, 2, 0, 1, 2, 1, 0, 1, 3, 1, 3, 2, 3, 0, 1, 2, 3, 1, 0, 2, 1, 2, 1, 2, 1, 1, 1, 1, 2, 3, 0, 2, 0, 0, 1, 1, 2, 1, 1, 1, 3, 1, 3, 2, 0, 2, 1, 2, 2, 2, 2, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 2, 0, 4, 1, 2, 0, 2, 3, 2, 2, 1, 0, 4, 1, 0, 1, 3, 0, 1, 1, 2, 2, 2, 3, 0, 0, 2, 4, 1, 1, 1, 2, 1, 2, 2, 3, 1, 2, 1, 1, 3, 2, 0, 1, 2, 1, 1, 2, 1, 3, 1, 1, 1, 3, 3, 0, 0, 1, 4, 1, 0, 4, 2, 3, 1, 1, 2, 1, 2, 4, 2, 1, 0, 2, 2, 0, 1, 0, 0, 1, 4, 0, 2, 1, 1, 0, 4, 3, 1, 2, 2, 1, 1, 1, 2, 2, 2, 1, 2, 2, 1, 1, 0, 2, 2, 2, 3, 1, 1, 3, 2, 1, 3, 2, 1, 0, 0, 1, 2, 2, 4, 0, 3, 2, 2, 1, 2]
@@ -76,7 +90,7 @@ total collisions: 1038
 
 
 ----------------------------------------
-PART 3
+PART 3 REPORTING
 ----------------------------------------
 
 DEFAULT HASH CODE

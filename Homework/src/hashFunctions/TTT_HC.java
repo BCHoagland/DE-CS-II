@@ -12,11 +12,11 @@ public class TTT_HC {
 	 */
 	public static final String WINNERS_FILE_NAME = "TicTacToeWinners.txt";
 	
-	public static final int MAX_HASH = 2048;
+	public static final int MAX_HASH = 1000;
 	
 	public HashBoolean[] winners;
 	
-	public static int[] pv = {13, 2, 199};
+	public static int[] pv = {2, 0, 29};
 	
 	public TTT_HC() {
 		winners = new HashBoolean[MAX_HASH];
@@ -127,7 +127,7 @@ public class TTT_HC {
 	 * I'm okay with my hash function having lots of collisions. I just want them to be as spread out as possible so all my chains can be searched in constant time
 	 */
 	public static void optimizeHashFunction() {
-		int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199};
+		int[] primes = {0, 1, 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199};
 		int len = primes.length;
 		double min = 100;
 		int A = 100;
@@ -210,7 +210,7 @@ public class TTT_HC {
 	}
 	
 	public static void main(String[] args) {
-		optimizeHashFunction();
-//		reportOnHash();
+//		optimizeHashFunction();
+		reportOnHash();
 	}
 }

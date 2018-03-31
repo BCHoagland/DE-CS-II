@@ -124,7 +124,7 @@ public class TicTacToeMyHashMap {
 			}
 			if (n > maxChainLength) maxChainLength = n;
 		}
-
+		
 		double avgChainLength = ((double)numCollisions) / numChains;
 
 		double loadFactor = (double)(numItems) / capacity;
@@ -132,6 +132,7 @@ public class TicTacToeMyHashMap {
 		//entry data
 		System.out.println("capacity of the table: " + capacity);
 		System.out.println("number of entries in the table (indices filled): " + numEntries);
+		System.out.println("number of collisions in the table: " + numCollisions);
 		System.out.println("load factor (total item count / capacity of table): " + loadFactor);
 		System.out.println();
 

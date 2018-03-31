@@ -157,13 +157,22 @@ public class TicTacToeHashCode extends Board {
 		if (testFile != null) {
 			while (testFile.hasNextLine()) {
 				String boardStr = testFile.nextLine();
-				if (boardStr.length() != correctStrLength) continue;
-				if (!TicTacToe.valid(TicTacToe.stringToBoard(boardStr))) continue;
+				if (boardStr.length() != correctStrLength) {
+//					System.out.println("\"" + boardStr + "\" is not a valid board string");
+					continue;
+				}
+				if (!TicTacToe.valid(TicTacToe.stringToBoard(boardStr))) {
+//					System.out.println("\"" + boardStr + "\" is not a valid board string");
+					continue;
+				}
 				if (board.isWin(boardStr)) {
+//					System.out.println("winning board string: \"" + boardStr + "\" with hash " + board.myHashCode() + ". Updating the GUI");
 					board.setBoardString(boardStr);
 					board.setWinnerLabel(true);
 					board.setHashCodeLabel(board.myHashCode());
 					Thread.sleep(DELAY);
+				} else {
+//					System.out.println("losing board string: \"" + boardStr + "\" with hash " + board.myHashCode() + ". Not updating the GUI");
 				}
 			}
 			testFile.close();

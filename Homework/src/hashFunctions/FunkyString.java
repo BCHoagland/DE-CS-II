@@ -14,11 +14,11 @@ public class FunkyString {
 	public int prehash(char ch) {
 		switch (ch) {
 		case ' ':
-			return 181;
+			return 1;
 		case 'o':
-			return 2;
+			return 0;
 		case 'x':
-			return 7;
+			return 103;
 		default:
 			return -1;
 		}

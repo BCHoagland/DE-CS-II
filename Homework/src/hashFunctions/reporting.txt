@@ -1,0 +1,140 @@
+----------------------------------------
+PART 1
+----------------------------------------
+
+winning board string: "  oxoxo  " with hash 9959. Updating the GUI
+"  oxoXoxx" is not a valid board string
+losing board string: "  oxoXOxo" with hash 1359. Not updating the GUI
+"  oxoxOox" is not a valid board string
+"  		" is not a valid board string
+" short" is not a valid board string
+winning board string: "  oxoooxx" with hash 1359. Updating the GUI
+winning board string: "  oooxoxx" with hash 1340. Updating the GUI
+winning board string: " xx xoxoo" with hash 1124. Updating the GUI
+" " is not a valid board string
+"wrongchar" is not a valid board string
+"longggggggg" is not a valid board string
+"x0sjf0000" is not a valid board string
+"" is not a valid board string
+"  " is not a valid board string
+"xxxxxxxx" is not a valid board string
+"xxxxxxx" is not a valid board string
+"oooooooo" is not a valid board string
+"oo" is not a valid board string
+"xoxoxo" is not a valid board string
+"      " is not a valid board string
+"             " is not a valid board string
+"xxxxxxxxxxxxxxxxxxxxxxx" is not a valid board string
+"ooooooooooooooooooooooo" is not a valid board string
+"xoxoxoxoxoxoxoxoxox" is not a valid board string
+"x o o  ox xx" is not a valid board string
+" xo x x xox ox  xox  xo x" is not a valid board string
+
+
+
+
+
+
+
+
+----------------------------------------
+PART 2
+----------------------------------------
+
+number of collisions at each index of the lookup table: [0, 1, 1, 0, 1, 3, 2, 0, 1, 0, 1, 0, 0, 2, 2, 3, 2, 1, 1, 3, 4, 1, 1, 1, 2, 1, 1, 2, 3, 2, 3, 1, 0, 2, 2, 2, 1, 1, 1, 3, 2, 2, 1, 0, 2, 2, 0, 2, 2, 0, 1, 3, 1, 1, 1, 2, 2, 2, 2, 0, 2, 0, 1, 0, 2, 1, 2, 0, 1, 2, 2, 1, 2, 1, 3, 2, 1, 1, 2, 2, 4, 2, 2, 0, 2, 0, 1, 1, 1, 2, 0, 0, 1, 1, 2, 2, 0, 4, 2, 3, 2, 0, 1, 0, 2, 0, 0, 2, 1, 0, 1, 2, 2, 0, 0, 0, 0, 1, 1, 2, 2, 2, 1, 2, 2, 0, 3, 1, 2, 0, 2, 2, 2, 2, 1, 2, 2, 0, 0, 2, 1, 0, 4, 0, 1, 0, 2, 1, 1, 0, 1, 2, 1, 2, 3, 1, 0, 0, 3, 3, 2, 1, 2, 1, 2, 0, 1, 0, 3, 1, 1, 0, 0, 2, 4, 1, 4, 2, 1, 2, 3, 0, 2, 1, 1, 3, 3, 3, 0, 0, 1, 1, 1, 1, 0, 1, 0, 2, 0, 0, 2, 1, 1, 1, 0, 1, 3, 0, 3, 1, 1, 2, 0, 2, 1, 2, 2, 1, 1, 0, 1, 1, 2, 0, 0, 0, 2, 1, 0, 0, 1, 1, 0, 1, 2, 1, 0, 4, 3, 4, 3, 1, 1, 2, 1, 1, 2, 1, 0, 0, 2, 1, 0, 1, 2, 4, 1, 2, 1, 2, 1, 4, 2, 0, 0, 2, 3, 1, 0, 0, 1, 0, 5, 0, 1, 0, 1, 1, 0, 0, 1, 1, 1, 2, 3, 0, 1, 0, 2, 1, 1, 1, 2, 2, 2, 1, 1, 1, 2, 2, 0, 0, 3, 2, 2, 1, 1, 2, 0, 3, 1, 1, 1, 1, 1, 0, 1, 1, 0, 3, 1, 2, 1, 0, 2, 1, 2, 1, 2, 0, 1, 2, 0, 0, 3, 2, 2, 1, 0, 1, 2, 0, 3, 1, 1, 3, 0, 2, 2, 1, 1, 2, 0, 0, 2, 2, 1, 1, 0, 2, 1, 0, 0, 2, 3, 1, 2, 1, 2, 1, 2, 2, 1, 0, 1, 0, 0, 1, 2, 2, 1, 2, 2, 0, 1, 1, 1, 1, 2, 0, 3, 2, 2, 3, 1, 1, 2, 3, 0, 2, 3, 1, 3, 3, 2, 1, 1, 1, 2, 1, 2, 1, 0, 3, 0, 1, 0, 4, 2, 4, 2, 0, 1, 1, 1, 1, 0, 1, 1, 1, 3, 0, 2, 0, 1, 1, 1, 0, 2, 2, 0, 0, 2, 0, 2, 2, 2, 1, 4, 3, 1, 1, 1, 2, 2, 0, 1, 1, 0, 2, 4, 1, 0, 1, 2, 1, 0, 1, 3, 1, 0, 1, 1, 2, 0, 1, 1, 2, 1, 2, 1, 1, 0, 1, 1, 1, 3, 1, 1, 1, 0, 0, 1, 1, 0, 1, 3, 3, 2, 1, 1, 1, 1, 3, 3, 3, 1, 3, 2, 1, 1, 3, 3, 3, 1, 3, 1, 2, 0, 1, 0, 2, 0, 1, 1, 1, 4, 0, 1, 1, 2, 1, 2, 1, 2, 1, 3, 4, 1, 3, 1, 2, 2, 0, 1, 1, 1, 2, 0, 0, 0, 3, 1, 4, 1, 3, 1, 2, 3, 5, 1, 0, 3, 1, 1, 4, 1, 1, 2, 0, 0, 1, 1, 3, 1, 1, 0, 1, 0, 3, 1, 1, 2, 2, 2, 3, 4, 0, 2, 0, 1, 3, 0, 0, 2, 1, 0, 0, 2, 0, 3, 3, 1, 0, 2, 1, 1, 1, 3, 1, 2, 2, 1, 2, 1, 1, 1, 2, 0, 3, 1, 1, 1, 1, 1, 4, 1, 2, 0, 2, 0, 2, 2, 1, 1, 2, 1, 2, 0, 1, 4, 1, 1, 1, 1, 0, 0, 0, 2, 2, 0, 1, 0, 4, 2, 2, 1, 0, 2, 1, 2, 1, 3, 2, 0, 2, 2, 2, 1, 0, 2, 5, 1, 2, 1, 1, 0, 1, 2, 4, 0, 3, 0, 2, 1, 1, 4, 0, 3, 1, 1, 1, 0, 0, 3, 2, 2, 2, 2, 3, 4, 0, 0, 2, 2, 0, 1, 3, 1, 0, 1, 0, 2, 2, 2, 2, 0, 2, 1, 2, 2, 2, 0, 2, 0, 1, 3, 2, 1, 3, 1, 1, 0, 2, 2, 1, 2, 1, 0, 2, 3, 2, 3, 0, 2, 1, 1, 1, 0, 2, 1, 0, 3, 3, 1, 1, 0, 0, 3, 2, 0, 1, 2, 1, 0, 0, 3, 1, 4, 2, 1, 0, 0, 2, 1, 1, 1, 1, 2, 3, 3, 3, 2, 2, 1, 1, 0, 2, 3, 0, 0, 2, 0, 3, 2, 2, 1, 1, 2, 2, 2, 2, 1, 2, 0, 2, 4, 1, 1, 1, 3, 2, 2, 2, 0, 1, 2, 1, 0, 1, 3, 1, 3, 2, 3, 0, 1, 2, 3, 1, 0, 2, 1, 2, 1, 2, 1, 1, 1, 1, 2, 3, 0, 2, 0, 0, 1, 1, 2, 1, 1, 1, 3, 1, 3, 2, 0, 2, 1, 2, 2, 2, 2, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 2, 0, 4, 1, 2, 0, 2, 3, 2, 2, 1, 0, 4, 1, 0, 1, 3, 0, 1, 1, 2, 2, 2, 3, 0, 0, 2, 4, 1, 1, 1, 2, 1, 2, 2, 3, 1, 2, 1, 1, 3, 2, 0, 1, 2, 1, 1, 2, 1, 3, 1, 1, 1, 3, 3, 0, 0, 1, 4, 1, 0, 4, 2, 3, 1, 1, 2, 1, 2, 4, 2, 1, 0, 2, 2, 0, 1, 0, 0, 1, 4, 0, 2, 1, 1, 0, 4, 3, 1, 2, 2, 1, 1, 1, 2, 2, 2, 1, 2, 2, 1, 1, 0, 2, 2, 2, 3, 1, 1, 3, 2, 1, 3, 2, 1, 0, 0, 1, 2, 2, 4, 0, 3, 2, 2, 1, 2]
+array size: 1000
+load factor: 1.4
+number of empty indices: 213
+
+num chains: 425
+avg chain length: 2.4423529411764706
+max chain length: 5
+
+quarter #1 entries: 331
+quarter #2 entries: 324
+quarter #3 entries: 369
+quarter #4 entries: 376
+
+tenth #1 collisions: 111
+tenth #2 collisions: 97
+tenth #3 collisions: 85
+tenth #4 collisions: 92
+tenth #5 collisions: 86
+tenth #6 collisions: 113
+tenth #7 collisions: 110
+tenth #8 collisions: 114
+tenth #9 collisions: 107
+tenth #10 collisions: 123
+
+total collisions: 1038
+
+
+
+
+
+
+
+
+----------------------------------------
+PART 3
+----------------------------------------
+
+DEFAULT HASH CODE
+capacity of the table: 2048
+number of entries in the table (indices filled): 1008
+number of collisions in the table: 655
+load factor (total item count / capacity of table): 0.68359375
+
+quarter #1 entries: 397
+quarter #2 entries: 362
+quarter #3 entries: 315
+quarter #4 entries: 326
+
+tenth #1 collisions: 78
+tenth #2 collisions: 114
+tenth #3 collisions: 68
+tenth #4 collisions: 56
+tenth #5 collisions: 91
+tenth #6 collisions: 77
+tenth #7 collisions: 40
+tenth #8 collisions: 59
+tenth #9 collisions: 64
+tenth #10 collisions: 60
+
+average chain length: 2.2444444444444445
+max chain length: 4
+
+
+
+
+MY HASH CODE
+capacity of the table: 2048
+number of entries in the table (indices filled): 1053
+number of collisions in the table: 707
+load factor (total item count / capacity of table): 0.68359375
+
+quarter #1 entries: 339
+quarter #2 entries: 368
+quarter #3 entries: 344
+quarter #4 entries: 349
+
+tenth #1 collisions: 52
+tenth #2 collisions: 59
+tenth #3 collisions: 58
+tenth #4 collisions: 97
+tenth #5 collisions: 75
+tenth #6 collisions: 50
+tenth #7 collisions: 62
+tenth #8 collisions: 75
+tenth #9 collisions: 81
+tenth #10 collisions: 46
+
+average chain length: 2.1266233766233764
+max chain length: 5
+
+
+
+
+COMPARISON
+The default java hash code had slightly more clustering than my own (emphasis on slightly). The minimum and maximum collision number per tenth and the maximum and minimum entry numbers per quarter were closer together using my custom hash code. My hash code tended to have collisions occur relatively uniformly, whereas the default hash code had more collisions in the front half of the table.
+My hash code generates more collisions, but by design. I wanted to spread out collisions so I would consistently have collisions at as many indices as possible. I wanted the average chain length to be as close as possible to the load factor so that any lookup operation takes about the same constant time. This is reflected in how my hash code generates a lower average chain length. My hash code's maximum chain length is 1 more than the default hash code's table, but I'm okay with that because that's such a small difference.

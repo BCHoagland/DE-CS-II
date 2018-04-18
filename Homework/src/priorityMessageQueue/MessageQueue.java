@@ -28,4 +28,10 @@ public class MessageQueue {
 		if (queue.isEmpty()) return null;
 		return queue.get(0);
 	}
+	
+	public void incrementAllArrivalTimes() {
+		for (Message msg : queue) {
+			msg.incrementArrivalTime();
+		}
+	}
 }

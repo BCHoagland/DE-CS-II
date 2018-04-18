@@ -1,6 +1,7 @@
 package priorityMessageQueue;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 public class MessagePriorityQueue {
@@ -18,8 +19,7 @@ public class MessagePriorityQueue {
 	public Message remove() {
 		int headIndex = getHeadIndex();
 		if (headIndex == -1) {
-			//throw exception
-			//is this already handled if I just call remove() on an empty queue instead?
+			throw new NoSuchElementException();
 		}
 		return queue.get(headIndex).remove();
 	}

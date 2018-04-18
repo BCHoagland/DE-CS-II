@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Simulation {
 	
-	public static final int NUM_ITERS = 1000;
+	public static final int NUM_ITERS = 100000;
 	public static final int NUM_PRIORITIES = 5;
 	public static final int PROCESS_DELAY = 4;
 	public static final int BASE_MSGS_IN_PQ = 100;

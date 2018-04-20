@@ -4,18 +4,17 @@ import java.util.ArrayList;
 
 public class Simulation {
 
-	//	public static final int NUM_ITERS = 1000;
 	public static final int NUM_PRIORITIES = 5;
 	public static final int PROCESS_DELAY = 4;
-	public static final int BASE_MSGS_IN_PQ = 100;
+	public static final int BASE_MSGS_IN_PQ = 50;
 
 	public static ArrayList<ArrayList<Integer>> times;
 
 	//increment the arrival times of the messages in the queue, remove the top one, and store its arrival time data
 	public static MessagePriorityQueue processQueue(MessagePriorityQueue pq) {
-		pq.incrementAllArrivalTimes();
 		Message removedMsg = pq.remove();
 		times.get(removedMsg.getPriority()).add(removedMsg.getArrivalTime() + PROCESS_DELAY);
+		pq.incrementAllArrivalTimes();
 		return pq;
 	}
 	

@@ -1,0 +1,51 @@
+Braden Hoagland
+
+-----------------
+SIMULATION OUTPUT
+-----------------
+
+simulation with 100 iterations
+average arrival time for priority level 0: 5.923076923076923 minutes
+average arrival time for priority level 1: 14.23076923076923 minutes
+average arrival time for priority level 2: 43.18518518518518 minutes
+average arrival time for priority level 3: 57.6 minutes
+average arrival time for priority level 4: 86.73684210526316 minutes
+
+simulation with 1000 iterations
+average arrival time for priority level 0: 4.47029702970297 minutes
+average arrival time for priority level 1: 5.3399014778325125 minutes
+average arrival time for priority level 2: 6.645833333333333 minutes
+average arrival time for priority level 3: 17.48421052631579 minutes
+average arrival time for priority level 4: 216.61971830985917 minutes
+
+simulation with 10000 iterations
+average arrival time for priority level 0: 4.029893924783028 minutes
+average arrival time for priority level 1: 4.218367346938775 minutes
+average arrival time for priority level 2: 4.379327398615232 minutes
+average arrival time for priority level 3: 5.418191056910569 minutes
+average arrival time for priority level 4: 254.34261133603238 minutes
+
+simulation with 100000 iterations
+average arrival time for priority level 0: 4.001797573276077 minutes
+average arrival time for priority level 1: 4.01189221737167 minutes
+average arrival time for priority level 2: 4.027780543662252 minutes
+average arrival time for priority level 3: 4.196141959924235 minutes
+average arrival time for priority level 4: 255.00316646562123 minutes
+
+----------------
+PROGRAM OVERVIEW
+----------------
+
+My program consists of four classes: Message, MessageQueue, MessagePriorityQueue, and Simulation.
+Message is the message object that stores a message, priority level, and arrival time. It contains a method that increments its stored arrival time, which is called during every iteration of the simulation.
+MessagePriorityQueue has an arrayList of MessageQueues that it uses to store messages until they are processed. Each MessageQueue is a standard Queue with all the necessary methods. MessagePriorityQueue uses five of them to represent five priority levels, and its own insertion and deletion methods simply determine which MessageQueue's internal insertion and deletion methods should be called.
+Simulation creates a MessagePriorityQueue and fills it with messages (each priority has an equal probability of being selected when a new message is created), processing them and determining average arrival time for each priority level.
+
+--------
+ANALYSIS
+--------
+
+The arrival times for priorities 0-3 all converge to 4, with more important priorities (i.e. priority 0) approaching 4 faster than less important priorities (i.e. priority 3).
+When the priority queue is pre-populated and the message processing begins, the simulation will first process all priority 0 messages. Then it will process all priority 1 messages, stopping to process any new priority 0 messages that are created. Then it will process all priority 2 messages, stopping to process any messages of priorities 0 or 1 that are created. This pattern continues, resulting in backlog in the queue for priority 4 messages. After the queues for priorities 0-3 are emptied for the first time, all new priority 0-3 messages will be processed instantly (i.e. they only take the base case of 4 minutes). The priority 4 queue, on the other hand, will not be emptied until the simulation is over, so this instantaneous processing never reaches priority 4 messages and thus never brings the priority 4 average arrival time down.
+
+Array lists have O(n) runtime for insertion and deletion, heaps have O(log n) runtime for insertion and deletion. A heap implementation would run significantly faster since it is bounded by a converging function (O(log n)) instead of a diverging function (O(n)). This difference would become increasingly noticeable as the number of messages being processed increased.

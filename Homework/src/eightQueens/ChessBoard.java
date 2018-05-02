@@ -4,20 +4,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
+import java.util.ArrayList;
+
 import java.awt.Dimension;
 import java.awt.Color;
 
 public class ChessBoard {
 
-	private static final int ROWS = 8;
-	private static final int COLS = 8;   
-	private static final int HEIGHT = 120*ROWS;
-	private static final int WIDTH = 120*COLS;
+	private static final int N = 8;
+	private static final int HEIGHT = 120*N;
+	private static final int WIDTH = 120*N;
 
 	private JFrame window;
 	private JPanel grid;
-	ChessSquarePanel[][] spaces = new ChessSquarePanel[ROWS][COLS];
+	private ChessSquarePanel[][] spaces = new ChessSquarePanel[N][N];
+	public ArrayList<Queen> queens = new ArrayList<Queen>();
 
 	ChessBoard() {
 		buildFrame();
@@ -27,10 +28,9 @@ public class ChessBoard {
 	}
 
 	private void buildFrame() {
-		window = new JFrame("Practicing");
+		window = new JFrame("Eight Queens");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setSize(new Dimension(WIDTH, HEIGHT));
-		// could set min, max, and preferred dimensions, I think
 		window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS)); 
 	}
 
@@ -45,10 +45,10 @@ public class ChessBoard {
 
 	private JPanel buildGridPanels() {
 		JPanel p = new JPanel();
-		p.setLayout(new GridLayout(ROWS,COLS));
+		p.setLayout(new GridLayout(N,N));
 		Color bg;
-		for (int r = 0; r < ROWS; r++) {
-			for (int c = 0; c < COLS; c++) {
+		for (int r = 0; r < N; r++) {
+			for (int c = 0; c < N; c++) {
 				bg = getPanelColor(r,c);           
 				ChessSquarePanel sq = new ChessSquarePanel(bg, false);
 				spaces[r][c] = sq;
@@ -57,8 +57,19 @@ public class ChessBoard {
 		}
 		return p;
 	}
+	
+	public void updateBoard() {
+		for (int x = 0; x < N; x++) {
+			for (int y = 0; y < N; y++) {
+				spaces[x][y].setQueenStatus(false);
+			}
+		}
+		for (Queen q : queens) {
+			spaces[q.getRow()][q.getCol()].setQueenStatus(true);
+		}
+	}
 
 	public static void main(String[] args) {
-		ChessBoard pg = new ChessBoard();
+		ChessBoard board = new ChessBoard();
 	}
 }

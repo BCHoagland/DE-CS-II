@@ -36,4 +36,9 @@ public class ChessSquarePanel extends JPanel {
 		bgColor = c;
 		repaint();
 	}
+	
+	public void setQueenStatus(boolean b) {
+		hasQueen = b;
+		repaint();
+	}
 }

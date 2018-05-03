@@ -10,8 +10,12 @@ public class Queen {
 		row = y;
 	}
 	
-	public int getRow() {return row;}
 	public int getCol() {return col;}
+	public int getRow() {return row;}
 	
 	public void incrementRow() {row++;}
+	
+	public String toString() {return "(" + col + ", " + row + ")";}
+	
+	public Queen clone() {return new Queen(col, row);}
 }

@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 
 public class ChessBoard {
@@ -57,88 +58,130 @@ public class ChessBoard {
 		}
 		return p;
 	}
-	
-	private void updateBoard() {
+
+	private void updateQueens(ArrayList<Queen> qs) {
 		for (int x = 0; x < N; x++) {
 			for (int y = 0; y < N; y++) {
 				spaces[x][y].setQueenStatus(false);
 			}
 		}
+		queens = qs;
 		for (Queen q : queens) {
 			spaces[q.getRow()][q.getCol()].setQueenStatus(true);
 		}
 	}
-	
+
 	private boolean isCorrect(ArrayList<Queen> list) {
 		if (list.size() != N) return false;
-		
-		ArrayList<Integer> rowList = new ArrayList<Integer>();
-		ArrayList<Integer> colList = new ArrayList<Integer>();
-		ArrayList<Integer> diagList = new ArrayList<Integer>();
-		
+
 		for (Queen q : list) {
-			if (rowList.contains(q.getRow())) return false;
-			if (colList.contains(q.getCol())) return false;
-			if (diagList.contains(q.getCol() - q.getRow())) return false;
-			rowList.add(q.getRow());
-			colList.add(q.getCol());
-			diagList.add(q.getCol() - q.getRow());
+			if (!isSafe(q, list)) return false;
 		}
 		return true;
 	}
-	
+
 	private boolean isSafe(Queen q, ArrayList<Queen> qs) {
+		if (q.getCol() >= N || q.getRow() >= N) return false;
 		for (Queen otherQ : qs) {
 			if (otherQ.getCol() != q.getCol()) {
 				if (otherQ.getRow() == q.getRow()) return false;
 				if (otherQ.getCol() - otherQ.getRow() == q.getCol() - q.getRow()) return false;
+				if (otherQ.getCol() + otherQ.getRow() == q.getCol() + q.getRow()) return false;
 			}
 		}
 		return true;
 	}
-	
+
 	private boolean moveToSafeSpot(Queen q, ArrayList<Queen> qs) {
 		q.incrementRow();
-		while (!isSafe(q, qs) && q.getRow() < N) {
+		while (!isSafe(q, qs) && q.getRow() < N - 1) {
 			q.incrementRow();
 		}
 		if (!isSafe(q, qs)) return false;
 		return true;
 	}
-	
+
 	private ArrayList<Queen> findOne() {
 		ArrayList<Queen> qs = new ArrayList<Queen>();
 		Queen q = null;
 		while (true) {
-//			for (Queen q2 : qs) {
-//				System.out.print("(" + q2.getCol() + ", " + q2.getRow() + "), ");
-//			}
-//			System.out.println();
-			
+
 			if (qs.size() < N) {
 				q = new Queen(qs.size(), 0);
 				qs.add(q);
 			} else {
 				q = qs.get(qs.size() - 1);
 				q.incrementRow();
-//				if (q.getRow() > 10) return null;
 			}
-			
-			if (isCorrect(qs)) return qs;
-			
+
 			if (!isSafe(q, qs)) {
 				while(!moveToSafeSpot(q, qs)) {
-					qs.remove(q);
-					if (queens.size() == 0) return null;
+					qs.remove(qs.size() - 1);
+					if (qs.size() == 0) {
+						return null;
+					}
 					q = qs.get(qs.size() - 1);
 				}
+			}
+
+			if (isCorrect(qs)) return qs;
+		}
+	}
+
+	private ArrayList<ArrayList<Queen>> findAll() {
+		ArrayList<ArrayList<Queen>> solutions = new ArrayList<ArrayList<Queen>>();
+		ArrayList<Queen> qs = new ArrayList<Queen>();
+		Queen q = null;
+		int n = 0;
+		while (true) {
+
+			if (qs.size() < N) {
+				q = new Queen(qs.size(), 0);
+				qs.add(q);
+			} else {
+				q = qs.get(qs.size() - 1);
+				q.incrementRow();
+			}
+
+			if (!isSafe(q, qs)) {
+				while(!moveToSafeSpot(q, qs)) {
+					qs.remove(qs.size() - 1);
+					if (qs.size() == 0) {
+						return solutions;
+					}
+					q = qs.get(qs.size() - 1);
+				}
+			}
+
+			if (isCorrect(qs)) {
+				ArrayList<Queen> newQs = new ArrayList<Queen>();
+				for (Queen q2 : (ArrayList<Queen>) qs.clone()) {
+					newQs.add(q2.clone());
+				}
+				solutions.add((ArrayList<Queen>) newQs.clone());
+				n++;
+//				System.out.println("adding " + qs);
+//				System.out.println(n + ":    " + solutions);
 			}
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		ChessBoard board = new ChessBoard();
-		System.out.println(board.findOne());
-		System.out.println("done");
+
+		ArrayList<Queen> solution = board.findOne();
+		System.out.println(solution);
+		board.updateQueens(solution);
+		System.out.println("\n---------------------");
+
+		ArrayList<ArrayList<Queen>> solutions = board.findAll();
+		System.out.println("all solutions found: " + solutions.size());
+		//		System.out.println("all solutions: " + solutions);
+
+		for (ArrayList<Queen> qs : solutions) {
+			if (!board.isCorrect(qs)) System.out.println("this isn't right!");
+		}
+
+		//		Thread.sleep(4000);
 	}
 }

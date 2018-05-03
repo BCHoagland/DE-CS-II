@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 public class ChessSquarePanel extends JPanel {
 	
-	private final static int FONTSIZE = 20;
+	private final static int FONTSIZE = 60;
 	
 	private Color bgColor;
 	private boolean hasQueen;
@@ -21,12 +21,12 @@ public class ChessSquarePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.setFont(new Font("TimesRoman", Font.PLAIN, FONTSIZE));
+		g.setFont(new Font("Calibri", Font.BOLD, FONTSIZE));
 		this.setBackground(bgColor);
 		g.setColor(Color.RED);
 
 		if (hasQueen) {
-			int x = (this.getWidth() / 2) - FONTSIZE/4;
+			int x = (this.getWidth() / 2) - FONTSIZE/3;
 			int y = (this.getHeight() / 2) + FONTSIZE/4;
 			g.drawString("Q", x, y);
 		}

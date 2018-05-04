@@ -16,7 +16,8 @@ public class ChessBoard {
 	private static final int N = 8;
 	private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
-
+	private static final int DELAY = 100;
+	
 	private JFrame window;
 	private JPanel grid;
 	private ChessSquarePanel[][] spaces = new ChessSquarePanel[N][N];
@@ -61,7 +62,7 @@ public class ChessBoard {
 		return p;
 	}
 
-	public void updateQueens(ArrayList<Queen> qs) {
+	public void updateQueens(ArrayList<Queen> qs) throws InterruptedException {
 		for (int x = 0; x < N; x++) {
 			for (int y = 0; y < N; y++) {
 				spaces[x][y].setQueenStatus(false);
@@ -71,6 +72,7 @@ public class ChessBoard {
 		for (Queen q : queens) {
 			spaces[q.getRow()][q.getCol()].setQueenStatus(true);
 		}
+		Thread.sleep(DELAY);
 	}
 
 	private boolean isCorrect(ArrayList<Queen> list) {
@@ -103,6 +105,20 @@ public class ChessBoard {
 		return true;
 	}
 
+	private void notifyCorrect() throws InterruptedException {
+		for (int row = 0; row < N; row++) {
+			for (int col = 0; col < N; col++) {
+				if (isEven(row - col)) spaces[row][col].setColor(Color.GREEN);
+			}
+		}
+		Thread.sleep(DELAY * 10);
+		for (int row = 0; row < N; row++) {
+			for (int col = 0; col < N; col++) {
+				if (isEven(row - col)) spaces[row][col].setColor(Color.BLACK);
+			}
+		}
+	}
+	
 	//NON RECURSIVE
 	
 	public ArrayList<Queen> findOne() {
@@ -183,9 +199,10 @@ public class ChessBoard {
 			qs.add(q);
 			
 			if (!isSafe(q, qs)) moveToSafeSpot(q, qs);
+			//SEE IF YOU CAN INCORPORATE AN ISSAFE() CALL INSIDE LOOP INSTEAD
 			while (q.getRow() < N) {
 				if (findOne(qs) != null) return qs;
-				moveToSafeSpot(q, qs);
+				if (!moveToSafeSpot(q, qs)) break;
 			}
 			qs.remove(qs.size() - 1);
 			return null;
@@ -198,33 +215,42 @@ public class ChessBoard {
 				ArrayList<Queen> tempQs = new ArrayList<Queen>();
 				for (Queen q : qs) tempQs.add(q.clone());
 				recursiveSolutions.add(tempQs);
+				notifyCorrect();
 			}
 		} else {
 			Queen q = new Queen(qs.size(), 0);
 			qs.add(q);
-			
-			if (!isSafe(q, qs)) moveToSafeSpot(q, qs);
+			updateQueens(qs);
+
 			while (q.getRow() < N) {
-				findAll(qs);
-				moveToSafeSpot(q, qs);
+				if (isSafe(q, qs)) findAll(qs);
+				if (!moveToSafeSpot(q, qs)) {
+					break;
+				}
+				updateQueens(qs);
 			}
-			qs.remove(q);
+			qs.remove(qs.size() - 1);
+			updateQueens(qs);
 		}
 	}
 	
 	public static void testNonRecursive(ChessBoard board) {
+		System.out.println("--------------------TESTING NON RECURSIVE METHODS--------------------");
+		
 		ArrayList<Queen> solution = board.findOne();
-		System.out.println(solution);
-		System.out.println("---------------------");
+		System.out.println("find one solution: " + solution);
 
 		ArrayList<ArrayList<Queen>> solutions = board.findAll();
-		System.out.println(solutions.size() + " solutions found nonrecursively: " + solutions);
+		System.out.println(solutions.size() + " solutions found: " + solutions);
+		
+		System.out.println("\n");
 	}
 	
 	public static void testRecursive(ChessBoard board) throws InterruptedException {
+		System.out.println("--------------------TESTING RECURSIVE METHODS--------------------");
+		
 		ArrayList<Queen> solution = board.findOne(new ArrayList<Queen>());
-		System.out.println(solution);
-		System.out.println("---------------------");
+		System.out.println("find one solution: " + solution);
 		
 		board.findAll(new ArrayList<Queen>());
 		System.out.println(board.recursiveSolutions.size() + " solutions found recursively: " + board.recursiveSolutions);
@@ -233,8 +259,7 @@ public class ChessBoard {
 	public static void main(String[] args) throws InterruptedException {
 		ChessBoard board = new ChessBoard();
 
-		testNonRecursive(board);
-		System.out.println("---------------------------------\n---------------------------------");
+//		testNonRecursive(board);
 		testRecursive(board);
 	}
 }

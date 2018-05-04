@@ -15,7 +15,7 @@ public class ChessBoard {
 	private static final int N = 8;
 	private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
-	private static final int DELAY = 100;
+	private static final int DELAY = 200;
 	
 	private JFrame window;
 	private JPanel grid;
@@ -29,6 +29,10 @@ public class ChessBoard {
 		window.add(grid);
 		window.setVisible(true);
 	}
+	
+	public int getN() {return N;}
+	
+	public ArrayList<ArrayList<Queen>> getRecursiveSolutions() {return recursiveSolutions;}
 
 	private void buildFrame() {
 		window = new JFrame("Eight Queens");
@@ -60,8 +64,8 @@ public class ChessBoard {
 		}
 		return p;
 	}
-
-	public void updateQueens(ArrayList<Queen> qs) throws InterruptedException {
+	
+	public void updateQueens(ArrayList<Queen> qs) {
 		for (int x = 0; x < N; x++) {
 			for (int y = 0; y < N; y++) {
 				spaces[x][y].setQueenStatus(false);
@@ -71,7 +75,6 @@ public class ChessBoard {
 		for (Queen q : queens) {
 			spaces[q.getRow()][q.getCol()].setQueenStatus(true);
 		}
-		Thread.sleep(DELAY);
 	}
 
 	private boolean isCorrect(ArrayList<Queen> list) {
@@ -186,7 +189,6 @@ public class ChessBoard {
 		ArrayList<ArrayList<Queen>> solutions = new ArrayList<ArrayList<Queen>>();
 		ArrayList<Queen> qs = new ArrayList<Queen>();
 		Queen q = null;
-		int n = 0;
 		while (true) {
 
 			if (qs.size() < N) {
@@ -213,9 +215,6 @@ public class ChessBoard {
 					newQs.add(q2.clone());
 				}
 				solutions.add((ArrayList<Queen>) newQs.clone());
-				n++;
-				//				System.out.println("adding " + qs);
-				//				System.out.println(n + ":    " + solutions);
 			}
 		}
 	}
@@ -275,46 +274,5 @@ public class ChessBoard {
 			qs.remove(qs.size() - 1);
 			if (showMoves) showMove(qs);
 		}
-	}
-	
-	//TESTS
-	
-	/**
-	 * runs non recursive methods and prints the results
-	 * @param board ChessBoard to run the methods on
-	 */
-	public static void testNonRecursive(ChessBoard board) {
-		System.out.println("--------------------TESTING NON RECURSIVE METHODS--------------------");
-		
-		ArrayList<Queen> solution = board.findOne();
-		System.out.println("find one solution: " + solution);
-
-		ArrayList<ArrayList<Queen>> solutions = board.findAll();
-		System.out.println(solutions.size() + " solutions found: " + solutions);
-		
-		System.out.println("\n");
-	}
-	
-	/**
-	 * runs recursive methods and prints the results
-	 * @param board ChessBoard to run the methods on
-	 * @param showMoves true if you want to display each move with a slight delay; false if you want to just calculate all solutions without displaying the recursive process
-	 * @throws InterruptedException
-	 */
-	public static void testRecursive(ChessBoard board, boolean showMoves) throws InterruptedException {
-		System.out.println("--------------------TESTING RECURSIVE METHODS--------------------");
-		
-		ArrayList<Queen> solution = board.findOne(new ArrayList<Queen>());
-		System.out.println("find one solution: " + solution);
-		
-		board.findAll(new ArrayList<Queen>(), showMoves);
-		System.out.println(board.recursiveSolutions.size() + " solutions found: " + board.recursiveSolutions);
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		ChessBoard board = new ChessBoard();
-
-		testNonRecursive(board);
-		testRecursive(board, false);
 	}
 }

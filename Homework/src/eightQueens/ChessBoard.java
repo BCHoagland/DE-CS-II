@@ -183,14 +183,11 @@ public class ChessBoard {
 			qs.add(q);
 			
 			if (!isSafe(q, qs)) moveToSafeSpot(q, qs);
-			while (true) {
+			while (q.getRow() < N) {
 				if (findOne(qs) != null) return qs;
 				moveToSafeSpot(q, qs);
-				if (q.getRow() >= N) {
-					qs.remove(q);
-					break;
-				}
 			}
+			qs.remove(qs.size() - 1);
 			return null;
 		}
 	}
@@ -201,21 +198,17 @@ public class ChessBoard {
 				ArrayList<Queen> tempQs = new ArrayList<Queen>();
 				for (Queen q : qs) tempQs.add(q.clone());
 				recursiveSolutions.add(tempQs);
-//				System.out.println(recursiveSolutions);
 			}
 		} else {
 			Queen q = new Queen(qs.size(), 0);
 			qs.add(q);
 			
 			if (!isSafe(q, qs)) moveToSafeSpot(q, qs);
-			while (true) {
+			while (q.getRow() < N) {
 				findAll(qs);
 				moveToSafeSpot(q, qs);
-				if (q.getRow() >= N) {
-					qs.remove(q);
-					break;
-				}
 			}
+			qs.remove(q);
 		}
 	}
 	

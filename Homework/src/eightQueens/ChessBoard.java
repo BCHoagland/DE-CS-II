@@ -104,19 +104,27 @@ public class ChessBoard {
 		if (!isSafe(q, qs)) return false;
 		return true;
 	}
+	
+	private void showMove(ArrayList<Queen> qs) throws InterruptedException {
+		updateQueens(qs);
+		if (isCorrect(qs)) {
+			notifyCorrect();
+			Thread.sleep(DELAY * 10);
+		} else Thread.sleep(DELAY);
+	}
 
+	private void changeColoredPanels(Color c) {
+		for (int row = 0; row < N; row++) {
+			for (int col = 0; col < N; col++) {
+				if (getPanelColor(row, col) != Color.WHITE) spaces[row][col].setColor(c);
+			}
+		}
+	}
+	
 	private void notifyCorrect() throws InterruptedException {
-		for (int row = 0; row < N; row++) {
-			for (int col = 0; col < N; col++) {
-				if (isEven(row - col)) spaces[row][col].setColor(Color.GREEN);
-			}
-		}
+		changeColoredPanels(Color.GREEN);
 		Thread.sleep(DELAY * 10);
-		for (int row = 0; row < N; row++) {
-			for (int col = 0; col < N; col++) {
-				if (isEven(row - col)) spaces[row][col].setColor(Color.BLACK);
-			}
-		}
+		changeColoredPanels(Color.BLACK);
 	}
 	
 	//NON RECURSIVE
@@ -198,39 +206,37 @@ public class ChessBoard {
 			Queen q = new Queen(qs.size(), 0);
 			qs.add(q);
 			
-			if (!isSafe(q, qs)) moveToSafeSpot(q, qs);
-			//SEE IF YOU CAN INCORPORATE AN ISSAFE() CALL INSIDE LOOP INSTEAD
 			while (q.getRow() < N) {
-				if (findOne(qs) != null) return qs;
+				if (isSafe(q, qs) && findOne(qs) != null) return qs;
 				if (!moveToSafeSpot(q, qs)) break;
 			}
 			qs.remove(qs.size() - 1);
 			return null;
 		}
 	}
+
 	
-	public void findAll(ArrayList<Queen> qs) throws InterruptedException {
+	public void findAll(ArrayList<Queen> qs, boolean showMoves) throws InterruptedException {
 		if (qs.size() == N) {
 			if (isCorrect(qs)) {
 				ArrayList<Queen> tempQs = new ArrayList<Queen>();
 				for (Queen q : qs) tempQs.add(q.clone());
 				recursiveSolutions.add(tempQs);
-				notifyCorrect();
 			}
 		} else {
 			Queen q = new Queen(qs.size(), 0);
 			qs.add(q);
-			updateQueens(qs);
+			if (showMoves) showMove(qs);
 
 			while (q.getRow() < N) {
-				if (isSafe(q, qs)) findAll(qs);
+				if (isSafe(q, qs)) findAll(qs, showMoves);
 				if (!moveToSafeSpot(q, qs)) {
 					break;
 				}
-				updateQueens(qs);
+				if (showMoves) showMove(qs);
 			}
 			qs.remove(qs.size() - 1);
-			updateQueens(qs);
+			if (showMoves) showMove(qs);
 		}
 	}
 	
@@ -252,7 +258,7 @@ public class ChessBoard {
 		ArrayList<Queen> solution = board.findOne(new ArrayList<Queen>());
 		System.out.println("find one solution: " + solution);
 		
-		board.findAll(new ArrayList<Queen>());
+//		board.findAll(new ArrayList<Queen>(), true);
 		System.out.println(board.recursiveSolutions.size() + " solutions found recursively: " + board.recursiveSolutions);
 	}
 

@@ -15,7 +15,7 @@ public class ChessBoard {
 	private static final int N = 8;
 	private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
-	private static final int DELAY = 200;
+	private static final int DELAY = 100;
 	
 	private JFrame window;
 	private JPanel grid;
@@ -122,7 +122,6 @@ public class ChessBoard {
 		updateQueens(qs);
 		if (isCorrect(qs)) {
 			notifyCorrect();
-			Thread.sleep(DELAY * 10);
 		} else Thread.sleep(DELAY);
 	}
 

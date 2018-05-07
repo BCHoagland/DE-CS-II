@@ -4,22 +4,24 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 
 public class ChessBoard {
 
 	private static final int N = 8;
-	private static final int HEIGHT = 120*N;
-	private static final int WIDTH = 120*N;
-
+	private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+	private static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
+	private static final int DELAY = 100;
+	
 	private JFrame window;
 	private JPanel grid;
 	private ChessSquarePanel[][] spaces = new ChessSquarePanel[N][N];
 	private ArrayList<Queen> queens = new ArrayList<Queen>();
+	private ArrayList<ArrayList<Queen>> recursiveSolutions = new ArrayList<ArrayList<Queen>>();
 
 	ChessBoard() {
 		buildFrame();
@@ -27,11 +29,15 @@ public class ChessBoard {
 		window.add(grid);
 		window.setVisible(true);
 	}
+	
+	public int getN() {return N;}
+	
+	public ArrayList<ArrayList<Queen>> getRecursiveSolutions() {return recursiveSolutions;}
 
 	private void buildFrame() {
 		window = new JFrame("Eight Queens");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setSize(new Dimension(WIDTH, HEIGHT));
+		window.setSize(new Dimension(SIDE, SIDE));
 		window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS)); 
 	}
 
@@ -58,8 +64,8 @@ public class ChessBoard {
 		}
 		return p;
 	}
-
-	private void updateQueens(ArrayList<Queen> qs) {
+	
+	public void updateQueens(ArrayList<Queen> qs) {
 		for (int x = 0; x < N; x++) {
 			for (int y = 0; y < N; y++) {
 				spaces[x][y].setQueenStatus(false);
@@ -92,6 +98,12 @@ public class ChessBoard {
 		return true;
 	}
 
+	/**
+	 * moves the given queen down until it finds a safe space; if no safe space can be found, the queen is left in the last row and the method returns false
+	 * @param q queen to be moved
+	 * @param qs all queens on the current board
+	 * @return true if a safe space is found; false otherwise
+	 */
 	private boolean moveToSafeSpot(Queen q, ArrayList<Queen> qs) {
 		q.incrementRow();
 		while (!isSafe(q, qs) && q.getRow() < N - 1) {
@@ -100,8 +112,48 @@ public class ChessBoard {
 		if (!isSafe(q, qs)) return false;
 		return true;
 	}
+	
+	/**
+	 * update the queens on the board and display them, pausing for a set amount of time; if the board displays a solution to the n queens problem, pause longer and make the black spaces flash green
+	 * @param qs all queens on the current board
+	 * @throws InterruptedException
+	 */
+	private void showMove(ArrayList<Queen> qs) throws InterruptedException {
+		updateQueens(qs);
+		if (isCorrect(qs)) {
+			notifyCorrect();
+		} else Thread.sleep(DELAY);
+	}
 
-	private ArrayList<Queen> findOne() {
+	/**
+	 * change all colored panels on the board to the given color
+	 * @param c color to set the colored panels to
+	 */
+	private void changeColoredPanels(Color c) {
+		for (int row = 0; row < N; row++) {
+			for (int col = 0; col < N; col++) {
+				if (getPanelColor(row, col) != Color.WHITE) spaces[row][col].setColor(c);
+			}
+		}
+	}
+	
+	/**
+	 * makes the colored panels flash green for a longer amount of time than the move delay time
+	 * @throws InterruptedException
+	 */
+	private void notifyCorrect() throws InterruptedException {
+		changeColoredPanels(Color.GREEN);
+		Thread.sleep(DELAY * 10);
+		changeColoredPanels(Color.BLACK);
+	}
+	
+	//NON RECURSIVE
+	
+	/**
+	 * finds one solution to the n queens problem non-recursively
+	 * @return arrayList of Queens that stores a solution to the n queens problem
+	 */
+	public ArrayList<Queen> findOne() {
 		ArrayList<Queen> qs = new ArrayList<Queen>();
 		Queen q = null;
 		while (true) {
@@ -128,11 +180,14 @@ public class ChessBoard {
 		}
 	}
 
-	private ArrayList<ArrayList<Queen>> findAll() {
+	/**
+	 * finds all solutions to the n queens problem non-recursively
+	 * @return arrayList of arrayLsit of Queens that stores all solutions to the n queens problem
+	 */
+	public ArrayList<ArrayList<Queen>> findAll() {
 		ArrayList<ArrayList<Queen>> solutions = new ArrayList<ArrayList<Queen>>();
 		ArrayList<Queen> qs = new ArrayList<Queen>();
 		Queen q = null;
-		int n = 0;
 		while (true) {
 
 			if (qs.size() < N) {
@@ -159,29 +214,64 @@ public class ChessBoard {
 					newQs.add(q2.clone());
 				}
 				solutions.add((ArrayList<Queen>) newQs.clone());
-				n++;
-//				System.out.println("adding " + qs);
-//				System.out.println(n + ":    " + solutions);
 			}
 		}
 	}
-
-	public static void main(String[] args) throws InterruptedException {
-		ChessBoard board = new ChessBoard();
-
-		ArrayList<Queen> solution = board.findOne();
-		System.out.println(solution);
-		board.updateQueens(solution);
-		System.out.println("\n---------------------");
-
-		ArrayList<ArrayList<Queen>> solutions = board.findAll();
-		System.out.println("all solutions found: " + solutions.size());
-		//		System.out.println("all solutions: " + solutions);
-
-		for (ArrayList<Queen> qs : solutions) {
-			if (!board.isCorrect(qs)) System.out.println("this isn't right!");
+	
+	//RECURSIVE
+	
+	/**
+	 * finds one solution to the n queens problem recursively
+	 * @param qs arrayList of queens that stores all queens that have already been added to the board during the method; when calling this method, pass an empty arrayList into it
+	 * @return arrayList of queens that stores a solution to the n queens problem
+	 * @throws InterruptedException
+	 */
+	public ArrayList<Queen> findOne(ArrayList<Queen> qs) throws InterruptedException {
+		if (qs.size() == N) {
+			if (isCorrect(qs)) {
+				return qs;
+			}
+			else return null;
+		} else {
+			Queen q = new Queen(qs.size(), 0);
+			qs.add(q);
+			
+			while (q.getRow() < N) {
+				if (isSafe(q, qs) && findOne(qs) != null) return qs;
+				if (!moveToSafeSpot(q, qs)) break;
+			}
+			qs.remove(qs.size() - 1);
+			return null;
 		}
+	}
+	
+	/**
+	 * finds all solutions to the n queens problem recursively
+	 * @param qs arrayList of queens that stores all queens that have already been added to the board during the method; when calling this method, pass an empty arrayList into it
+	 * @param showMoves true if you want to display each move with a slight delay; false if you want to just calculate all solutions without displaying the recursive process
+	 * @throws InterruptedException
+	 */
+	public void findAll(ArrayList<Queen> qs, boolean showMoves) throws InterruptedException {
+		if (qs.size() == N) {
+			if (isCorrect(qs)) {
+				ArrayList<Queen> tempQs = new ArrayList<Queen>();
+				for (Queen q : qs) tempQs.add(q.clone());
+				recursiveSolutions.add(tempQs);
+			}
+		} else {
+			Queen q = new Queen(qs.size(), 0);
+			qs.add(q);
+			if (showMoves) showMove(qs);
 
-		//		Thread.sleep(4000);
+			while (q.getRow() < N) {
+				if (isSafe(q, qs)) findAll(qs, showMoves);
+				if (!moveToSafeSpot(q, qs)) {
+					break;
+				}
+				if (showMoves) showMove(qs);
+			}
+			qs.remove(qs.size() - 1);
+			if (showMoves) showMove(qs);
+		}
 	}
 }

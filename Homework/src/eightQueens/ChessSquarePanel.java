@@ -12,10 +12,12 @@ public class ChessSquarePanel extends JPanel {
 	
 	private Color bgColor;
 	private boolean hasQueen;
+	private String letter;
 	
 	public ChessSquarePanel(Color c, boolean b) {
 		bgColor = c;
 		hasQueen = b;
+		letter = "Q";
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -28,7 +30,7 @@ public class ChessSquarePanel extends JPanel {
 		if (hasQueen) {
 			int x = (this.getWidth() / 2) - FONTSIZE/3;
 			int y = (this.getHeight() / 2) + FONTSIZE/4;
-			g.drawString("Q", x, y);
+			g.drawString(letter, x, y);
 		}
 	}
 	
@@ -41,4 +43,9 @@ public class ChessSquarePanel extends JPanel {
 		hasQueen = b;
 		repaint();
 	}
+	
+//	public void setLetter(String str) {
+//		letter = str;
+//		repaint();
+//	}
 }

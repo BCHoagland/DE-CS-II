@@ -40,16 +40,31 @@ public class ChessBoard {
 		window.setSize(new Dimension(SIDE, SIDE));
 		window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS)); 
 	}
-
+	
+	/**
+	 * determine if a given number is even
+	 * @param x number to check
+	 * @return true if the number is even, false otherwise
+	 */
 	private boolean isEven(int x) {
 		return x % 2 == 0;
 	}
-
+	
+	/**
+	 * determine if a space on the board is colored or white
+	 * @param row row of the space to check
+	 * @param col column of the space to check
+	 * @return black if the space is colored, white otherwise
+	 */
 	private Color getPanelColor(int row, int col) {
 		if (isEven(row - col)) return Color.BLACK;
 		else return Color.WHITE;
 	}
-
+	
+	/**
+	 * create the panels to act as the spaces on the chess board
+	 * @return panel with the board spaces on it
+	 */
 	private JPanel buildGridPanels() {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(N,N));
@@ -65,6 +80,10 @@ public class ChessBoard {
 		return p;
 	}
 	
+	/**
+	 * update the display of queens on the board
+	 * @param qs list of queens to display
+	 */
 	public void updateQueens(ArrayList<Queen> qs) {
 		for (int x = 0; x < N; x++) {
 			for (int y = 0; y < N; y++) {
@@ -76,7 +95,12 @@ public class ChessBoard {
 			spaces[q.getRow()][q.getCol()].setQueenStatus(true);
 		}
 	}
-
+	
+	/**
+	 * determine if a given set of queens is a solution to the n queens problem
+	 * @param list list of queens on the board
+	 * @return true if the queens form a solution, false otherwise
+	 */
 	private boolean isCorrect(ArrayList<Queen> list) {
 		if (list.size() != N) return false;
 
@@ -85,7 +109,13 @@ public class ChessBoard {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * determines if a given queen is not threatened by any of the given queens
+	 * @param q queen to check
+	 * @param qs all queens on the board
+	 * @return true if the queen is safe, false if it is threatened by another queen
+	 */
 	private boolean isSafe(Queen q, ArrayList<Queen> qs) {
 		if (q.getCol() >= N || q.getRow() >= N) return false;
 		for (Queen otherQ : qs) {

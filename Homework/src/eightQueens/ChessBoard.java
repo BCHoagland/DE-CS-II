@@ -16,12 +16,12 @@ public class ChessBoard {
 	private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
 	private static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
 	private static final int DELAY = 100;
-	
-	private JFrame window;
-	private JPanel grid;
-	private ChessSquarePanel[][] spaces = new ChessSquarePanel[N][N];
-	private ArrayList<Queen> queens = new ArrayList<Queen>();
-	private ArrayList<ArrayList<Queen>> recursiveSolutions = new ArrayList<ArrayList<Queen>>();
+
+	public JFrame window;
+	public JPanel grid;
+	public ChessSquarePanel[][] spaces = new ChessSquarePanel[N][N];
+	public ArrayList<Queen> queens = new ArrayList<Queen>();
+	public ArrayList<ArrayList<Queen>> recursiveSolutions = new ArrayList<ArrayList<Queen>>();
 
 	ChessBoard() {
 		buildFrame();
@@ -29,43 +29,43 @@ public class ChessBoard {
 		window.add(grid);
 		window.setVisible(true);
 	}
-	
+
 	public int getN() {return N;}
-	
+
 	public ArrayList<ArrayList<Queen>> getRecursiveSolutions() {return recursiveSolutions;}
 
-	private void buildFrame() {
+	public void buildFrame() {
 		window = new JFrame("Eight Queens");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setSize(new Dimension(SIDE, SIDE));
 		window.setLayout(new BoxLayout(window.getContentPane(), BoxLayout.Y_AXIS)); 
 	}
-	
+
 	/**
 	 * determine if a given number is even
 	 * @param x number to check
 	 * @return true if the number is even, false otherwise
 	 */
-	private boolean isEven(int x) {
+	public boolean isEven(int x) {
 		return x % 2 == 0;
 	}
-	
+
 	/**
 	 * determine if a space on the board is colored or white
 	 * @param row row of the space to check
 	 * @param col column of the space to check
 	 * @return black if the space is colored, white otherwise
 	 */
-	private Color getPanelColor(int row, int col) {
+	public Color getPanelColor(int row, int col) {
 		if (isEven(row - col)) return Color.BLACK;
 		else return Color.WHITE;
 	}
-	
+
 	/**
 	 * create the panels to act as the spaces on the chess board
 	 * @return panel with the board spaces on it
 	 */
-	private JPanel buildGridPanels() {
+	public JPanel buildGridPanels() {
 		JPanel p = new JPanel();
 		p.setLayout(new GridLayout(N,N));
 		Color bg;
@@ -79,7 +79,7 @@ public class ChessBoard {
 		}
 		return p;
 	}
-	
+
 	/**
 	 * update the display of queens on the board
 	 * @param qs list of queens to display
@@ -95,13 +95,13 @@ public class ChessBoard {
 			spaces[q.getRow()][q.getCol()].setQueenStatus(true);
 		}
 	}
-	
+
 	/**
 	 * determine if a given set of queens is a solution to the n queens problem
 	 * @param list list of queens on the board
 	 * @return true if the queens form a solution, false otherwise
 	 */
-	private boolean isCorrect(ArrayList<Queen> list) {
+	public boolean isCorrect(ArrayList<Queen> list) {
 		if (list.size() != N) return false;
 
 		for (Queen q : list) {
@@ -109,14 +109,14 @@ public class ChessBoard {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * determines if a given queen is not threatened by any of the given queens
 	 * @param q queen to check
 	 * @param qs all queens on the board
 	 * @return true if the queen is safe, false if it is threatened by another queen
 	 */
-	private boolean isSafe(Queen q, ArrayList<Queen> qs) {
+	public boolean isSafe(Queen q, ArrayList<Queen> qs) {
 		if (q.getCol() >= N || q.getRow() >= N) return false;
 		for (Queen otherQ : qs) {
 			if (otherQ.getCol() != q.getCol()) {
@@ -134,7 +134,7 @@ public class ChessBoard {
 	 * @param qs all queens on the current board
 	 * @return true if a safe space is found; false otherwise
 	 */
-	private boolean moveToSafeSpot(Queen q, ArrayList<Queen> qs) {
+	public boolean moveToSafeSpot(Queen q, ArrayList<Queen> qs) {
 		q.incrementRow();
 		while (!isSafe(q, qs) && q.getRow() < N - 1) {
 			q.incrementRow();
@@ -142,13 +142,13 @@ public class ChessBoard {
 		if (!isSafe(q, qs)) return false;
 		return true;
 	}
-	
+
 	/**
 	 * update the queens on the board and display them, pausing for a set amount of time; if the board displays a solution to the n queens problem, pause longer and make the black spaces flash green
 	 * @param qs all queens on the current board
 	 * @throws InterruptedException
 	 */
-	private void showMove(ArrayList<Queen> qs) throws InterruptedException {
+	public void showMove(ArrayList<Queen> qs) throws InterruptedException {
 		updateQueens(qs);
 		if (isCorrect(qs)) {
 			notifyCorrect();
@@ -159,26 +159,26 @@ public class ChessBoard {
 	 * change all colored panels on the board to the given color
 	 * @param c color to set the colored panels to
 	 */
-	private void changeColoredPanels(Color c) {
+	public void changeColoredPanels(Color c) {
 		for (int row = 0; row < N; row++) {
 			for (int col = 0; col < N; col++) {
 				if (getPanelColor(row, col) != Color.WHITE) spaces[row][col].setColor(c);
 			}
 		}
 	}
-	
+
 	/**
 	 * makes the colored panels flash green for a longer amount of time than the move delay time
 	 * @throws InterruptedException
 	 */
-	private void notifyCorrect() throws InterruptedException {
+	public void notifyCorrect() throws InterruptedException {
 		changeColoredPanels(Color.GREEN);
 		Thread.sleep(DELAY * 10);
 		changeColoredPanels(Color.BLACK);
 	}
-	
+
 	//NON RECURSIVE
-	
+
 	/**
 	 * finds one solution to the n queens problem non-recursively
 	 * @return arrayList of Queens that stores a solution to the n queens problem
@@ -247,9 +247,9 @@ public class ChessBoard {
 			}
 		}
 	}
-	
+
 	//RECURSIVE
-	
+
 	/**
 	 * finds one solution to the n queens problem recursively
 	 * @param qs arrayList of queens that stores all queens that have already been added to the board during the method; when calling this method, pass an empty arrayList into it
@@ -265,7 +265,7 @@ public class ChessBoard {
 		} else {
 			Queen q = new Queen(qs.size(), 0);
 			qs.add(q);
-			
+
 			while (q.getRow() < N) {
 				if (isSafe(q, qs) && findOne(qs) != null) return qs;
 				if (!moveToSafeSpot(q, qs)) break;
@@ -274,7 +274,7 @@ public class ChessBoard {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * finds all solutions to the n queens problem recursively
 	 * @param qs arrayList of queens that stores all queens that have already been added to the board during the method; when calling this method, pass an empty arrayList into it

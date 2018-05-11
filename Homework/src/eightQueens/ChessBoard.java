@@ -258,9 +258,7 @@ public class ChessBoard {
 	 */
 	public ArrayList<Queen> findOne(ArrayList<Queen> qs) throws InterruptedException {
 		if (qs.size() == N) {
-			if (isCorrect(qs)) {
-				return qs;
-			}
+			if (isCorrect(qs)) return qs;
 			else return null;
 		} else {
 			Queen q = new Queen(qs.size(), 0);
@@ -295,9 +293,7 @@ public class ChessBoard {
 
 			while (q.getRow() < N) {
 				if (isSafe(q, qs)) findAll(qs, showMoves);
-				if (!moveToSafeSpot(q, qs)) {
-					break;
-				}
+				if (!moveToSafeSpot(q, qs)) break;
 				if (showMoves) showMove(qs);
 			}
 			qs.remove(qs.size() - 1);

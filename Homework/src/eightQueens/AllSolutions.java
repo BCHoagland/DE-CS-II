@@ -2,6 +2,11 @@ package eightQueens;
 
 import java.util.ArrayList;
 
+/**
+ * AllSolutions class that finds all solutions to the 8 queens problem both recursively and non-recursively
+ * @author Braden Hoagland
+ *
+ */
 public class AllSolutions {
 
 	/**
@@ -35,12 +40,19 @@ public class AllSolutions {
 		board.findAll(new ArrayList<Queen>(), showMoves);
 		System.out.println(board.getRecursiveSolutions().size() + " solutions found: " + board.getRecursiveSolutions());
 	}
-
+	
+	/**
+	 * main method that runs the non-recursive and recursive tests
+	 * @param args
+	 * @throws InterruptedException
+	 */
 	public static void main(String[] args) throws InterruptedException {
 		ChessBoard board = new ChessBoard();
 
 		testNonRecursive(board);
 		testRecursive(board, true);
+		//Mrs. Kelly, the following method call will find all 92 solutions recursively without displaying them, so if you're looking for a quick SOP of my results then comment the line above and uncomment the line below
+//		testRecursive(board, false);
 	}
 
 }

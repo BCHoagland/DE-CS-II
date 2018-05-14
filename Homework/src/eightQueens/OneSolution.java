@@ -2,8 +2,17 @@ package eightQueens;
 
 import java.util.ArrayList;
 
+/**
+ * OneSolution class that displays the solution to the 8 queens problem from my write-up
+ * @author Braden Hoagland
+ *
+ */
 public class OneSolution {
 	
+	/**
+	 * main method that displays the solution from my write-up
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ChessBoard board = new ChessBoard();
 		

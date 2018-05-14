@@ -10,19 +10,55 @@ import java.util.ArrayList;
 import java.awt.Dimension;
 import java.awt.Color;
 
+/**
+ * ChessBoard class that creates a chess board and has methods to solve the n queens problem
+ * ChessBoard comes equipped with both recursive and non-recursive methods for your solution-finding convenience
+ * @author Braden Hoagland
+ *
+ */
 public class ChessBoard {
 
-	private static final int N = 8;
-	private static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
-	private static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
-	private static final int DELAY = 100;
+	/**
+	 * size of the board and number of queens
+	 */
+	public static final int N = 8;
+	
+	/**
+	 * screen size constant
+	 */
+	public static final Dimension SCREEN_SIZE = Toolkit.getDefaultToolkit().getScreenSize();
+	
+	/**
+	 * constant that determines what the size of the gui should be
+	 */
+	public static final int SIDE = (int) Math.min(N * 120, SCREEN_SIZE.getHeight());
+	
+	/**
+	 * delay between moves that are shown in the recursive solution-finding process
+	 */
+	public static final int DELAY = 400;
 
 	public JFrame window;
 	public JPanel grid;
+	
+	/**
+	 * array of all spaces (ChessSquarePanels) on the board
+	 */
 	public ChessSquarePanel[][] spaces = new ChessSquarePanel[N][N];
+	
+	/**
+	 * arrayList of the current queens on the board
+	 */
 	public ArrayList<Queen> queens = new ArrayList<Queen>();
+	
+	/**
+	 * all solutions found to the N queens problem; to be filled by the findAll(qs) recursive method
+	 */
 	public ArrayList<ArrayList<Queen>> recursiveSolutions = new ArrayList<ArrayList<Queen>>();
 
+	/**
+	 * constructor that creates the gui
+	 */
 	ChessBoard() {
 		buildFrame();
 		grid = buildGridPanels();
@@ -30,10 +66,21 @@ public class ChessBoard {
 		window.setVisible(true);
 	}
 
+	/**
+	 * get the current N (size of the board and number of queens)
+	 * @return int N
+	 */
 	public int getN() {return N;}
 
+	/**
+	 * get the recursive solutions that program has currently found
+	 * @return recursiveSolutions (arrayList of arrayLists of Queens)
+	 */
 	public ArrayList<ArrayList<Queen>> getRecursiveSolutions() {return recursiveSolutions;}
 
+	/**
+	 * set the properties for the gui
+	 */
 	public void buildFrame() {
 		window = new JFrame("Eight Queens");
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -289,7 +336,7 @@ public class ChessBoard {
 		} else {
 			Queen q = new Queen(qs.size(), 0);
 			qs.add(q);
-			if (showMoves) showMove(qs);
+			if (showMoves && isSafe(q, qs)) showMove(qs);
 
 			while (q.getRow() < N) {
 				if (isSafe(q, qs)) findAll(qs, showMoves);

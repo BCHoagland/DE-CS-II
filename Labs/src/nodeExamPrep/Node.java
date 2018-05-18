@@ -7,6 +7,13 @@ public class Node {
 	private Node top;
 	private int value;
 	
+	public Node(Node l, Node r, int v) {
+		left = l;
+		right = r;
+		top = null;
+		value = v;
+	}
+	
 	public Node(Node l, Node r, Node t, int v) {
 		left = l;
 		right = r;
@@ -23,4 +30,6 @@ public class Node {
 	public void setRight(Node n) {right = n;}
 	public void setTop(Node n) {top = n;}
 	public void setValue(int v) {value = v;}
+	
+	public String toString() {return String.valueOf(value);}
 }
